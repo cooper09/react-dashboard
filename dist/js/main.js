@@ -21310,14 +21310,62 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 		const listItems = dspArr.map((dspArr) => React.createElement("li", {key: dspArr.id}, dspArr) );
 
+// Fusion Charts
+//lets collect a list of currencies by DSP.
+		var currencyUSD = 0;
+		var currencyCHY = 0;
+
+		var dsps = [];
+		var dspObj = {};
+
+		for (var i=0 ; i < dspArr.length ; i++ ) {
+			console.log("Currency for " + dspArr[i].DSPID + " is " + dspArr[i].currency );
+			
+			if ( dspArr[i].currency == 'USD' ) {
+				++currencyUSD;
+				dspObj = {
+					"dspid":  dspArr[i].DSPID, 
+					"currency": dspArr[i].currency
+				}
+				dsps.push(dspObj);
+			}
+
+			if ( dspArr[i].currency == 'CNY' ) {
+				++currencyCHY;
+				dspObj = {
+					"dspid":  dspArr[i].DSPID, 
+					"currency": dspArr[i].currency
+				}
+				dsps.push(dspObj);
+			}
+			
+
+	}
+
+		var label1 = dspArr[0].DSPID;
+		var label2 = dspArr[1].DSPID;
+		var label3 = dspArr[2].DSPID;
+
+		console.log("How does our currency look: ", dspArr[0].currency );
+		console.log("How many DSPS use $: " , currencyUSD );
+		console.log("Our new Dsp Array: " , dsps );
+
+		var currency1 = dspArr[0].currency;
+		var currency2 = dspArr[1].currency;
+		var currency3 = dspArr[2].currency;
+
 		//fusioncharts stuff
 		var chartConfigs = {
-			type: "Column2D",
+			type: "Doughnut2D",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{},
-				data: [{value: 500}, {value: 600}, {value: 700}]
+				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
+				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				theme: "carbon",
+				placevaluesInside: "1",
+				labelDisplay: "auto"
 			}
 		};
 
@@ -21325,15 +21373,9 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		return (
 			React.createElement("div", null, 
 				
-				 dspArr.map(function(object, i){
-					return React.createElement("div", {className: "row", key: i}, 
-								[ object.DSPID,
-									object.currency
-								]
-							)
-					  }), 
+				
 
-				React.createElement("h1", {className: "main-title"}, "Acme Inc. Revenue Analysis for 2015"), 
+				React.createElement("h1", {className: "main-title"}, "MPoint DSP Analysis for 2017"), 
           		React.createElement("div", {id: "interactive-dashbaord"}), 
 				 React.createElement("div", {id: "interactive-dashbaord"}), 
 				React.createElement("div", {className: "chart-row"}, 
@@ -21341,7 +21383,14 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 						
 						React.createElement("div", {id: "chart-container"}, "country chart goes here..."), 
 						React.createElement(ReactFC, React.__spread({},  chartConfigs))
-					)
+					), 
+						 dspArr.map(function(object, i){
+						return React.createElement("div", {className: "row", key: i}, 
+									[ object.DSPID + ": ",
+										object.currency
+									]
+								)
+						}) 
           		)
 
 			)
