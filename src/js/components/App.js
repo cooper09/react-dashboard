@@ -6,9 +6,6 @@ var AppStore = require('../stores/AppStore');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 
-//
-
-
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
 	return {
@@ -47,8 +44,8 @@ var App = React.createClass({
 
 		return(
 			<div>
-				<p>React Flux Template</p>
-				 <button onClick={this.handleBtnClick}>EventButton One</button>
+				<p>mPoint Data Dashboard</p>
+				 <button onClick={this.handleBtnClick}>Currency by DSP</button>
 				 <button onClick={this.handleBtnClick2}>EventButton Two</button>
 				<ComponentOne  visible={this.state.oneVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>

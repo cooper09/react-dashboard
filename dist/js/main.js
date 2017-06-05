@@ -21229,9 +21229,6 @@ var AppStore = require('../stores/AppStore');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 
-//
-
-
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
 	return {
@@ -21270,8 +21267,8 @@ var App = React.createClass({displayName: "App",
 
 		return(
 			React.createElement("div", null, 
-				React.createElement("p", null, "React Flux Template"), 
-				 React.createElement("button", {onClick: this.handleBtnClick}, "EventButton One"), 
+				React.createElement("p", null, "mPoint Data Dashboard"), 
+				 React.createElement("button", {onClick: this.handleBtnClick}, "Currency by DSP"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2}, "EventButton Two"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages})
@@ -21369,21 +21366,38 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			}
 		};
 
+		var barChartConfigs = {
+			type: "Bar3D",
+			className: "fc-column3d", // ReactJS attribute-name for DOM classes
+			dataFormat: "JSON",
+			dataSource: {
+				chart:{},
+				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
+				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				theme: "carbon",
+				labelDisplay: "auto"
+			}
+		};
+		var lineChartConfigs = {
+			type: "spline",
+			className: "fc-column2d", // ReactJS attribute-name for DOM classes
+			dataFormat: "JSON",
+			dataSource: {
+				chart:{},
+				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
+				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				theme: "carbon",
+				placevaluesInside: "1",
+				labelDisplay: "auto"
+			}
+		};
 
 		return (
 			React.createElement("div", null, 
-				
-				
 
 				React.createElement("h1", {className: "main-title"}, "MPoint DSP Analysis for 2017"), 
           		React.createElement("div", {id: "interactive-dashbaord"}), 
-				 React.createElement("div", {id: "interactive-dashbaord"}), 
-				React.createElement("div", {className: "chart-row"}, 
-					React.createElement("div", {id: "country-revenue"}, 
-						
-						React.createElement("div", {id: "chart-container"}, "country chart goes here..."), 
-						React.createElement(ReactFC, React.__spread({},  chartConfigs))
-					), 
+				  React.createElement("div", {className: "chart-row"}, 
 						 dspArr.map(function(object, i){
 						return React.createElement("div", {className: "row", key: i}, 
 									[ object.DSPID + ": ",
@@ -21391,8 +21405,20 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 									]
 								)
 						}) 
-          		)
-
+				), 
+				React.createElement("div", {className: "chart-row"}, 
+					React.createElement("div", {id: "country-revenue"}, 		
+						React.createElement(ReactFC, React.__spread({},  chartConfigs))
+					)
+          		), 
+				  React.createElement("div", {className: "chart-row"}, 
+					React.createElement("div", {id: "monthly-revenue", className: "inline-chart"}, 
+					React.createElement(ReactFC, React.__spread({},  barChartConfigs))
+					), 
+					React.createElement("div", {id: "product-revenue", className: "inline-chart"}, 
+					React.createElement(ReactFC, React.__spread({},  lineChartConfigs))
+					)
+				)
 			)
 			);
 		React.createElement(ReactFC, React.__spread({},  chartConfigs)),
