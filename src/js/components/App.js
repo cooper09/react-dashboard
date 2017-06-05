@@ -6,6 +6,9 @@ var AppStore = require('../stores/AppStore');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 
+//
+
+
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
 	return {

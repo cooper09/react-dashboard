@@ -6928,7 +6928,7 @@ var LinkedValueUtils = {
   checkPropTypes: function (tagName, props, owner) {
     for (var propName in propTypes) {
       if (propTypes.hasOwnProperty(propName)) {
-        var error = propTypes[propName](props, propName, tagName, ReactPropTypeLocations.prop);
+        var error = propTypes[propName](props, propName, tagName, ReactPropTypeLocations.prop, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
       }
       if (error instanceof Error && !(error.message in loggedTypeFailures)) {
         // Only monitor this failure once because there tends to be a lot of the
@@ -9242,7 +9242,7 @@ var ReactCompositeComponentMixin = {
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
           !(typeof propTypes[propName] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s: %s type `%s` is invalid; it must be a function, usually ' + 'from React.PropTypes.', componentName || 'React class', ReactPropTypeLocationNames[location], propName) : invariant(false) : undefined;
-          error = propTypes[propName](props, propName, componentName, location);
+          error = propTypes[propName](props, propName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
         } catch (ex) {
           error = ex;
         }
@@ -12960,7 +12960,7 @@ function checkPropTypes(componentName, propTypes, props, location) {
         // This is intentionally an invariant that gets caught. It's the same
         // behavior as without this statement except with a better message.
         !(typeof propTypes[propName] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', componentName || 'React class', ReactPropTypeLocationNames[location], propName) : invariant(false) : undefined;
-        error = propTypes[propName](props, propName, componentName, location);
+        error = propTypes[propName](props, propName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
       } catch (ex) {
         error = ex;
       }
@@ -16127,7 +16127,7 @@ function createArrayOfTypeChecker(typeChecker) {
       return new Error('Invalid ' + locationName + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
     }
     for (var i = 0; i < propValue.length; i++) {
-      var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']');
+      var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
       if (error instanceof Error) {
         return error;
       }
@@ -16193,7 +16193,7 @@ function createObjectOfTypeChecker(typeChecker) {
     }
     for (var key in propValue) {
       if (propValue.hasOwnProperty(key)) {
-        var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key);
+        var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
         if (error instanceof Error) {
           return error;
         }
@@ -16214,7 +16214,7 @@ function createUnionTypeChecker(arrayOfTypeCheckers) {
   function validate(props, propName, componentName, location, propFullName) {
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
       var checker = arrayOfTypeCheckers[i];
-      if (checker(props, propName, componentName, location, propFullName) == null) {
+      if (checker(props, propName, componentName, location, propFullName, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED') == null) {
         return null;
       }
     }
@@ -16249,7 +16249,7 @@ function createShapeTypeChecker(shapeTypes) {
       if (!checker) {
         continue;
       }
-      var error = checker(propValue, key, componentName, location, propFullName + '.' + key);
+      var error = checker(propValue, key, componentName, location, propFullName + '.' + key, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
       if (error) {
         return error;
       }
@@ -17411,7 +17411,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.8';
+module.exports = '0.14.9';
 },{}],144:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21229,6 +21229,9 @@ var AppStore = require('../stores/AppStore');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 
+//
+
+
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
 	return {
@@ -21289,8 +21292,11 @@ module.exports = App;
 },{"../actions/AppActions":190,"../stores/AppStore":197,"./ComponentOne.js":192,"./ComponentTwo.js":193,"react":188}],192:[function(require,module,exports){
 var React = require('react');
 
-var ComponentOne = React.createClass({displayName: "ComponentOne",
 
+//var fusioncharts = require('./fusioncharts.js');
+//load charts module
+
+var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 	render: function() {
 		 if (!this.props.visible) {
@@ -21304,6 +21310,18 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 		const listItems = dspArr.map((dspArr) => React.createElement("li", {key: dspArr.id}, dspArr) );
 
+		//fusioncharts stuff
+		var chartConfigs = {
+			type: "Column2D",
+			className: "fc-column2d", // ReactJS attribute-name for DOM classes
+			dataFormat: "JSON",
+			dataSource: {
+				chart:{},
+				data: [{value: 500}, {value: 600}, {value: 700}]
+			}
+		};
+
+
 		return (
 			React.createElement("div", null, 
 				
@@ -21313,10 +21331,23 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 									object.currency
 								]
 							)
-					  }) 
+					  }), 
+
+				React.createElement("h1", {className: "main-title"}, "Acme Inc. Revenue Analysis for 2015"), 
+          		React.createElement("div", {id: "interactive-dashbaord"}), 
+				 React.createElement("div", {id: "interactive-dashbaord"}), 
+				React.createElement("div", {className: "chart-row"}, 
+					React.createElement("div", {id: "country-revenue"}, 
+						
+						React.createElement("div", {id: "chart-container"}, "country chart goes here..."), 
+						React.createElement(ReactFC, React.__spread({},  chartConfigs))
+					)
+          		)
 
 			)
 			);
+		React.createElement(ReactFC, React.__spread({},  chartConfigs)),
+		document.getElementById('chart-container')
 	}//end render
 });//end ComponentOne
 
@@ -21387,7 +21418,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":189,"./components/App":191,"./utils/appAPI":199,"react":188,"react-dom":59}],197:[function(require,module,exports){
+},{"./PageData":189,"./components/App":191,"./utils/appAPI":198,"react":188,"react-dom":59}],197:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -21482,44 +21513,6 @@ AppDispatcher.register(function(payload){
 module.exports = AppStore;
 
 },{"../constants/AppConstants":194,"../dispatcher/AppDispatcher":195,"../utils/AppAPI.js":198,"events":26,"object-assign":57}],198:[function(require,module,exports){
-var AppActions = require('../actions/AppActions');
-var axios = require('axios');
-
-module.exports = {
-
-	 // Load mock product data from localStorage into ProductStore via Action
-  getPageData: function () {
-  	console.log("appAPI.getPageData...");
-  	// Performing a GET request
-	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
-	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	  .then(function(response){
-	    console.log("appAPI.getPageData: " ,response.data); // ex.: { user: 'Your User'}
-	    console.log(response.status); // ex.: 200
-
-			//Lets taka good look at our data:
-
-			console.log("appAPI - our id: ", response.data.id );
-
-			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data.map[i].DSPID ); 
-			}
-
-			const numbers = response.data;
-
-			console.log("Numbers: ", numbers );
-
-	    var data = response.data;
-    	AppActions.loadPages(data);
-	  });
-
-    //var data = JSON.parse(localStorage.getItem('page'));
-    //AppActions.loadPages(data);
-  }
-
-}; //end exports
-
-},{"../actions/AppActions":190,"axios":1}],199:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
