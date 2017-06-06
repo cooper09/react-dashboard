@@ -78,11 +78,27 @@ var ComponentOne = React.createClass({
 		};
 
 		var barChartConfigs = {
-			type: "Bar3D",
+			type: "column3d",
 			className: "fc-column3d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
-				chart:{},
+				chart:{
+					"caption": "Currency By DSP",
+					"subCaption": "mPoint",
+					"xAxisName": "Currency",
+					"yAxisName": "Curency by DSP",
+					"captionFontSize": "14",
+					"subcaptionFontSize": "14",
+					"subcaptionFontBold": "0",
+					"placeValuesInside": "1",
+					"showShadow": "0",
+					"divlineColor": "#999999",               
+					"divLineIsDashed": "1",
+					"divlineThickness": "1",
+					"divLineDashLen": "1",
+					"divLineGapLen": "1",
+					"canvasBgColor": "#ffffff"
+				},
 				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
@@ -106,9 +122,10 @@ var ComponentOne = React.createClass({
 		return (
 			<div>
 
-				<h1 className="main-title">MPoint DSP Analysis for 2017</h1>
+				<h1 className="main-title">Currency by DSP</h1>
           		<div id="interactive-dashbaord"></div>
 				  <div className="chart-row">
+					  <div className="dsplist">
 						{ dspArr.map(function(object, i){
 						return <div className={"row"} key={i}> 
 									{[ object.DSPID + ": ",
@@ -116,18 +133,20 @@ var ComponentOne = React.createClass({
 									]}
 								</div>
 						}) }
+					</div>
 				</div>
 				<div className="chart-row">
 					<div id="country-revenue">		
-						<ReactFC {...chartConfigs} />
+						<ReactFC {...barChartConfigs} />
 					</div>
+					
           		</div>
 				  <div className="chart-row">
 					<div id="monthly-revenue" className="inline-chart">
-					<ReactFC {...barChartConfigs} />
+					<ReactFC {...lineChartConfigs} />
 					</div>
 					<div id="product-revenue" className="inline-chart">
-					<ReactFC {...lineChartConfigs} />       
+					<ReactFC {...chartConfigs} />       
 					</div>
 				</div>
 			</div>

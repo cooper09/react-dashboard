@@ -7,12 +7,10 @@ html
   height: 100%
 
 body
-  // background: url('https://66.media.tumblr.com/d51a2a2502f70238adbb0c242c4e89dd/tumblr_ocqdob8xcZ1s8iqo7o1_1280.gif') no-repeat
-  //background: url('../img/background.jpg')
   background-size: 100% 100%
-  //background-size: cover
+  margin: 2em
   +at-breakpoint($phone)
-    background: black
+    margin: 0.2em
 
 .pageOne 
   width: 240px
@@ -33,9 +31,9 @@ body
 .pageTwo
   width: 320px
   height: 240px
-  background: red
+  background: #aaa
   padding: 1em
-  color: yellow
+  color: #fff
   margin-top: 1em
   margin-left: auto
   margin-right: auto
@@ -45,3 +43,44 @@ body
   -o-transition: 1s left ease
   transition: 1s left ease
   box-shadow: 0 0 5px rgba(0, 0, 0, .5)
+
+// Dashboard styles
+.header-font
+  font-family: "Arial"
+  font-weight: 400
+  font-style: normal
+  font-size: 2em
+  color: #666
+
+.main-title 
+  font-family: "Arial"
+  font-weight: 200
+  font-style: normal
+  font-size: 24px
+  color: #666
+  +at-breakpoint($phone)
+    float: left
+    color: #666
+    font-weight: 400
+
+.dsplist
+  float: right
+  margin: 1em
+  font-family: "Arial"
+  font-weight: 200
+  font-style: normal
+  font-size: 1em
+  color: #666
+  line-height: 1em
+  +at-breakpoint($phone)
+    float: left
+    color: #333
+    font-size: 1.4em
+    font-weight: 400
+
+.btn
+  background: #c72a35
+  padding: 0.5em
+  font-size: 1em
+  color: #ccc
+  cursor: pointer

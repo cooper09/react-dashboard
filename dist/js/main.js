@@ -21267,9 +21267,9 @@ var App = React.createClass({displayName: "App",
 
 		return(
 			React.createElement("div", null, 
-				React.createElement("p", null, "mPoint Data Dashboard"), 
-				 React.createElement("button", {onClick: this.handleBtnClick}, "Currency by DSP"), 
-				 React.createElement("button", {onClick: this.handleBtnClick2}, "EventButton Two"), 
+				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint Data Dashboard"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Currency by DSP"), 
+				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Dashboard Two"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages})
 				
@@ -21367,11 +21367,27 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		};
 
 		var barChartConfigs = {
-			type: "Bar3D",
+			type: "column3d",
 			className: "fc-column3d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
-				chart:{},
+				chart:{
+					"caption": "Currency By DSP",
+					"subCaption": "mPoint",
+					"xAxisName": "Currency",
+					"yAxisName": "Curency by DSP",
+					"captionFontSize": "14",
+					"subcaptionFontSize": "14",
+					"subcaptionFontBold": "0",
+					"placeValuesInside": "1",
+					"showShadow": "0",
+					"divlineColor": "#999999",               
+					"divLineIsDashed": "1",
+					"divlineThickness": "1",
+					"divLineDashLen": "1",
+					"divLineGapLen": "1",
+					"canvasBgColor": "#ffffff"
+				},
 				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
@@ -21395,9 +21411,10 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		return (
 			React.createElement("div", null, 
 
-				React.createElement("h1", {className: "main-title"}, "MPoint DSP Analysis for 2017"), 
+				React.createElement("h1", {className: "main-title"}, "Currency by DSP"), 
           		React.createElement("div", {id: "interactive-dashbaord"}), 
 				  React.createElement("div", {className: "chart-row"}, 
+					  React.createElement("div", {className: "dsplist"}, 
 						 dspArr.map(function(object, i){
 						return React.createElement("div", {className: "row", key: i}, 
 									[ object.DSPID + ": ",
@@ -21405,18 +21422,20 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 									]
 								)
 						}) 
+					)
 				), 
 				React.createElement("div", {className: "chart-row"}, 
 					React.createElement("div", {id: "country-revenue"}, 		
-						React.createElement(ReactFC, React.__spread({},  chartConfigs))
+						React.createElement(ReactFC, React.__spread({},  barChartConfigs))
 					)
+					
           		), 
 				  React.createElement("div", {className: "chart-row"}, 
 					React.createElement("div", {id: "monthly-revenue", className: "inline-chart"}, 
-					React.createElement(ReactFC, React.__spread({},  barChartConfigs))
+					React.createElement(ReactFC, React.__spread({},  lineChartConfigs))
 					), 
 					React.createElement("div", {id: "product-revenue", className: "inline-chart"}, 
-					React.createElement(ReactFC, React.__spread({},  lineChartConfigs))
+					React.createElement(ReactFC, React.__spread({},  chartConfigs))
 					)
 				)
 			)
@@ -21441,7 +21460,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "page two", 
+				React.createElement("div", {className: "pageTwo"}, "Next Dashboard Goes here..", 
 					React.createElement("h3", null, this.props.pages.id)
 				)
 			)
