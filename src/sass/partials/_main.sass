@@ -84,3 +84,14 @@ body
   font-size: 1em
   color: #ccc
   cursor: pointer
+
+.inline-chart
+  background: pink
+  +at-breakpoint($phone)
+    background: yellow
+  
+.stinky
+  background: red
+  +span-columns(6)
+  +at-breakpoint($phone)
+    +span-columns(12)

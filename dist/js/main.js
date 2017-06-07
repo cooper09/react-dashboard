@@ -21289,10 +21289,6 @@ module.exports = App;
 },{"../actions/AppActions":190,"../stores/AppStore":197,"./ComponentOne.js":192,"./ComponentTwo.js":193,"react":188}],192:[function(require,module,exports){
 var React = require('react');
 
-
-//var fusioncharts = require('./fusioncharts.js');
-//load charts module
-
 var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 	render: function() {
@@ -21311,12 +21307,14 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 //lets collect a list of currencies by DSP.
 		var currencyUSD = 0;
 		var currencyCHY = 0;
+		var protocol23 = 0;
+		var protocol24 = 0;
 
 		var dsps = [];
 		var dspObj = {};
 
 		for (var i=0 ; i < dspArr.length ; i++ ) {
-			console.log("Currency for " + dspArr[i].DSPID + " is " + dspArr[i].currency );
+			console.log("Currency for " + dspArr[i].DSPID + " is " + dspArr[i].currency + " and is it encrypted: " + dspArr[i].flag_encrypt );
 			
 			if ( dspArr[i].currency == 'USD' ) {
 				++currencyUSD;
@@ -21336,6 +21334,15 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 				dsps.push(dspObj);
 			}
 			
+			if ( dspArr[i].protocol == 'openrtb23' ) {
+				++protocol23;
+				//dsps.push(dspObj);
+			}
+
+			if ( dspArr[i].protocol == 'openrtb24' ) {
+				++protocol24;
+				//dsps.push(dspObj);
+			}
 
 	}
 
@@ -21351,6 +21358,14 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		var currency2 = dspArr[1].currency;
 		var currency3 = dspArr[2].currency;
 
+		var proto1 = dspArr[0].protocol;
+		var proto2 = dspArr[1].protocol;
+		var proto3 = dspArr[2].protocol;
+
+		var enc1 = "data encrypted: " + dspArr[0].flag_encrypt;
+		var enc2 = "data encrypted: " + dspArr[1].flag_encrypt;
+		var enc3 = "data encrypted: " + dspArr[2].flag_encrypt;
+
 		//fusioncharts stuff
 		var chartConfigs = {
 			type: "Doughnut2D",
@@ -21358,7 +21373,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{},
-				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
+				data: [{label: enc1 , value: currencyUSD }, {label: enc2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
 				placevaluesInside: "1",
@@ -21400,7 +21415,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{},
-				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
+				data: [{label: proto1 , value: currencyUSD }, {label: proto2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
 				placevaluesInside: "1",
@@ -21417,8 +21432,9 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 					  React.createElement("div", {className: "dsplist"}, 
 						 dspArr.map(function(object, i){
 						return React.createElement("div", {className: "row", key: i}, 
-									[ object.DSPID + ": ",
-										object.currency
+									[ object.DSPID + "- currency: ",
+										object.currency + " protocol:", 
+										object.protocol
 									]
 								)
 						}) 
@@ -21434,7 +21450,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 					React.createElement("div", {id: "monthly-revenue", className: "inline-chart"}, 
 					React.createElement(ReactFC, React.__spread({},  lineChartConfigs))
 					), 
-					React.createElement("div", {id: "product-revenue", className: "inline-chart"}, 
+					React.createElement("div", {id: "product-revenue", className: "inline-chart", className: "stinky"}, 
 					React.createElement(ReactFC, React.__spread({},  chartConfigs))
 					)
 				)

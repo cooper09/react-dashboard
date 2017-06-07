@@ -113,3 +113,31 @@ body {
   color: #ccc;
   cursor: pointer;
 }
+
+/* line 88, ../sass/partials/_main.sass */
+.inline-chart {
+  background: pink;
+}
+@media (max-width: 651px) {
+  /* line 88, ../sass/partials/_main.sass */
+  .inline-chart {
+    background: yellow;
+  }
+}
+
+/* line 93, ../sass/partials/_main.sass */
+.stinky {
+  background: red;
+  width: 49.15254%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+@media (max-width: 651px) {
+  /* line 93, ../sass/partials/_main.sass */
+  .stinky {
+    width: 100%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+}
