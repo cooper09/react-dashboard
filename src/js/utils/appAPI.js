@@ -8,17 +8,18 @@ module.exports = {
   	console.log("appAPI.getPageData...");
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
-	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
+	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
+	axios.get('http://digitest-authorize.rhcloud.com/ad')
 	  .then(function(response){
-	    console.log("appAPI.getPageData: " ,response.data); // ex.: { user: 'Your User'}
+	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
 	    console.log(response.status); // ex.: 200
 
 			//Lets taka good look at our data:
 
-			console.log("appAPI - our id: ", response.data.id );
+			console.log("appAPI - our id: ", response.data );
 
 			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data.map[i].DSPID ); 
+				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
 			}
 
 			const numbers = response.data;

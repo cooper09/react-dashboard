@@ -13,13 +13,15 @@ var _oneVisible = false, _twoVisible = false;
 
 // Method to load product data from mock API
 function loadPageData(data) {
-	console.log("AppStore.loadPageData: ", data.map[0].DSPID );
+	//console.log("AppStore.loadPageData: ", data.map[0].DSPID );
+
+	console.log("AppStore.loadPageData: ", data );
 
 	/*	for (i=0 ; i < data.map.length ; i++ ) {
 				console.log("AppStore - our DSP map: ", data.map[i].DSPID );
 				_pages.push(data.map[i].DSPID); 
 			} */
-  _pages = data.map;
+  _pages = data; //data.map;
   console.log("AppStore.loadPageData: ", _pages );
 }
 

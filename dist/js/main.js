@@ -21433,7 +21433,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 						 dspArr.map(function(object, i){
 						return React.createElement("div", {className: "row", key: i}, 
 									[ object.DSPID + "- currency: ",
-										object.currency + " protocol:", 
+										object.currency + " protocol: ", 
 										object.protocol
 									]
 								)
@@ -21528,7 +21528,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":189,"./components/App":191,"./utils/appAPI":198,"react":188,"react-dom":59}],197:[function(require,module,exports){
+},{"./PageData":189,"./components/App":191,"./utils/appAPI":199,"react":188,"react-dom":59}],197:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -21544,13 +21544,15 @@ var _oneVisible = false, _twoVisible = false;
 
 // Method to load product data from mock API
 function loadPageData(data) {
-	console.log("AppStore.loadPageData: ", data.map[0].DSPID );
+	//console.log("AppStore.loadPageData: ", data.map[0].DSPID );
+
+	console.log("AppStore.loadPageData: ", data );
 
 	/*	for (i=0 ; i < data.map.length ; i++ ) {
 				console.log("AppStore - our DSP map: ", data.map[i].DSPID );
 				_pages.push(data.map[i].DSPID); 
 			} */
-  _pages = data.map;
+  _pages = data; //data.map;
   console.log("AppStore.loadPageData: ", _pages );
 }
 
@@ -21633,17 +21635,57 @@ module.exports = {
   	console.log("appAPI.getPageData...");
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
-	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
+	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
+	axios.get('http://digitest-authorize.rhcloud.com/ad')
 	  .then(function(response){
-	    console.log("appAPI.getPageData: " ,response.data); // ex.: { user: 'Your User'}
+	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
 	    console.log(response.status); // ex.: 200
 
 			//Lets taka good look at our data:
 
-			console.log("appAPI - our id: ", response.data.id );
+			console.log("appAPI - our id: ", response.data );
 
 			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data.map[i].DSPID ); 
+				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
+			}
+
+			const numbers = response.data;
+
+			console.log("Numbers: ", numbers );
+
+	    var data = response.data;
+    	AppActions.loadPages(data);
+	  });
+
+    //var data = JSON.parse(localStorage.getItem('page'));
+    //AppActions.loadPages(data);
+  }
+
+}; //end exports
+
+},{"../actions/AppActions":190,"axios":1}],199:[function(require,module,exports){
+var AppActions = require('../actions/AppActions');
+var axios = require('axios');
+
+module.exports = {
+
+	 // Load mock product data from localStorage into ProductStore via Action
+  getPageData: function () {
+  	console.log("appAPI.getPageData...");
+  	// Performing a GET request
+	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
+	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
+	axios.get('http://digitest-authorize.rhcloud.com/ad')
+	  .then(function(response){
+	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
+	    console.log(response.status); // ex.: 200
+
+			//Lets taka good look at our data:
+
+			console.log("appAPI - our id: ", response.data );
+
+			for (i=0 ; i < response.data.map.length ; i++ ) {
+				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
 			}
 
 			const numbers = response.data;

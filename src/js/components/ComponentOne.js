@@ -144,7 +144,7 @@ var ComponentOne = React.createClass({
 						{ dspArr.map(function(object, i){
 						return <div className={"row"} key={i}> 
 									{[ object.DSPID + "- currency: ",
-										object.currency + " protocol:", 
+										object.currency + " protocol: ", 
 										object.protocol
 									]}
 								</div>
