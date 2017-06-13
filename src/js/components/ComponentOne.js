@@ -10,9 +10,20 @@ var ComponentOne = React.createClass({
 		
 		dspArr = this.props.pages;
 
-		console.log("ComponentOne - dspArr: ", dspArr );
+		console.log("ComponentOne - dspArr: ", dspArr[0]._id );
 
-		const listItems = dspArr.map((dspArr) => <li key={dspArr.id}>{dspArr}</li> );
+		const listItems = dspArr.map((dspArr) => <li key={dspArr._id}>{dspArr}</li> );
+
+		console.log("ComponentOne - listItems array: ", listItems.length );
+
+
+		var dsps = [];
+		for ( var i = 0 ; i < listItems.length ; ++i ) {
+				console.log("What have we here: ", {dspArr})
+				dsps.push({dspArr});
+			}
+ 
+		console.log("DSP List:  ", dsps );
 
 // Fusion Charts
 //lets collect a list of currencies by DSP.
@@ -21,7 +32,6 @@ var ComponentOne = React.createClass({
 		var protocol23 = 0;
 		var protocol24 = 0;
 
-		var dsps = [];
 		var dspObj = {};
 
 		for (var i=0 ; i < dspArr.length ; i++ ) {
@@ -83,11 +93,16 @@ var ComponentOne = React.createClass({
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
-				chart:{},
+				chart:{
+					"caption": "DSP Encryption",
+          			"xAxisName": "RTB Protoco",
+          			"yAxisName": "Number of DSPs",
+				},
 				data: [{label: enc1 , value: currencyUSD }, {label: enc2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
 				placevaluesInside: "1",
+				renderAt: "product-revenue",
 				labelDisplay: "auto"
 			}
 		};
@@ -98,10 +113,10 @@ var ComponentOne = React.createClass({
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "Currency By DSP",
+					"caption": "Currency By DSP 2",
 					"subCaption": "mPoint",
-					"xAxisName": "Currency",
-					"yAxisName": "Curency by DSP",
+					"xAxisName": "Curency by DSP",
+					"yAxisName": "Number of DSPs",
 					"captionFontSize": "14",
 					"subcaptionFontSize": "14",
 					"subcaptionFontBold": "0",
@@ -125,7 +140,12 @@ var ComponentOne = React.createClass({
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
-				chart:{},
+				chart:{
+					"caption": "DSPs by protocol",
+          			"xAxisName": "RTB Protocol",
+          			"yAxisName": "Number of DSPs",
+
+				},
 				data: [{label: proto1 , value: currencyUSD }, {label: proto2, value: currencyCHY }],
 				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
 				theme: "carbon",
