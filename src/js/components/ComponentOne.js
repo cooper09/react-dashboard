@@ -26,87 +26,86 @@ var ComponentOne = React.createClass({
 		console.log("DSP List:  ", dsps );
 
 // Fusion Charts
-//lets collect a list of currencies by DSP.
-		var currencyUSD = 0;
-		var currencyCHY = 0;
-		var protocol23 = 0;
-		var protocol24 = 0;
+	//parse DSP protocols 
+		var protocols = [];
+		var rtb24 = 1;
+		var rtb23 = 0;
+		var other = 1;
 
-		var dspObj = {};
+		console.log("our current dsp list array length: ", dspArr.length );
+		//scan for protocols and capture how many of each
+		for (var i=0 ; i < dspArr.length-1 ; i++ ) {
+			console.log("parse our protocol list: ", dspArr[i].protocol );
+			if (dspArr[i].protocol == "openrtb24") ++rtb24;
+			if (dspArr[i].protocol == "openrtb23") ++rtb23;
+			if (dspArr[i].protocol == "custom") ++other;
 
-		for (var i=0 ; i < dspArr.length ; i++ ) {
-			console.log("Currency for " + dspArr[i].DSPID + " is " + dspArr[i].currency + " and is it encrypted: " + dspArr[i].flag_encrypt );
-			
-			if ( dspArr[i].currency == 'USD' ) {
-				++currencyUSD;
-				dspObj = {
-					"dspid":  dspArr[i].DSPID, 
-					"currency": dspArr[i].currency
-				}
-				dsps.push(dspObj);
-			}
+		}//end protocol for loop
 
-			if ( dspArr[i].currency == 'CNY' ) {
-				++currencyCHY;
-				dspObj = {
-					"dspid":  dspArr[i].DSPID, 
-					"currency": dspArr[i].currency
-				}
-				dsps.push(dspObj);
-			}
-			
-			if ( dspArr[i].protocol == 'openrtb23' ) {
-				++protocol23;
-				//dsps.push(dspObj);
-			}
+		protoObj = {
+			"label" : "openrtb24: ",
+			"value" : rtb24
+		}
+		protocols.push(protoObj);
 
-			if ( dspArr[i].protocol == 'openrtb24' ) {
-				++protocol24;
-				//dsps.push(dspObj);
-			}
+		protoObj = {
+			"label" : "openrtb23: ",
+			"value" : rtb23
+		}
+		protocols.push(protoObj);
 
-	}
+		protoObj = {
+			"label" : "custom: ",
+			"value" : other - 1
+		}
+		protocols.push(protoObj);
 
-		var label1 = dspArr[0].DSPID;
-		var label2 = dspArr[1].DSPID;
-		var label3 = dspArr[2].DSPID;
-
-		console.log("How does our currency look: ", dspArr[0].currency );
-		console.log("How many DSPS use $: " , currencyUSD );
-		console.log("Our new Dsp Array: " , dsps );
-
-		var currency1 = dspArr[0].currency;
-		var currency2 = dspArr[1].currency;
-		var currency3 = dspArr[2].currency;
-
-		var proto1 = dspArr[0].protocol;
-		var proto2 = dspArr[1].protocol;
-		var proto3 = dspArr[2].protocol;
-
-		var enc1 = "data encrypted: " + dspArr[0].flag_encrypt;
-		var enc2 = "data encrypted: " + dspArr[1].flag_encrypt;
-		var enc3 = "data encrypted: " + dspArr[2].flag_encrypt;
-
-		//fusioncharts stuff
+		//Donut chart
 		var chartConfigs = {
 			type: "Doughnut2D",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "DSP Encryption",
-          			"xAxisName": "RTB Protoco",
+					"caption": "DSP Protocols",
+          			"xAxisName": "RTB Protocol",
           			"yAxisName": "Number of DSPs",
 				},
-				data: [{label: enc1 , value: currencyUSD }, {label: enc2, value: currencyCHY }],
-				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				data: protocols,
 				theme: "carbon",
 				placevaluesInside: "1",
 				renderAt: "product-revenue",
 				labelDisplay: "auto"
 			}
 		};
+	//Bar Chart
+	//lets collect a list of currencies by DSP.
 
+		var currencies = [];
+		var USD = 0;
+		var CHY = 0;
+
+		for (var i=0 ; i < dspArr.length ; i++ ) {
+			if ( dspArr[i].currency == 'USD' ) {
+				++USD;
+			}
+			if ( dspArr[i].currency == 'CNY' ) {
+				++CHY;
+			}
+		}// end for loop 
+
+		currObj = {
+			"label" : "USD: ",
+			"value" : USD
+		}
+		currencies.push(currObj);
+
+		currObj = {
+			"label" : "CHY",
+			"value" : CHY
+		}
+		currencies.push(currObj);
+//show chart
 		var barChartConfigs = {
 			type: "column3d",
 			className: "fc-column3d", // ReactJS attribute-name for DOM classes
@@ -129,25 +128,50 @@ var ComponentOne = React.createClass({
 					"divLineGapLen": "1",
 					"canvasBgColor": "#ffffff"
 				},
-				data: [{label: currency1 , value: currencyUSD }, {label: currency2, value: currencyCHY }],
-				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				data: currencies,
 				theme: "carbon",
 				labelDisplay: "auto"
 			}
 		};
+
+	//Line Chart for encryption
+		var encrypted = [];
+		var yes = 0;
+		var no = 0;
+	
+		for (var i=0 ; i < dspArr.length ; i++ ) {	
+			if ( dspArr[i].flag_encrypt == 1 ) {
+				++yes;
+			}
+			if ( dspArr[i].flag_encrypt  == 0 ) {
+				++no;
+			}
+		}// end for loop 
+
+		encObj = {
+			"label" : "Encrypted ",
+			"value" : yes
+		}
+		encrypted.push(encObj);
+
+		encObj = {
+			"label" : "Non-encrypted",
+			"value" : no
+		}
+		encrypted.push(encObj);
+
 		var lineChartConfigs = {
 			type: "spline",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "DSPs by protocol",
-          			"xAxisName": "RTB Protocol",
+					"caption": "Encryped DSPs",
+          			"xAxisName": "RTB Encryption",
           			"yAxisName": "Number of DSPs",
 
 				},
-				data: [{label: proto1 , value: currencyUSD }, {label: proto2, value: currencyCHY }],
-				//data: [{label: label1, value: currency1 }, {label: label2, value: currency2}, {label: label3, value: currency3}]
+				data: encrypted,
 				theme: "carbon",
 				placevaluesInside: "1",
 				labelDisplay: "auto"
