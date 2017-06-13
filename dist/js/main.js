@@ -21267,7 +21267,7 @@ var App = React.createClass({displayName: "App",
 
 		return(
 			React.createElement("div", null, 
-				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint Data Dashboard - TEST"), 
+				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint DSP Dashboard"), 
 				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Currency by DSP"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Dashboard Two"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
@@ -21308,46 +21308,38 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 		var dsps = [];
 		for ( var i = 0 ; i < listItems.length ; ++i ) {
-				console.log("What have we here: ", {dspArr})
+				//console.log("What have we here: ", {dspArr})
 				dsps.push({dspArr});
 			}
- 
-		console.log("DSP List:  ", dsps );
+
 
 // Fusion Charts
-	//parse DSP protocols 
-		var protocols = [];
-		var rtb24 = 1;
-		var rtb23 = 0;
-		var other = 1;
 
-		console.log("our current dsp list array length: ", dspArr.length );
-		//scan for protocols and capture how many of each
-		for (var i=0 ; i < dspArr.length-1 ; i++ ) {
-			console.log("parse our protocol list: ", dspArr[i].protocol );
-			if (dspArr[i].protocol == "openrtb24") ++rtb24;
-			if (dspArr[i].protocol == "openrtb23") ++rtb23;
-			if (dspArr[i].protocol == "custom") ++other;
+	//Line Chart for encryption
+		var encrypted = [];
+		var yes = 0;
+		var no = 0;
+	
+		for (var i=0 ; i < dspArr.length ; i++ ) {	
+			if ( dspArr[i].flag_encrypt == 1 ) {
+				++yes;
+			}
+			if ( dspArr[i].flag_encrypt  == 0 ) {
+				++no;
+			}
+		}// end for loop 
 
-		}//end protocol for loop
-
-		protoObj = {
-			"label" : "openrtb24: ",
-			"value" : rtb24
+		encObj = {
+			"label" : "Encrypted ",
+			"value" : yes
 		}
-		protocols.push(protoObj);
+		encrypted.push(encObj);
 
-		protoObj = {
-			"label" : "openrtb23: ",
-			"value" : rtb23
+		encObj = {
+			"label" : "Non-encrypted",
+			"value" : no
 		}
-		protocols.push(protoObj);
-
-		protoObj = {
-			"label" : "custom: ",
-			"value" : other - 1
-		}
-		protocols.push(protoObj);
+		encrypted.push(encObj);
 
 		//Donut chart
 		var chartConfigs = {
@@ -21360,7 +21352,8 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
           			"xAxisName": "RTB Protocol",
           			"yAxisName": "Number of DSPs",
 				},
-				data: protocols,
+				//data: protocols,
+				data: encrypted,
 				theme: "carbon",
 				placevaluesInside: "1",
 				renderAt: "product-revenue",
@@ -21394,6 +21387,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			"value" : CHY
 		}
 		currencies.push(currObj);
+
 //show chart
 		var barChartConfigs = {
 			type: "column3d",
@@ -21423,31 +21417,41 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			}
 		};
 
-	//Line Chart for encryption
-		var encrypted = [];
-		var yes = 0;
-		var no = 0;
-	
-		for (var i=0 ; i < dspArr.length ; i++ ) {	
-			if ( dspArr[i].flag_encrypt == 1 ) {
-				++yes;
-			}
-			if ( dspArr[i].flag_encrypt  == 0 ) {
-				++no;
-			}
-		}// end for loop 
+		//parse DSP protocols 
+		var protocols = [];
+		var rtb24 = 1;
+		var rtb23 = 0;
+		var other = 1;
 
-		encObj = {
-			"label" : "Encrypted ",
-			"value" : yes
-		}
-		encrypted.push(encObj);
+		console.log("our current dsp list array length: ", dspArr.length );
+		//scan for protocols and capture how many of each
+		for (var i=0 ; i < dspArr.length-1 ; i++ ) {
+			console.log("parse our protocol list: ", dspArr[i].protocol );
+			if (dspArr[i].protocol == "openrtb24") ++rtb24;
+			if (dspArr[i].protocol == "openrtb23") ++rtb23;
+			if (dspArr[i].protocol == "custom") ++other;
 
-		encObj = {
-			"label" : "Non-encrypted",
-			"value" : no
+		}//end protocol for loop
+
+		protoObj = {
+			"label" : "openrtb24: ",
+			"value" : rtb24
 		}
-		encrypted.push(encObj);
+		protocols.push(protoObj);
+
+		protoObj = {
+			"label" : "openrtb23: ",
+			"value" : rtb23
+		}
+		protocols.push(protoObj);
+
+		protoObj = {
+			"label" : "custom: ",
+			"value" : other - 1
+		}
+		protocols.push(protoObj);
+
+//
 
 		var lineChartConfigs = {
 			type: "spline",
@@ -21460,7 +21464,8 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
           			"yAxisName": "Number of DSPs",
 
 				},
-				data: encrypted,
+				//data: encrypted,
+				data: protocols,
 				theme: "carbon",
 				placevaluesInside: "1",
 				labelDisplay: "auto"
