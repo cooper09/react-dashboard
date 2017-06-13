@@ -21348,9 +21348,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "DSP Protocols",
-          			"xAxisName": "RTB Protocol",
-          			"yAxisName": "Number of DSPs",
+					"caption": "Encrypted DSPs"
 				},
 				//data: protocols,
 				data: encrypted,
@@ -21395,7 +21393,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "Currency By DSP 2",
+					"caption": "Currency By DSP",
 					"subCaption": "mPoint",
 					"xAxisName": "Curency by DSP",
 					"yAxisName": "Number of DSPs",
@@ -21459,9 +21457,8 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
-					"caption": "Encryped DSPs",
-          			"xAxisName": "RTB Encryption",
-          			"yAxisName": "Number of DSPs",
+					"caption": "DSP Protocols",
+          			"yAxisName": "Number of DSPs"
 
 				},
 				//data: encrypted,
