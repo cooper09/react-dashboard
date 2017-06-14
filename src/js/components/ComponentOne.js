@@ -54,7 +54,7 @@ var ComponentOne = React.createClass({
 
 		//Donut chart
 		var chartConfigs = {
-			type: "Doughnut2D",
+			type: "doughnut2d",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
@@ -63,7 +63,8 @@ var ComponentOne = React.createClass({
 				},
 				//data: protocols,
 				data: encrypted,
-				theme: "carbon",
+				//theme: "carbon",
+				theme: "zune",
 				placevaluesInside: "1",
 				renderAt: "product-revenue",
 				labelDisplay: "auto"
