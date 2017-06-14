@@ -21268,7 +21268,7 @@ var App = React.createClass({displayName: "App",
 		return(
 			React.createElement("div", null, 
 				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint DSP Dashboard"), 
-				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Currency by DSP"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "DSP Info"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Dashboard Two"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages})
