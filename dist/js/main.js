@@ -21343,16 +21343,19 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 		//Donut chart
 		var chartConfigs = {
-			type: "Doughnut2D",
+			type: "doughnut2d",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
+			width: "100%",
 			dataSource: {
 				chart:{
 					"caption": "Encrypted DSPs"
 				},
 				//data: protocols,
 				data: encrypted,
-				theme: "carbon",
+				//theme: "carbon",
+				theme: "zune",
+				//theme: "rainbow",
 				placevaluesInside: "1",
 				renderAt: "product-revenue",
 				labelDisplay: "auto"
@@ -21388,8 +21391,8 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 //show chart
 		var barChartConfigs = {
-			type: "column3d",
-			className: "fc-column3d", // ReactJS attribute-name for DOM classes
+			type: "column2d",
+			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
 			dataSource: {
 				chart:{
@@ -21397,20 +21400,21 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 					"subCaption": "mPoint",
 					"xAxisName": "Curency by DSP",
 					"yAxisName": "Number of DSPs",
-					"captionFontSize": "14",
-					"subcaptionFontSize": "14",
-					"subcaptionFontBold": "0",
-					"placeValuesInside": "1",
-					"showShadow": "0",
-					"divlineColor": "#999999",               
-					"divLineIsDashed": "1",
-					"divlineThickness": "1",
-					"divLineDashLen": "1",
-					"divLineGapLen": "1",
-					"canvasBgColor": "#ffffff"
+					//"captionFontSize": "14",
+					//"subcaptionFontSize": "14",
+					//"subcaptionFontBold": "0",
+					//"placeValuesInside": "1",
+					//"showShadow": "0",
+					//"divlineColor": "#999999",               
+					//"divLineIsDashed": "1",
+					//"divlineThickness": "1",
+					//"divLineDashLen": "1",
+					//"divLineGapLen": "1",
+					//"canvasBgColor": "#ffffff"
 				},
 				data: currencies,
-				theme: "carbon",
+				//theme: "carbon",
+				theme: "zune",
 				labelDisplay: "auto"
 			}
 		};
@@ -21455,6 +21459,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 			type: "spline",
 			className: "fc-column2d", // ReactJS attribute-name for DOM classes
 			dataFormat: "JSON",
+			width: "100%",
 			dataSource: {
 				chart:{
 					"caption": "DSP Protocols",
@@ -21463,7 +21468,8 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 				},
 				//data: encrypted,
 				data: protocols,
-				theme: "carbon",
+				//theme: "carbon",
+				theme: "zune",
 				placevaluesInside: "1",
 				labelDisplay: "auto"
 			}

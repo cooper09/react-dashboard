@@ -18,7 +18,7 @@ body {
 @media (max-width: 651px) {
   /* line 9, ../sass/partials/_main.sass */
   body {
-    margin: 0.2em;
+    margin: 0.5em;
   }
 }
 
