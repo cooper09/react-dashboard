@@ -9,7 +9,8 @@ module.exports = {
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
 	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	axios.get('http://digitest-authorize.rhcloud.com/ad')
+	//axios.get('http://digitest-authorize.rhcloud.com/ad')
+		axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
 	  .then(function(response){
 	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
 	    console.log(response.status); // ex.: 200

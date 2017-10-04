@@ -10,7 +10,7 @@ var ComponentOne = React.createClass({
 		
 		dspArr = this.props.pages;
 
-		console.log("ComponentOne - dspArr: ", dspArr[0]._id );
+		//console.log("ComponentOne - dspArr: ", dspArr[0]._id );
 
 		const listItems = dspArr.map((dspArr) => <li key={dspArr._id}>{dspArr}</li> );
 
