@@ -44,9 +44,10 @@ var App = React.createClass({
 
 		return(
 			<div>
-				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint DSP Dashboard</p>
-				 <button onClick={this.handleBtnClick} className="btn">DSP Info</button>
-				 <button onClick={this.handleBtnClick2} className="btn">Dashboard Two</button>
+				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdExchange Dashboard</p>
+				 <button onClick={this.handleBtnClick} className="btn">RTB Auction</button>
+				 <button onClick={this.handleBtnClick2} className="btn">Server To Server</button>
+				 <button onClick={this.handleBtnClick3} className="btn">Ad Tag</button>
 				<ComponentOne  visible={this.state.oneVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>
 				

@@ -21267,9 +21267,10 @@ var App = React.createClass({displayName: "App",
 
 		return(
 			React.createElement("div", null, 
-				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint DSP Dashboard"), 
-				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "DSP Info"), 
-				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Dashboard Two"), 
+				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdExchange Dashboard"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "RTB Auction"), 
+				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Server To Server"), 
+				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Ad Tag"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages})
 				
@@ -21299,7 +21300,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		
 		dspArr = this.props.pages;
 
-		console.log("ComponentOne - dspArr: ", dspArr[0]._id );
+		//console.log("ComponentOne - dspArr: ", dspArr[0]._id );
 
 		const listItems = dspArr.map((dspArr) => React.createElement("li", {key: dspArr._id}, dspArr) );
 
@@ -21688,7 +21689,8 @@ module.exports = {
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
 	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	axios.get('http://digitest-authorize.rhcloud.com/ad')
+	//axios.get('http://digitest-authorize.rhcloud.com/ad')
+		axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
 	  .then(function(response){
 	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
 	    console.log(response.status); // ex.: 200
@@ -21727,7 +21729,8 @@ module.exports = {
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
 	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	axios.get('http://digitest-authorize.rhcloud.com/ad')
+	//axios.get('http://digitest-authorize.rhcloud.com/ad')
+		axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
 	  .then(function(response){
 	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
 	    console.log(response.status); // ex.: 200
