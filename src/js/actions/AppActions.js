@@ -16,7 +16,15 @@ showTwo: function (data) {
       actionType: AppConstants.TWO_VISIBLE,
       data: data
     	})
-	},
+  },
+  
+  showThree: function (data) {
+    console.log("AppActions.showThree: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.THREE_VISIBLE,
+        data: data
+        })
+    },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({

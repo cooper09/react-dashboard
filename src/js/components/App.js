@@ -5,6 +5,7 @@ var AppStore = require('../stores/AppStore');
 
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
+var ComponentThree = require('./ComponentThree.js');
 
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
@@ -31,26 +32,32 @@ var App = React.createClass({
 		AppStore.removeChangeListener(this._onChange);
 	},
 	handleBtnClick: function() {
-      console.log('APP - Handle my button click: ');
+      console.log('APP - Handle my button click 1 ');
       AppActions.myEvent('Button One click');
     },
     handleBtnClick2: function() {
-      console.log('APP - Handle my button click: ');
+      console.log('APP - Handle my button click 2 ');
       AppActions.showTwo('Button Two click');
-    },
+	},
+	handleBtnClick3: function() {
+		console.log('APP - Handle my button click 3');
+		AppActions.showThree('Button Three click');
+	  },
 	render: function(){
 
 		//var dsps = this.state.pages.map()
 
 		return(
 			<div>
-				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdExchange Dashboard</p>
+				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdXchange Dashboard</p>
+				 <br/><br/>
+				 <div className="sidePanel">Side Panel Goes Here</div>
 				 <button onClick={this.handleBtnClick} className="btn">RTB Auction</button>
 				 <button onClick={this.handleBtnClick2} className="btn">Server To Server</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Ad Tag</button>
 				<ComponentOne  visible={this.state.oneVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>
-				
+				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
 			</div>
 		);
 	},

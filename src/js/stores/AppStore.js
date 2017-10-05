@@ -36,6 +36,12 @@ function setTwoVisible(visible) {
   _oneVisible = false;
 }
 
+function setThreeVisible(visible) {
+	_threeVisible = true;
+	_twoVisible = false;
+  _oneVisible = false;	
+}
+
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -82,6 +88,11 @@ AppDispatcher.register(function(payload){
 	  	  console.log("Show page two: ", payload );
 	      _visible=true;
 	      setTwoVisible(_visible);
+	 	break;
+	 	case 'THREE_VISIBLE':
+	  	  console.log("Show page three: ", payload );
+	      _visible=true;
+	      setThreeVisible(_visible);
 	 	break
 
 

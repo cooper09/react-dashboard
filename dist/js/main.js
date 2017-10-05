@@ -21208,7 +21208,15 @@ showTwo: function (data) {
       actionType: AppConstants.TWO_VISIBLE,
       data: data
     	})
-	},
+  },
+  
+  showThree: function (data) {
+    console.log("AppActions.showThree: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.THREE_VISIBLE,
+        data: data
+        })
+    },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -21220,7 +21228,7 @@ loadPages: function (data) {
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":194,"../dispatcher/AppDispatcher":195}],191:[function(require,module,exports){
+},{"../constants/AppConstants":195,"../dispatcher/AppDispatcher":196}],191:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var AppStore = require('../stores/AppStore');
@@ -21228,6 +21236,7 @@ var AppStore = require('../stores/AppStore');
 
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
+var ComponentThree = require('./ComponentThree.js');
 
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
@@ -21254,26 +21263,32 @@ var App = React.createClass({displayName: "App",
 		AppStore.removeChangeListener(this._onChange);
 	},
 	handleBtnClick: function() {
-      console.log('APP - Handle my button click: ');
+      console.log('APP - Handle my button click 1 ');
       AppActions.myEvent('Button One click');
     },
     handleBtnClick2: function() {
-      console.log('APP - Handle my button click: ');
+      console.log('APP - Handle my button click 2 ');
       AppActions.showTwo('Button Two click');
-    },
+	},
+	handleBtnClick3: function() {
+		console.log('APP - Handle my button click 3');
+		AppActions.showThree('Button Three click');
+	  },
 	render: function(){
 
 		//var dsps = this.state.pages.map()
 
 		return(
 			React.createElement("div", null, 
-				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdExchange Dashboard"), 
+				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdXchange Dashboard"), 
+				 React.createElement("br", null), React.createElement("br", null), 
+				 React.createElement("div", {className: "sidePanel"}, "Side Panel Goes Here"), 
 				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "RTB Auction"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Server To Server"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Ad Tag"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
-				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages})
-				
+				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages}), 
+				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages})
 			)
 		);
 	},
@@ -21287,7 +21302,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":190,"../stores/AppStore":197,"./ComponentOne.js":192,"./ComponentTwo.js":193,"react":188}],192:[function(require,module,exports){
+},{"../actions/AppActions":190,"../stores/AppStore":198,"./ComponentOne.js":192,"./ComponentThree.js":193,"./ComponentTwo.js":194,"react":188}],192:[function(require,module,exports){
 var React = require('react');
 
 var ComponentOne = React.createClass({displayName: "ComponentOne",
@@ -21519,6 +21534,29 @@ module.exports = ComponentOne;
 },{"react":188}],193:[function(require,module,exports){
 var React = require('react');
 
+var ComponentThree = React.createClass({displayName: "ComponentThree",
+
+	render: function() {
+		 if (!this.props.visible) {
+		 	console.log("componentThree is off");
+          return false;
+        }
+
+		return (
+			React.createElement("div", null, 
+				React.createElement("div", {className: "pageTwo"}, "Ad your adtag..", 
+					React.createElement("h3", null, this.props.pages.id)
+				)
+			)
+			);
+	}//end render
+});//end ComponentThree
+
+module.exports = ComponentThree;
+
+},{"react":188}],194:[function(require,module,exports){
+var React = require('react');
+
 var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 	render: function() {
@@ -21539,17 +21577,19 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 module.exports = ComponentTwo;
 
-},{"react":188}],194:[function(require,module,exports){
+},{"react":188}],195:[function(require,module,exports){
 module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
 	ONE_VISIBLE: "ONE_VISIBLE",
   	ONE_REMOVE: "ONE_REMOVE",
   	TWO_VISIBLE: "TWO_VISIBLE",
-  	TWO_REMOVE: "TWO_VISIBLE"
+	TWO_REMOVE: "TWO_REMOVE",
+	THREE_VISIBLE: "THREE_VISIBLE",
+	THREE_REMOVE: "THREE_REMOVE"  
 }
 
-},{}],195:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -21565,7 +21605,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":54,"object-assign":57}],196:[function(require,module,exports){
+},{"flux":54,"object-assign":57}],197:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -21581,7 +21621,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":189,"./components/App":191,"./utils/appAPI":199,"react":188,"react-dom":59}],197:[function(require,module,exports){
+},{"./PageData":189,"./components/App":191,"./utils/appAPI":200,"react":188,"react-dom":59}],198:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -21618,6 +21658,12 @@ function setOneVisible(visible) {
 function setTwoVisible(visible) {
   _twoVisible = true;
   _oneVisible = false;
+}
+
+function setThreeVisible(visible) {
+	_threeVisible = true;
+	_twoVisible = false;
+  _oneVisible = false;	
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -21666,6 +21712,11 @@ AppDispatcher.register(function(payload){
 	  	  console.log("Show page two: ", payload );
 	      _visible=true;
 	      setTwoVisible(_visible);
+	 	break;
+	 	case 'THREE_VISIBLE':
+	  	  console.log("Show page three: ", payload );
+	      _visible=true;
+	      setThreeVisible(_visible);
 	 	break
 
 
@@ -21677,7 +21728,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":194,"../dispatcher/AppDispatcher":195,"../utils/AppAPI.js":198,"events":26,"object-assign":57}],198:[function(require,module,exports){
+},{"../constants/AppConstants":195,"../dispatcher/AppDispatcher":196,"../utils/AppAPI.js":199,"events":26,"object-assign":57}],199:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -21717,7 +21768,7 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":190,"axios":1}],199:[function(require,module,exports){
+},{"../actions/AppActions":190,"axios":1}],200:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -21757,4 +21808,4 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":190,"axios":1}]},{},[196]);
+},{"../actions/AppActions":190,"axios":1}]},{},[197]);
