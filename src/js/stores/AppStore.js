@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 //cooper s - a state called _items
 var _pages = [];
 
-var _oneVisible = false, _twoVisible = false;
+var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -28,12 +28,14 @@ function loadPageData(data) {
 	// Set cart visibility
 function setOneVisible(visible) {
   _oneVisible = true;
-  _twoVisible = false;
+	_twoVisible = false;
+	_threeVisible = false;
 }
 
 function setTwoVisible(visible) {
   _twoVisible = true;
-  _oneVisible = false;
+	_oneVisible = false;
+	_threeVisible = false;
 }
 
 function setThreeVisible(visible) {
@@ -54,6 +56,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	getTwoVisible: function () {
 		console.log('AppStore.getTwoVisible: ' + _twoVisible );
 		return _twoVisible;
+	},
+	getThreeVisible: function () {
+		console.log('AppStore.getThreeVisible: ' + _threeVisible );
+		return _threeVisible;
 	},
 	  // Set cart visibility
 	emitChange: function(){

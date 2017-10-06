@@ -28,7 +28,7 @@ body {
   height: 320px;
   background: #333;
   padding: 1em;
-  color: yellow;
+  color: #ccc;
   margin-top: 1em;
   margin-left: auto;
   margin-right: auto;
@@ -85,27 +85,18 @@ body {
 }
 
 /* line 66, ../sass/partials/_main.sass */
-.dsplist {
-  float: right;
-  margin: 1em;
-  font-family: "Arial";
-  font-weight: 200;
-  font-style: normal;
-  font-size: 1em;
-  color: #666;
-  line-height: 1em;
+.item {
+  background: gray;
+  padding: 1em;
+  cursor: pointer;
+  margin-bottom: 0.5em;
 }
-@media (max-width: 651px) {
-  /* line 66, ../sass/partials/_main.sass */
-  .dsplist {
-    float: left;
-    color: #333;
-    font-size: 1.4em;
-    font-weight: 400;
-  }
+/* line 71, ../sass/partials/_main.sass */
+.item img {
+  margin-right: 0.5em;
 }
 
-/* line 81, ../sass/partials/_main.sass */
+/* line 74, ../sass/partials/_main.sass */
 .btn {
   background: #c72a35;
   padding: 0.5em;
@@ -114,16 +105,17 @@ body {
   cursor: pointer;
 }
 
-/* line 89, ../sass/partials/_main.sass */
-.stinky {
-  width: 49.15254%;
+/* line 82, ../sass/partials/_main.sass */
+.sidePanel {
+  width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
+  padding: 1em;
 }
 @media (max-width: 651px) {
-  /* line 89, ../sass/partials/_main.sass */
-  .stinky {
+  /* line 82, ../sass/partials/_main.sass */
+  .sidePanel {
     width: 100%;
     float: left;
     margin-right: 1.69492%;

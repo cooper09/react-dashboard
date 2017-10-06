@@ -10,7 +10,7 @@ var ComponentTwo = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo'>Next Dashboard Goes here..
+				<div className='pageTwo'>Server-To-Server Fields Goes here..
 					<h3>{this.props.pages.id }</h3>
 				</div>
 			</div>

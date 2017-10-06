@@ -10,7 +10,7 @@ var ComponentThree = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo'>Ad your adtag..
+				<div className='pageOne'>Add your adtag..
 					<h3>{this.props.pages.id }</h3>
 				</div>
 			</div>
