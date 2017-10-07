@@ -1,4 +1,5 @@
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var ComponentThree = React.createClass({
 
@@ -12,10 +13,19 @@ var ComponentThree = React.createClass({
 			<div>
 				<div className='pageOne'>Analytics/Dashboard..
 					<h3>{this.props.pages.id }</h3>
+					<div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>
 				</div>
 			</div>
-			);
+			);	
+			
+			function handleItemClick (){
+				// close up shop and check to see if we're on mobile
+
+				AppActions.removeAnalytics('Hide Analytics Page');
+
+			}//end handleItemClick
 	}//end render
+
 });//end ComponentThree
 
 module.exports = ComponentThree;

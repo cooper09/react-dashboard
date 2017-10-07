@@ -30,6 +30,10 @@ function setOneVisible(visible) {
 	_adUnitVisible = false;
 }
 
+function hideAppForm(visible) {
+	_oneVisible = false;
+}
+
 function setTwoVisible(visible) {
   _twoVisible = true;
 	_oneVisible = false;
@@ -67,6 +71,12 @@ function setSideBarVisible(visible) {
 		_adUnitVisible = false;
 }//end setSideBarVisible
 
+function hideCampaign(visible) {
+	_twoVisible = false;
+}
+function hideAnalytics(visible) {
+	_threeVisible = false;
+}
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -150,12 +160,23 @@ AppDispatcher.register(function(payload){
 		_visible=true;
 		setSideBarVisible(_visible);
 	break;
-		case 'SIDEBAR_REMOVE':
-			console.log("Remove App Sidebar (mobile only): ", payload );
-			_visible=false;
-			hideSideBarVisible(_visible);
-		break;
-
+	case 'SIDEBAR_REMOVE':
+		console.log("Remove App Sidebar (mobile only): ", payload );
+		_visible=false;
+		hideSideBarVisible(_visible);
+	break;
+	case 'APP_REMOVE':
+		_visible=false;
+		hideAppForm(_visible);
+	break;
+	case 'CAMPAIGN_REMOVE':
+		_visible=false;
+		hideCampaign(_visible);
+	break;
+	case 'ANALYTICS_REMOVE':
+		_visible=false;
+		hideAnalytics(_visible);
+	break;
 	}//end switch
 
 	AppStore.emitChange();

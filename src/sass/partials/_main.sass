@@ -13,7 +13,7 @@ body
     margin: 0.5em
 
 .pageOne 
-  width: 240px
+  +span-columns(8)
   height: 320px
   background: #333
   padding: 1em
@@ -27,11 +27,13 @@ body
   -o-transition: 1s right ease
   transition: 1s right ease
   box-shadow: 0 0 5px rgba(0, 0, 0, .5)
+  +at-breakpoint($phone)
+    +span-columns(12)
   
 .pageTwo
-  width: 320px
-  height: 240px
-  background: #aaa
+  +span-columns(8)
+  height: 320px
+  background: #ccc
   padding: 1em
   color: #fff
   margin-top: 1em
@@ -43,6 +45,8 @@ body
   -o-transition: 1s left ease
   transition: 1s left ease
   box-shadow: 0 0 5px rgba(0, 0, 0, .5)
+  +at-breakpoint($phone)
+    +span-columns(12)
 
 // Dashboard styles
 .header-font
@@ -90,5 +94,5 @@ body
   height: 2em
   padding: 0.5em
   width: 100%
-  bottom: -15em
+  bottom: -12em
   position: relative

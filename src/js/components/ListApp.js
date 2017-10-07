@@ -42,7 +42,7 @@ var ListApp = React.createClass({
 	var open = false;
 
 		return (
-			<div className = "item" onClick={ handleItemClick.bind(this)}>
+			<div className = "item" onClick={handleItemClick.bind(this)}>
 				<div className = {contentNum} style={style}>
                 <img src={this.props.image} />                
 				{this.props.text}
@@ -50,25 +50,17 @@ var ListApp = React.createClass({
 			</div>
 			)
 
-			function handleItemClick (){
+			function handleItemClick (event){
 			//cooper s - use jquery to open/close each items content....
-                alert("screen.height: "+ screen.height +" screen width: " + screen.width );
-			/*	var myItem = $('.content'+ this.props.num );
-				
-				if ( open === false ) {
-					//TweenMax.to( myItem, 1, { height: 100 });
-					open = true;
-				} else {
-					//TweenMax.to( myItem, 1, { height: 35 });
-					open = false;
-				} */
+
+			alert("Current App selected: "+ event.target.className );
+			console.log("Current App selected: ", event.target.className );
 
 				console.log("ListApp - screen.height: ",  screen.height );
 				console.log("ListApp - screen.width: ", screen.width );
 
 				AppActions.showAdUnit('Selected APP');
 				if (screen.width <= 732 ) {
-					alert("Do some funky responsive shit");
 					AppActions.hideSideBar('Hide Sidebar');
 				}
 				

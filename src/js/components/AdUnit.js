@@ -11,8 +11,11 @@ var AdUnit = React.createClass({
 		
 		return (
 			<div>
-				<div className='pageOne'>Ad Unit goes here...
+				<div className='pageTwo'>Ad Unit goes here...
 					<h3>{this.props.pages.id }</h3>
+                    <button onClick={this.handleBtnBanner} className="btn">Banner</button>
+					<button onClick={this.handleBtnVideo} className="btn">Video</button>
+					<button onClick={this.handleBtnInterstitial} className="btn">Interstitial</button>
                     <div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>
 				</div>
 			</div>

@@ -24,7 +24,10 @@ body {
 
 /* line 15, ../sass/partials/_main.sass */
 .pageOne {
-  width: 240px;
+  width: 66.10169%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
   height: 320px;
   background: #333;
   padding: 1em;
@@ -39,12 +42,23 @@ body {
   transition: 1s right ease;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+@media (max-width: 651px) {
+  /* line 15, ../sass/partials/_main.sass */
+  .pageOne {
+    width: 100%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+}
 
-/* line 31, ../sass/partials/_main.sass */
+/* line 33, ../sass/partials/_main.sass */
 .pageTwo {
-  width: 320px;
-  height: 240px;
-  background: #aaa;
+  width: 66.10169%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  height: 320px;
+  background: #ccc;
   padding: 1em;
   color: #fff;
   margin-top: 1em;
@@ -57,8 +71,16 @@ body {
   transition: 1s left ease;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+@media (max-width: 651px) {
+  /* line 33, ../sass/partials/_main.sass */
+  .pageTwo {
+    width: 100%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+}
 
-/* line 48, ../sass/partials/_main.sass */
+/* line 52, ../sass/partials/_main.sass */
 .header-font {
   font-family: "Arial";
   font-weight: 400;
@@ -67,7 +89,7 @@ body {
   color: #666;
 }
 
-/* line 55, ../sass/partials/_main.sass */
+/* line 59, ../sass/partials/_main.sass */
 .main-title {
   font-family: "Arial";
   font-weight: 200;
@@ -76,7 +98,7 @@ body {
   color: #666;
 }
 @media (max-width: 651px) {
-  /* line 55, ../sass/partials/_main.sass */
+  /* line 59, ../sass/partials/_main.sass */
   .main-title {
     float: left;
     color: #666;
@@ -84,19 +106,19 @@ body {
   }
 }
 
-/* line 66, ../sass/partials/_main.sass */
+/* line 70, ../sass/partials/_main.sass */
 .item {
   background: gray;
   padding: 1em;
   cursor: pointer;
   margin-bottom: 0.5em;
 }
-/* line 71, ../sass/partials/_main.sass */
+/* line 75, ../sass/partials/_main.sass */
 .item img {
   margin-right: 0.5em;
 }
 
-/* line 74, ../sass/partials/_main.sass */
+/* line 78, ../sass/partials/_main.sass */
 .btn {
   background: #c72a35;
   padding: 0.5em;
@@ -105,7 +127,7 @@ body {
   cursor: pointer;
 }
 
-/* line 81, ../sass/partials/_main.sass */
+/* line 85, ../sass/partials/_main.sass */
 .sidePanel {
   width: 32.20339%;
   float: left;
@@ -114,7 +136,7 @@ body {
   padding: 1em;
 }
 @media (max-width: 651px) {
-  /* line 81, ../sass/partials/_main.sass */
+  /* line 85, ../sass/partials/_main.sass */
   .sidePanel {
     width: 100%;
     float: left;
@@ -122,13 +144,13 @@ body {
   }
 }
 
-/* line 87, ../sass/partials/_main.sass */
+/* line 91, ../sass/partials/_main.sass */
 .closeBtn {
   cursor: pointer;
   background: red;
   height: 2em;
   padding: 0.5em;
   width: 100%;
-  bottom: -15em;
+  bottom: -12em;
   position: relative;
 }

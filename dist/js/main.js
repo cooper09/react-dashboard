@@ -29165,6 +29165,12 @@ myEvent: function (data) {
       actionType: AppConstants.MY_EVENT,
       data: data
     	})
+  },
+removeApp: function (data) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.APP_REMOVE,
+      data: data
+    	})
 	},
 showTwo: function (data) {
 	console.log("AppActions.showTwo: ", data );
@@ -29173,6 +29179,13 @@ showTwo: function (data) {
       data: data
     	})
   },
+  removeOne: function (data) {
+    console.log("AppActions.removeOne: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.ONE_REMOVE,
+        data: data
+        })
+    },
   showThree: function (data) {
     console.log("AppActions.showThree: ", data );
       AppDispatcher.handleViewAction({
@@ -29208,6 +29221,20 @@ showTwo: function (data) {
           data: data
           })
       },
+      removeCampaign: function (data) {
+        console.log("AppActions.hideCampaign: ", data );
+          AppDispatcher.handleViewAction({
+            actionType: AppConstants.CAMPAIGN_REMOVE,
+            data: data
+            })
+        },
+        removeAnalytics: function (data) {
+          console.log("AppActions.hideAnalytcs: ", data );
+            AppDispatcher.handleViewAction({
+              actionType: AppConstants.ANALYTICS_REMOVE,
+              data: data
+              })
+          },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -29233,8 +29260,11 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageOne"}, "Ad Unit goes here...", 
+				React.createElement("div", {className: "pageTwo"}, "Ad Unit goes here...", 
 					React.createElement("h3", null, this.props.pages.id), 
+                    React.createElement("button", {onClick: this.handleBtnBanner, className: "btn"}, "Banner"), 
+					React.createElement("button", {onClick: this.handleBtnVideo, className: "btn"}, "Video"), 
+					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Interstitial"), 
                     React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
 				)
 			)
@@ -29359,6 +29389,7 @@ module.exports = App;
 
 },{"../actions/AppActions":191,"../stores/AppStore":202,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var ComponentOne = React.createClass({displayName: "ComponentOne",
 
@@ -29370,19 +29401,38 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageOne"}, "App Manager", 
-					React.createElement("h3", null, this.props.pages.id)
+				React.createElement("div", {className: "pageTwo"}, "App Manager", 
+					React.createElement("h3", null, this.props.pages.id), 
+					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn"}, "Search Apps"), 
+					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn"}, "Add Manually"), 
+					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Select from Current"), 
+					React.createElement("form", null, 
+						React.createElement("label", null, 
+						"Name:", 
+						React.createElement("input", {type: "text", name: "name"})
+						), 
+						React.createElement("input", {type: "submit", value: "Submit"})
+				  	), 
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
 				)
 			)
 			);
+
+			function handleItemClick (){
+				// close up shop and check to see if we're on mobile
+	
+				AppActions.removeApp('Hide App Page');
+	
+			}//end handleItemClick
 		
 	}//end render
 });//end ComponentOne
 
 module.exports = ComponentOne;
 
-},{"react":189}],195:[function(require,module,exports){
+},{"../actions/AppActions":191,"react":189}],195:[function(require,module,exports){
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var ComponentThree = React.createClass({displayName: "ComponentThree",
 
@@ -29395,17 +29445,27 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageOne"}, "Analytics/Dashboard..", 
-					React.createElement("h3", null, this.props.pages.id)
+					React.createElement("h3", null, this.props.pages.id), 
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
 				)
 			)
-			);
+			);	
+			
+			function handleItemClick (){
+				// close up shop and check to see if we're on mobile
+
+				AppActions.removeAnalytics('Hide Analytics Page');
+
+			}//end handleItemClick
 	}//end render
+
 });//end ComponentThree
 
 module.exports = ComponentThree;
 
-},{"react":189}],196:[function(require,module,exports){
+},{"../actions/AppActions":191,"react":189}],196:[function(require,module,exports){
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
@@ -29418,16 +29478,28 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageTwo"}, "Campaign Manager", 
-					React.createElement("h3", null, this.props.pages.id)
+					React.createElement("h3", null, this.props.pages.id), 
+					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn"}, "List Campaigns"), 
+					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn"}, "Create Campaign"), 
+					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Delete Campaign"), 
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")										
 				)
 			)
 			);
+
+		
+			function handleItemClick (){
+				// close up shop and check to see if we're on mobile
+	
+				AppActions.removeCampaign('Hide Campaign Page');
+	
+			}//end handleItemClick
 	}//end render
 });//end ComponentOne
 
 module.exports = ComponentTwo;
 
-},{"react":189}],197:[function(require,module,exports){
+},{"../actions/AppActions":191,"react":189}],197:[function(require,module,exports){
 var React = require('react');
 
 var AppActions = require('../actions/AppActions');
@@ -29472,7 +29544,7 @@ var ListApp = React.createClass({displayName: "ListApp",
 	var open = false;
 
 		return (
-			React.createElement("div", {className: "item", onClick:  handleItemClick.bind(this)}, 
+			React.createElement("div", {className: "item", onClick: handleItemClick.bind(this)}, 
 				React.createElement("div", {className: contentNum, style: style}, 
                 React.createElement("img", {src: this.props.image}), 
 				this.props.text
@@ -29480,25 +29552,17 @@ var ListApp = React.createClass({displayName: "ListApp",
 			)
 			)
 
-			function handleItemClick (){
+			function handleItemClick (event){
 			//cooper s - use jquery to open/close each items content....
-                alert("screen.height: "+ screen.height +" screen width: " + screen.width );
-			/*	var myItem = $('.content'+ this.props.num );
-				
-				if ( open === false ) {
-					//TweenMax.to( myItem, 1, { height: 100 });
-					open = true;
-				} else {
-					//TweenMax.to( myItem, 1, { height: 35 });
-					open = false;
-				} */
+
+			alert("Current App selected: "+ event.target.className );
+			console.log("Current App selected: ", event.target.className );
 
 				console.log("ListApp - screen.height: ",  screen.height );
 				console.log("ListApp - screen.width: ", screen.width );
 
 				AppActions.showAdUnit('Selected APP');
 				if (screen.width <= 732 ) {
-					alert("Do some funky responsive shit");
 					AppActions.hideSideBar('Hide Sidebar');
 				}
 				
@@ -29559,7 +29623,7 @@ module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
 	ONE_VISIBLE: "ONE_VISIBLE",
-  	ONE_REMOVE: "ONE_REMOVE",
+	  ONE_REMOVE: "ONE_REMOVE",
   	TWO_VISIBLE: "TWO_VISIBLE",
 	TWO_REMOVE: "TWO_REMOVE",
 	THREE_VISIBLE: "THREE_VISIBLE",
@@ -29567,7 +29631,13 @@ module.exports = {
 	ADUNIT_VISIBLE: "ADUNIT_VISIBLE",
 	ADUNIT_REMOVE: "ADUNIT_REMOVE",
 	SIDEBAR_VISIBLE: "SIDEBAR_VISIBLE",
-	SIDEBAR_REMOVE: "SIDEBAR_REMOVE"    
+	SIDEBAR_REMOVE: "SIDEBAR_REMOVE" ,
+	APP_REMOVE: "APP_REMOVE",
+	APP_VISIBLE: "APP_VISIBLE",
+	CAMPAIGN_VISIBLE: "CAMPAIGN_VISIBLE",
+	CAMPAIGN_REMOVE: "CAMPAIGN_REMOVE",
+	ANALYTICS_VISIBLE: "ANALYTICS_VISIBLE",
+	ANALYTICS_REMOVE: "ANALYTICS_REMOVE",  
 }
 
 },{}],200:[function(require,module,exports){
@@ -29635,6 +29705,10 @@ function setOneVisible(visible) {
 	_adUnitVisible = false;
 }
 
+function hideAppForm(visible) {
+	_oneVisible = false;
+}
+
 function setTwoVisible(visible) {
   _twoVisible = true;
 	_oneVisible = false;
@@ -29672,6 +29746,12 @@ function setSideBarVisible(visible) {
 		_adUnitVisible = false;
 }//end setSideBarVisible
 
+function hideCampaign(visible) {
+	_twoVisible = false;
+}
+function hideAnalytics(visible) {
+	_threeVisible = false;
+}
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -29755,12 +29835,23 @@ AppDispatcher.register(function(payload){
 		_visible=true;
 		setSideBarVisible(_visible);
 	break;
-		case 'SIDEBAR_REMOVE':
-			console.log("Remove App Sidebar (mobile only): ", payload );
-			_visible=false;
-			hideSideBarVisible(_visible);
-		break;
-
+	case 'SIDEBAR_REMOVE':
+		console.log("Remove App Sidebar (mobile only): ", payload );
+		_visible=false;
+		hideSideBarVisible(_visible);
+	break;
+	case 'APP_REMOVE':
+		_visible=false;
+		hideAppForm(_visible);
+	break;
+	case 'CAMPAIGN_REMOVE':
+		_visible=false;
+		hideCampaign(_visible);
+	break;
+	case 'ANALYTICS_REMOVE':
+		_visible=false;
+		hideAnalytics(_visible);
+	break;
 	}//end switch
 
 	AppStore.emitChange();

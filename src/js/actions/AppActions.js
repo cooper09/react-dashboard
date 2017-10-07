@@ -8,6 +8,12 @@ myEvent: function (data) {
       actionType: AppConstants.MY_EVENT,
       data: data
     	})
+  },
+removeApp: function (data) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.APP_REMOVE,
+      data: data
+    	})
 	},
 showTwo: function (data) {
 	console.log("AppActions.showTwo: ", data );
@@ -16,6 +22,13 @@ showTwo: function (data) {
       data: data
     	})
   },
+  removeOne: function (data) {
+    console.log("AppActions.removeOne: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.ONE_REMOVE,
+        data: data
+        })
+    },
   showThree: function (data) {
     console.log("AppActions.showThree: ", data );
       AppDispatcher.handleViewAction({
@@ -51,6 +64,20 @@ showTwo: function (data) {
           data: data
           })
       },
+      removeCampaign: function (data) {
+        console.log("AppActions.hideCampaign: ", data );
+          AppDispatcher.handleViewAction({
+            actionType: AppConstants.CAMPAIGN_REMOVE,
+            data: data
+            })
+        },
+        removeAnalytics: function (data) {
+          console.log("AppActions.hideAnalytcs: ", data );
+            AppDispatcher.handleViewAction({
+              actionType: AppConstants.ANALYTICS_REMOVE,
+              data: data
+              })
+          },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
