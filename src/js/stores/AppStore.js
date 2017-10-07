@@ -13,6 +13,9 @@ var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 //cooper OK, lets get some cool stuff
 var _adUnitVisible = false, _sideBarVisible = true;
 
+// mini screens
+var _searchAppVisible = true; 
+
 // Method to load product data from mock API
 function loadPageData(data) {
 	//console.log("AppStore.loadPageData: ", data.map[0].DSPID );
@@ -54,6 +57,10 @@ function setAdUnitVisible(visible) {
 	_twoVisible = false;
   _oneVisible = false;	
 }
+//mini screens
+function setSearchAppVisible(visible) {
+	_searchAppVisible = true;
+}
 
 function hideAdUnitVisible(visible) {
 	_adUnitVisible = false;
@@ -77,6 +84,13 @@ function hideCampaign(visible) {
 function hideAnalytics(visible) {
 	_threeVisible = false;
 }
+
+// mini screens
+function hideSearchApp(visible) {
+	console.log("close SearchApp");
+	_searchAppVisible = false;
+}
+
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -105,6 +119,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	getSideBarVisible: function () {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _sideBarVisible;
+	},
+	getSearchAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _searchAppVisible;
 	},
 	  // Set cart visibility
 	emitChange: function(){
@@ -176,6 +194,10 @@ AppDispatcher.register(function(payload){
 	case 'ANALYTICS_REMOVE':
 		_visible=false;
 		hideAnalytics(_visible);
+	break;
+	case 'SEARCHAPP_REMOVE':
+		_visible=false;
+		hideSearchApp(_visible);
 	break;
 	}//end switch
 

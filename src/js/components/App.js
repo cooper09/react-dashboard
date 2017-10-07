@@ -19,7 +19,8 @@ function getAppState(){
 		twoVisible: AppStore.getTwoVisible(),
 		threeVisible: AppStore.getThreeVisible(), 
 		adUnitVisible: AppStore.getAdUnitVisible(), 
-		sideBarVisible: AppStore.getSideBarVisible()
+		sideBarVisible: AppStore.getSideBarVisible(),
+		searchAppVisible: AppStore.getSearchAppVisible()
 	}
 }
 
@@ -90,7 +91,7 @@ var App = React.createClass({
 				 <button onClick={this.handleBtnClick} className="btn">Apps</button>
 				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
-				<ComponentOne  visible={this.state.oneVisible} pages={this.state.pages }/>
+				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
 				<AdUnit  visible={this.state.adUnitVisible} pages={this.state.pages }/>

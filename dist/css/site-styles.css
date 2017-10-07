@@ -166,3 +166,17 @@ body {
   bottom: -12em;
   position: relative;
 }
+
+/* line 111, ../sass/partials/_main.sass */
+.miniScrn {
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  background: #eee;
+  padding: 1em;
+  color: #333;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}

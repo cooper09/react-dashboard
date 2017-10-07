@@ -78,6 +78,13 @@ showTwo: function (data) {
               data: data
               })
           },
+          removeSearchApp: function (data) {
+            console.log("AppActions.searchApp: ", data );
+              AppDispatcher.handleViewAction({
+                actionType: AppConstants.SEARCHAPP_REMOVE,
+                data: data
+                })
+            },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({

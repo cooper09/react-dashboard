@@ -1,29 +1,34 @@
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
+var SearchApp = require('./minis/SearchApp.js');
+
 var ComponentOne = React.createClass({
+
+/*	getInitialState: function(){
+        return {
+            searchVisible: 'true'
+        };
+    }, */
 
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("componentOne is off");
-          return false;
+		  return false;
 		}
 
-		
+		alert("Current SearchApp 2: " +  this.props.searchVisible )
+
 		return (
 			<div>
-				<div className='pageTwo'>App Manager
+				<div className='pageTwo'>App Manager O
 					<h3>{this.props.pages.id }</h3>
-					<button onClick={handleBtnSearch.bind(this)} className="btn-hilite" id="btn1">Search Apps</button>
+					<button onClick={handleBtnSearch} className="btn-hilite" id="btn1">Search Apps</button>
 					<button onClick={handleBtnCreate} className="btn" id="btn2">Add Manually</button>
 					<button onClick={handleBtnList} className="btn" id="btn3">Select from Current</button>
-					<form>
-						<label>
-						Search 2:
-						<input type="text" name="name" />
-						</label>
-						<input type="submit" value="Submit" />
-				  	</form>
+					
+					<SearchApp searchMe={this.props.searchVisible} />
+
 					<div className='closeBtn' onClick={ handleCloseClick.bind(this)}><center>Close</center></div>
 				</div>
 			</div>
@@ -58,6 +63,10 @@ var ComponentOne = React.createClass({
 
 			$('#btn3').removeClass("btn-hilite");
 			$('#btn3').addClass("btn");
+
+			//this.props.searchVisible = false;
+			//this.setState({searchVisible:'false'});
+            AppActions.removeSearchApp('Remove search app screen');
 		}
 
 		function handleBtnList (){

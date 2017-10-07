@@ -29235,6 +29235,13 @@ showTwo: function (data) {
               data: data
               })
           },
+          removeSearchApp: function (data) {
+            console.log("AppActions.searchApp: ", data );
+              AppDispatcher.handleViewAction({
+                actionType: AppConstants.SEARCHAPP_REMOVE,
+                data: data
+                })
+            },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -29246,7 +29253,7 @@ loadPages: function (data) {
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":199,"../dispatcher/AppDispatcher":200}],192:[function(require,module,exports){
+},{"../constants/AppConstants":200,"../dispatcher/AppDispatcher":201}],192:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29308,7 +29315,8 @@ function getAppState(){
 		twoVisible: AppStore.getTwoVisible(),
 		threeVisible: AppStore.getThreeVisible(), 
 		adUnitVisible: AppStore.getAdUnitVisible(), 
-		sideBarVisible: AppStore.getSideBarVisible()
+		sideBarVisible: AppStore.getSideBarVisible(),
+		searchAppVisible: AppStore.getSearchAppVisible()
 	}
 }
 
@@ -29379,7 +29387,7 @@ var App = React.createClass({displayName: "App",
 				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
-				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
+				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages}), 
 				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
 				React.createElement(AdUnit, {visible: this.state.adUnitVisible, pages: this.state.pages})
@@ -29396,33 +29404,38 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":191,"../stores/AppStore":202,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
+},{"../actions/AppActions":191,"../stores/AppStore":203,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
+var SearchApp = require('./minis/SearchApp.js');
+
 var ComponentOne = React.createClass({displayName: "ComponentOne",
+
+/*	getInitialState: function(){
+        return {
+            searchVisible: 'true'
+        };
+    }, */
 
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("componentOne is off");
-          return false;
+		  return false;
 		}
 
-		
+		alert("Current SearchApp 2: " +  this.props.searchVisible )
+
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "App Manager", 
+				React.createElement("div", {className: "pageTwo"}, "App Manager O", 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("button", {onClick: handleBtnSearch.bind(this), className: "btn-hilite", id: "btn1"}, "Search Apps"), 
+					React.createElement("button", {onClick: handleBtnSearch, className: "btn-hilite", id: "btn1"}, "Search Apps"), 
 					React.createElement("button", {onClick: handleBtnCreate, className: "btn", id: "btn2"}, "Add Manually"), 
 					React.createElement("button", {onClick: handleBtnList, className: "btn", id: "btn3"}, "Select from Current"), 
-					React.createElement("form", null, 
-						React.createElement("label", null, 
-						"Search 2:", 
-						React.createElement("input", {type: "text", name: "name"})
-						), 
-						React.createElement("input", {type: "submit", value: "Submit"})
-				  	), 
+					
+					React.createElement(SearchApp, {searchMe: this.props.searchVisible}), 
+
 					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
 			)
@@ -29457,6 +29470,10 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 			$('#btn3').removeClass("btn-hilite");
 			$('#btn3').addClass("btn");
+
+			//this.props.searchVisible = false;
+			//this.setState({searchVisible:'false'});
+            AppActions.removeSearchApp('Remove search app screen');
 		}
 
 		function handleBtnList (){
@@ -29489,7 +29506,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 module.exports = ComponentOne;
 
-},{"../actions/AppActions":191,"react":189}],195:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/SearchApp.js":199,"react":189}],195:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29685,6 +29702,42 @@ var SidePanel = React.createClass({displayName: "SidePanel",
 module.exports = SidePanel;
 
 },{"./ListApp.js":197,"react":189}],199:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var SearchApp = React.createClass({displayName: "SearchApp",
+
+    render: function () {
+        alert("SearchApp - searchVisible: " + this.props.searchMe );
+        if (!this.props.searchMe) {
+            console.log("SearchApp is off");
+            return false; 
+        } 
+
+        //console.log("SearchApp visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    React.createElement("form", null, 
+                        React.createElement("label", null, 
+                        "Search for App 2:", 
+                        React.createElement("input", {type: "text", name: "name"})
+                        ), 
+                        React.createElement("input", {type: "submit", value: "Submit"})
+                    )
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = SearchApp;
+
+},{"../../actions/AppActions":191,"react":189}],200:[function(require,module,exports){
 module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
@@ -29703,10 +29756,12 @@ module.exports = {
 	CAMPAIGN_VISIBLE: "CAMPAIGN_VISIBLE",
 	CAMPAIGN_REMOVE: "CAMPAIGN_REMOVE",
 	ANALYTICS_VISIBLE: "ANALYTICS_VISIBLE",
-	ANALYTICS_REMOVE: "ANALYTICS_REMOVE"  
+	ANALYTICS_REMOVE: "ANALYTICS_REMOVE",
+	SEARCHAPP_VISIBLE: "SEARCHAPP_VISIBLE",
+	SEARCHAPP_REMOVE: "SEARCHAPP_REMOVE"    
 }
 
-},{}],200:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -29722,7 +29777,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":54,"object-assign":58}],201:[function(require,module,exports){
+},{"flux":54,"object-assign":58}],202:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -29738,7 +29793,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":190,"./components/App":193,"./utils/appAPI":204,"react":189,"react-dom":60}],202:[function(require,module,exports){
+},{"./PageData":190,"./components/App":193,"./utils/appAPI":205,"react":189,"react-dom":60}],203:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -29753,6 +29808,9 @@ var _pages = [];
 var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 //cooper OK, lets get some cool stuff
 var _adUnitVisible = false, _sideBarVisible = true;
+
+// mini screens
+var _searchAppVisible = true; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -29795,6 +29853,10 @@ function setAdUnitVisible(visible) {
 	_twoVisible = false;
   _oneVisible = false;	
 }
+//mini screens
+function setSearchAppVisible(visible) {
+	_searchAppVisible = true;
+}
 
 function hideAdUnitVisible(visible) {
 	_adUnitVisible = false;
@@ -29818,6 +29880,13 @@ function hideCampaign(visible) {
 function hideAnalytics(visible) {
 	_threeVisible = false;
 }
+
+// mini screens
+function hideSearchApp(visible) {
+	console.log("close SearchApp");
+	_searchAppVisible = false;
+}
+
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -29846,6 +29915,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	getSideBarVisible: function () {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _sideBarVisible;
+	},
+	getSearchAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _searchAppVisible;
 	},
 	  // Set cart visibility
 	emitChange: function(){
@@ -29918,6 +29991,10 @@ AppDispatcher.register(function(payload){
 		_visible=false;
 		hideAnalytics(_visible);
 	break;
+	case 'SEARCHAPP_REMOVE':
+		_visible=false;
+		hideSearchApp(_visible);
+	break;
 	}//end switch
 
 	AppStore.emitChange();
@@ -29926,7 +30003,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":199,"../dispatcher/AppDispatcher":200,"../utils/AppAPI.js":203,"events":26,"object-assign":58}],203:[function(require,module,exports){
+},{"../constants/AppConstants":200,"../dispatcher/AppDispatcher":201,"../utils/AppAPI.js":204,"events":26,"object-assign":58}],204:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -29954,7 +30031,7 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}],204:[function(require,module,exports){
+},{"../actions/AppActions":191,"axios":1}],205:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -29982,4 +30059,4 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}]},{},[201]);
+},{"../actions/AppActions":191,"axios":1}]},{},[202]);
