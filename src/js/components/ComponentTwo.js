@@ -10,7 +10,7 @@ var ComponentTwo = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo'>Server-To-Server Fields Goes here..
+				<div className='pageTwo'>Campaign Manager
 					<h3>{this.props.pages.id }</h3>
 				</div>
 			</div>

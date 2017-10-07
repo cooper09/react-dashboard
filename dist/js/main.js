@@ -29166,7 +29166,6 @@ myEvent: function (data) {
       data: data
     	})
 	},
-
 showTwo: function (data) {
 	console.log("AppActions.showTwo: ", data );
     AppDispatcher.handleViewAction({
@@ -29174,14 +29173,41 @@ showTwo: function (data) {
       data: data
     	})
   },
-  
   showThree: function (data) {
     console.log("AppActions.showThree: ", data );
       AppDispatcher.handleViewAction({
         actionType: AppConstants.THREE_VISIBLE,
         data: data
         })
-    },
+    },    
+    showAdUnit: function (data) {
+      console.log("AppActions.showAdUnit: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.ADUNIT_VISIBLE,
+          data: data
+          })
+      },
+      removeAdUnit: function (data) {
+        console.log("AppActions.removeAdUnit: ", data );
+          AppDispatcher.handleViewAction({
+            actionType: AppConstants.ADUNIT_REMOVE,
+            data: data
+            })
+        },
+        showSideBar: function (data) {
+          console.log("AppActions.showSideBar: ", data );
+            AppDispatcher.handleViewAction({
+              actionType: AppConstants.SIDEBAR_VISIBLE,
+              data: data
+              })
+          },
+    hideSideBar: function (data) {
+      console.log("AppActions.hideSideBar: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.SIDEBAR_REMOVE,
+          data: data
+          })
+      },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -29193,7 +29219,44 @@ loadPages: function (data) {
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":198,"../dispatcher/AppDispatcher":199}],192:[function(require,module,exports){
+},{"../constants/AppConstants":199,"../dispatcher/AppDispatcher":200}],192:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../actions/AppActions');
+
+var AdUnit = React.createClass({displayName: "AdUnit",
+
+	render: function() {
+		 if (!this.props.visible) {
+		 	console.log("componentOne is off");
+          return false;
+		}
+		
+		return (
+			React.createElement("div", null, 
+				React.createElement("div", {className: "pageOne"}, "Ad Unit goes here...", 
+					React.createElement("h3", null, this.props.pages.id), 
+                    React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+				)
+			)
+			);
+        
+        function handleItemClick (){
+            // close up shop and check to see if we're on mobile
+
+            AppActions.removeAdUnit('Hide AdUnit');
+
+                if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
+            }//end handleItemClick
+        
+            
+	}//end render
+});//end AdUnit
+
+module.exports = AdUnit;
+
+},{"../actions/AppActions":191,"react":189}],193:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var AppStore = require('../stores/AppStore');
@@ -29203,6 +29266,8 @@ var SidePanel = require('./SidePanel.js');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 var ComponentThree = require('./ComponentThree.js');
+// Now lets get down to business
+var AdUnit = require('./AdUnit.js');
 
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
@@ -29211,7 +29276,9 @@ function getAppState(){
 		pages: AppStore.getPages(),
 		oneVisible: AppStore.getOneVisible(),
 		twoVisible: AppStore.getTwoVisible(),
-		threeVisible: AppStore.getThreeVisible()
+		threeVisible: AppStore.getThreeVisible(), 
+		adUnitVisible: AppStore.getAdUnitVisible(), 
+		sideBarVisible: AppStore.getSideBarVisible()
 	}
 }
 
@@ -29266,16 +29333,17 @@ var App = React.createClass({displayName: "App",
 				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdXchange"), 
 				 
 				 React.createElement("div", {className: "sidePanel"}, 
-				"All Apps", 
-				React.createElement("br", null), React.createElement("br", null), React.createElement("br", null), React.createElement("br", null), 
-				React.createElement(SidePanel, {apps: listOfApps, numItems: num})
+				"Current Apps:", 
+				React.createElement("br", null), React.createElement("br", null), 
+				React.createElement(SidePanel, {apps: listOfApps, numItems: num, visible: this.state.sideBarVisible})
 				 ), 
-				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "RTB Auction"), 
-				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Server To Server"), 
-				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Ad Tag"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps"), 
+				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
+				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages}), 
-				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages})
+				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
+				React.createElement(AdUnit, {visible: this.state.adUnitVisible, pages: this.state.pages})
 			)
 		);
 	},
@@ -29289,7 +29357,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":191,"../stores/AppStore":201,"./ComponentOne.js":193,"./ComponentThree.js":194,"./ComponentTwo.js":195,"./SidePanel.js":197,"react":189}],193:[function(require,module,exports){
+},{"../actions/AppActions":191,"../stores/AppStore":202,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
 var React = require('react');
 
 var ComponentOne = React.createClass({displayName: "ComponentOne",
@@ -29302,7 +29370,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageOne"}, "RTB Fields Go here..", 
+				React.createElement("div", {className: "pageOne"}, "App Manager", 
 					React.createElement("h3", null, this.props.pages.id)
 				)
 			)
@@ -29313,7 +29381,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 module.exports = ComponentOne;
 
-},{"react":189}],194:[function(require,module,exports){
+},{"react":189}],195:[function(require,module,exports){
 var React = require('react');
 
 var ComponentThree = React.createClass({displayName: "ComponentThree",
@@ -29326,7 +29394,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageOne"}, "Add your adtag..", 
+				React.createElement("div", {className: "pageOne"}, "Analytics/Dashboard..", 
 					React.createElement("h3", null, this.props.pages.id)
 				)
 			)
@@ -29336,7 +29404,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 
 module.exports = ComponentThree;
 
-},{"react":189}],195:[function(require,module,exports){
+},{"react":189}],196:[function(require,module,exports){
 var React = require('react');
 
 var ComponentTwo = React.createClass({displayName: "ComponentTwo",
@@ -29349,7 +29417,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Server-To-Server Fields Goes here..", 
+				React.createElement("div", {className: "pageTwo"}, "Campaign Manager", 
 					React.createElement("h3", null, this.props.pages.id)
 				)
 			)
@@ -29359,8 +29427,10 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 module.exports = ComponentTwo;
 
-},{"react":189}],196:[function(require,module,exports){
+},{"react":189}],197:[function(require,module,exports){
 var React = require('react');
+
+var AppActions = require('../actions/AppActions');
 
 var Gsap = require('gsap');
 //var TweenMax = Gsap.TweenMax;
@@ -29412,8 +29482,8 @@ var ListApp = React.createClass({displayName: "ListApp",
 
 			function handleItemClick (){
 			//cooper s - use jquery to open/close each items content....
-
-				var myItem = $('.content'+ this.props.num );
+                alert("screen.height: "+ screen.height +" screen width: " + screen.width );
+			/*	var myItem = $('.content'+ this.props.num );
 				
 				if ( open === false ) {
 					//TweenMax.to( myItem, 1, { height: 100 });
@@ -29421,9 +29491,18 @@ var ListApp = React.createClass({displayName: "ListApp",
 				} else {
 					//TweenMax.to( myItem, 1, { height: 35 });
 					open = false;
-				}
+				} */
 
-			}
+				console.log("ListApp - screen.height: ",  screen.height );
+				console.log("ListApp - screen.width: ", screen.width );
+
+				AppActions.showAdUnit('Selected APP');
+				if (screen.width <= 732 ) {
+					alert("Do some funky responsive shit");
+					AppActions.hideSideBar('Hide Sidebar');
+				}
+				
+			}//end handleItemClick
 	}//end render
 
 
@@ -29431,7 +29510,7 @@ var ListApp = React.createClass({displayName: "ListApp",
 
 module.exports = ListApp;
 
-},{"gsap":57,"react":189}],197:[function(require,module,exports){
+},{"../actions/AppActions":191,"gsap":57,"react":189}],198:[function(require,module,exports){
 var React = require('react');
 
 var ListApp = require('./ListApp.js');
@@ -29439,8 +29518,13 @@ var ListApp = require('./ListApp.js');
 var SidePanel = React.createClass({displayName: "SidePanel",
 
 	render: function() {
+		    ///alert("SidePanel - visible property: ", this.props.visible );
+			if (!this.props.visible) {
+				console.log("SideBar is off");
+			 return false;
+		   }
 		
-				console.log("list of apps: ", this.props.apps);
+	console.log("list of apps: ", this.props.apps);
 				var items = this.props.apps;
 				var num = 0;
 				
@@ -29458,19 +29542,19 @@ var SidePanel = React.createClass({displayName: "SidePanel",
 					function handleItemClick (){
 						var myItem = document.getElementsByClassName('item');
 		
-					/*	console.log("Component One's Clickhandler: ", myItem[0].style.background='aqua'  );
+						alert("SidePAnel.handleItemClick - show SidePanel: ");
 		
 						console.log('The magic element: ', myItem[0]);
 						TweenMax.to( myItem[0], 1, { opacity:0, scale:0.5 });
-						//TweenMax.staggerTo(myItem[0], 1, {y:0, opacity:0, scale:0.5}, 0.1); */
+						//TweenMax.staggerTo(myItem[0], 1, {y:0, opacity:0, scale:0.5}, 0.1); 
 		
-					}
+					} 
 			}//end render
 });//end SidePanel
 
 module.exports = SidePanel;
 
-},{"./ListApp.js":196,"react":189}],198:[function(require,module,exports){
+},{"./ListApp.js":197,"react":189}],199:[function(require,module,exports){
 module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
@@ -29479,10 +29563,14 @@ module.exports = {
   	TWO_VISIBLE: "TWO_VISIBLE",
 	TWO_REMOVE: "TWO_REMOVE",
 	THREE_VISIBLE: "THREE_VISIBLE",
-	THREE_REMOVE: "THREE_REMOVE"  
+	THREE_REMOVE: "THREE_REMOVE",
+	ADUNIT_VISIBLE: "ADUNIT_VISIBLE",
+	ADUNIT_REMOVE: "ADUNIT_REMOVE",
+	SIDEBAR_VISIBLE: "SIDEBAR_VISIBLE",
+	SIDEBAR_REMOVE: "SIDEBAR_REMOVE"    
 }
 
-},{}],199:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -29498,7 +29586,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":54,"object-assign":58}],200:[function(require,module,exports){
+},{"flux":54,"object-assign":58}],201:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -29514,7 +29602,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":190,"./components/App":192,"./utils/appAPI":203,"react":189,"react-dom":60}],201:[function(require,module,exports){
+},{"./PageData":190,"./components/App":193,"./utils/appAPI":204,"react":189,"react-dom":60}],202:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -29527,17 +29615,14 @@ var CHANGE_EVENT = 'change';
 var _pages = [];
 
 var _oneVisible = false, _twoVisible = false, _threeVisible = false;
+//cooper OK, lets get some cool stuff
+var _adUnitVisible = false, _sideBarVisible = true;
 
 // Method to load product data from mock API
 function loadPageData(data) {
 	//console.log("AppStore.loadPageData: ", data.map[0].DSPID );
 
-	console.log("AppStore.loadPageData: ", data );
-
-	/*	for (i=0 ; i < data.map.length ; i++ ) {
-				console.log("AppStore - our DSP map: ", data.map[i].DSPID );
-				_pages.push(data.map[i].DSPID); 
-			} */
+	///console.log("AppStore.loadPageData: ", data );
   _pages = data; //data.map;
   console.log("AppStore.loadPageData: ", _pages );
 }
@@ -29547,19 +29632,45 @@ function setOneVisible(visible) {
   _oneVisible = true;
 	_twoVisible = false;
 	_threeVisible = false;
+	_adUnitVisible = false;
 }
 
 function setTwoVisible(visible) {
   _twoVisible = true;
 	_oneVisible = false;
 	_threeVisible = false;
+	_adUnitVisible = false;
 }
 
 function setThreeVisible(visible) {
 	_threeVisible = true;
 	_twoVisible = false;
+	_oneVisible = false;
+	_adUnitVisible = false;	
+}
+
+function setAdUnitVisible(visible) {
+	_adUnitVisible = true;
+	_threeVisible = false;
+	_twoVisible = false;
   _oneVisible = false;	
 }
+
+function hideAdUnitVisible(visible) {
+	_adUnitVisible = false;
+	_threeVisible = false;
+	_twoVisible = false;
+  _oneVisible = false;	
+}
+
+function hideSideBarVisible(visible) {
+	_sideBarVisible = false;
+}
+
+function setSideBarVisible(visible) {
+		_sideBarVisible = true;
+		_adUnitVisible = false;
+}//end setSideBarVisible
 
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
@@ -29567,16 +29678,28 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	  },
 	  // Return cart visibility state
 	getOneVisible: function () {
-		console.log('AppStore.getOneVisible: ' + _oneVisible );
+		//console.log('AppStore.getOneVisible: ' + _oneVisible );
 		return _oneVisible;
 	},
 	getTwoVisible: function () {
-		console.log('AppStore.getTwoVisible: ' + _twoVisible );
+		//console.log('AppStore.getTwoVisible: ' + _twoVisible );
 		return _twoVisible;
 	},
 	getThreeVisible: function () {
-		console.log('AppStore.getThreeVisible: ' + _threeVisible );
+		//console.log('AppStore.getThreeVisible: ' + _threeVisible );
 		return _threeVisible;
+	},
+	getAdUnitVisible: function () {
+		//console.log('AppStore.adUnitVisible: ' + _adUnitVisible );
+		return _adUnitVisible;
+	},
+	getCampaignVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _campaignVisible;
+	},
+	getSideBarVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _sideBarVisible;
 	},
 	  // Set cart visibility
 	emitChange: function(){
@@ -29593,7 +29716,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(payload){
 	var action = payload.action;
 
-	console.log("AppDispatcher: ", action.actionType );
+	console.log("AppStore - AppDispatcher: ", action.actionType );
 	switch(action.actionType){
 
 		// Respond to RECEIVE_DATA action
@@ -29616,8 +29739,27 @@ AppDispatcher.register(function(payload){
 	  	  console.log("Show page three: ", payload );
 	      _visible=true;
 	      setThreeVisible(_visible);
-	 	break
-
+		 break;
+		 case 'ADUNIT_VISIBLE':
+				console.log("Show AdUnits ", payload );
+				_visible=true;
+				setAdUnitVisible(_visible);
+			break;
+			case 'ADUNIT_REMOVE':
+			console.log("Hide AdUnits ", payload );
+			_visible=false;
+			hideAdUnitVisible(_visible);
+		break;
+		case 'SIDEBAR_VISIBLE':
+		console.log("Show SideBar ", payload );
+		_visible=true;
+		setSideBarVisible(_visible);
+	break;
+		case 'SIDEBAR_REMOVE':
+			console.log("Remove App Sidebar (mobile only): ", payload );
+			_visible=false;
+			hideSideBarVisible(_visible);
+		break;
 
 	}//end switch
 
@@ -29627,7 +29769,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":198,"../dispatcher/AppDispatcher":199,"../utils/AppAPI.js":202,"events":26,"object-assign":58}],202:[function(require,module,exports){
+},{"../constants/AppConstants":199,"../dispatcher/AppDispatcher":200,"../utils/AppAPI.js":203,"events":26,"object-assign":58}],203:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -29639,23 +29781,11 @@ module.exports = {
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
 	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	//axios.get('http://digitest-authorize.rhcloud.com/ad')
-		axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
+	axios.get('https://tyrionapi.herokuapp.com')
+	//	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
 	  .then(function(response){
 	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
-	    console.log(response.status); // ex.: 200
-
-			//Lets taka good look at our data:
-
-			console.log("appAPI - our id: ", response.data );
-
-			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
-			}
-
-			const numbers = response.data;
-
-			console.log("Numbers: ", numbers );
+	  
 
 	    var data = response.data;
     	AppActions.loadPages(data);
@@ -29667,7 +29797,7 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}],203:[function(require,module,exports){
+},{"../actions/AppActions":191,"axios":1}],204:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -29679,23 +29809,11 @@ module.exports = {
   	// Performing a GET request
 	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
 	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	//axios.get('http://digitest-authorize.rhcloud.com/ad')
-		axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
+	axios.get('https://tyrionapi.herokuapp.com')
+	//	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
 	  .then(function(response){
 	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
-	    console.log(response.status); // ex.: 200
-
-			//Lets taka good look at our data:
-
-			console.log("appAPI - our id: ", response.data );
-
-			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
-			}
-
-			const numbers = response.data;
-
-			console.log("Numbers: ", numbers );
+	  
 
 	    var data = response.data;
     	AppActions.loadPages(data);
@@ -29707,4 +29825,4 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}]},{},[200]);
+},{"../actions/AppActions":191,"axios":1}]},{},[201]);

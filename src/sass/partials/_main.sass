@@ -78,9 +78,17 @@ body
   color: #ccc
   cursor: pointer
 
-  
 .sidePanel
   +span-columns(4)
   padding: 1em
   +at-breakpoint($phone)
     +span-columns(12)
+
+.closeBtn
+  cursor: pointer
+  background: red
+  height: 2em
+  padding: 0.5em
+  width: 100%
+  bottom: -15em
+  position: relative

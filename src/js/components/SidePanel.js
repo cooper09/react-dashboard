@@ -5,8 +5,13 @@ var ListApp = require('./ListApp.js');
 var SidePanel = React.createClass({
 
 	render: function() {
+		    ///alert("SidePanel - visible property: ", this.props.visible );
+			if (!this.props.visible) {
+				console.log("SideBar is off");
+			 return false;
+		   }
 		
-				console.log("list of apps: ", this.props.apps);
+	console.log("list of apps: ", this.props.apps);
 				var items = this.props.apps;
 				var num = 0;
 				
@@ -24,13 +29,13 @@ var SidePanel = React.createClass({
 					function handleItemClick (){
 						var myItem = document.getElementsByClassName('item');
 		
-					/*	console.log("Component One's Clickhandler: ", myItem[0].style.background='aqua'  );
+						alert("SidePAnel.handleItemClick - show SidePanel: ");
 		
 						console.log('The magic element: ', myItem[0]);
 						TweenMax.to( myItem[0], 1, { opacity:0, scale:0.5 });
-						//TweenMax.staggerTo(myItem[0], 1, {y:0, opacity:0, scale:0.5}, 0.1); */
+						//TweenMax.staggerTo(myItem[0], 1, {y:0, opacity:0, scale:0.5}, 0.1); 
 		
-					}
+					} 
 			}//end render
 });//end SidePanel
 

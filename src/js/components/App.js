@@ -7,6 +7,8 @@ var SidePanel = require('./SidePanel.js');
 var ComponentOne = require('./ComponentOne.js');
 var ComponentTwo = require('./ComponentTwo.js');
 var ComponentThree = require('./ComponentThree.js');
+// Now lets get down to business
+var AdUnit = require('./AdUnit.js');
 
 function getAppState(){
 	console.log("App.getAppState: ", AppStore.getOneVisible());
@@ -15,7 +17,9 @@ function getAppState(){
 		pages: AppStore.getPages(),
 		oneVisible: AppStore.getOneVisible(),
 		twoVisible: AppStore.getTwoVisible(),
-		threeVisible: AppStore.getThreeVisible()
+		threeVisible: AppStore.getThreeVisible(), 
+		adUnitVisible: AppStore.getAdUnitVisible(), 
+		sideBarVisible: AppStore.getSideBarVisible()
 	}
 }
 
@@ -70,16 +74,17 @@ var App = React.createClass({
 				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdXchange</p>
 				 
 				 <div className="sidePanel">
-				All Apps
-				<br/><br/><br/><br/>
-				<SidePanel apps={listOfApps} numItems={num}/>
+				Current Apps:
+				<br/><br/>
+				<SidePanel apps={listOfApps} numItems={num} visible={this.state.sideBarVisible}/>
 				 </div>
-				 <button onClick={this.handleBtnClick} className="btn">RTB Auction</button>
-				 <button onClick={this.handleBtnClick2} className="btn">Server To Server</button>
-				 <button onClick={this.handleBtnClick3} className="btn">Ad Tag</button>
+				 <button onClick={this.handleBtnClick} className="btn">Apps</button>
+				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
+				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
 				<ComponentOne  visible={this.state.oneVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
+				<AdUnit  visible={this.state.adUnitVisible} pages={this.state.pages }/>
 			</div>
 		);
 	},

@@ -1,5 +1,7 @@
 var React = require('react');
 
+var AppActions = require('../actions/AppActions');
+
 var Gsap = require('gsap');
 //var TweenMax = Gsap.TweenMax;
 
@@ -50,8 +52,8 @@ var ListApp = React.createClass({
 
 			function handleItemClick (){
 			//cooper s - use jquery to open/close each items content....
-
-				var myItem = $('.content'+ this.props.num );
+                alert("screen.height: "+ screen.height +" screen width: " + screen.width );
+			/*	var myItem = $('.content'+ this.props.num );
 				
 				if ( open === false ) {
 					//TweenMax.to( myItem, 1, { height: 100 });
@@ -59,9 +61,18 @@ var ListApp = React.createClass({
 				} else {
 					//TweenMax.to( myItem, 1, { height: 35 });
 					open = false;
-				}
+				} */
 
-			}
+				console.log("ListApp - screen.height: ",  screen.height );
+				console.log("ListApp - screen.width: ", screen.width );
+
+				AppActions.showAdUnit('Selected APP');
+				if (screen.width <= 732 ) {
+					alert("Do some funky responsive shit");
+					AppActions.hideSideBar('Hide Sidebar');
+				}
+				
+			}//end handleItemClick
 	}//end render
 
 
