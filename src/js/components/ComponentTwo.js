@@ -16,7 +16,7 @@ var ComponentTwo = React.createClass({
 					<button onClick={this.handleBtnSearch} className="btn">List Campaigns</button>
 					<button onClick={this.handleBtnCreate} className="btn">Create Campaign</button>
 					<button onClick={this.handleBtnInterstitial} className="btn">Delete Campaign</button>
-					<div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>										
+					<div className='closeBtn' onClick={ handleItemClick.bind(this)}><center>Close</center></div>										
 				</div>
 			</div>
 			);
@@ -24,8 +24,6 @@ var ComponentTwo = React.createClass({
 		
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
-	
-				//AppActions.removeCampaign('Hide Campaign Page');
 				AppActions.removeApp('Hide App Page');
 
 				if (screen.width <= 732 ) {

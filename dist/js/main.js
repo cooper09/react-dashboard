@@ -29262,7 +29262,7 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageTwo"}, "Ad Unit goes here...", 
 					React.createElement("h3", null, this.props.pages.id), 
-                    React.createElement("button", {onClick: this.handleBtnBanner, className: "btn"}, "Banner"), 
+                    React.createElement("button", {onClick: this.handleBtnBanner, className: "btn-lite"}, "Banner"), 
 					React.createElement("button", {onClick: this.handleBtnVideo, className: "btn"}, "Video"), 
 					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Interstitial"), 
                     React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
@@ -29407,31 +29407,77 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		 	console.log("componentOne is off");
           return false;
 		}
+
 		
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageTwo"}, "App Manager", 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn"}, "Search Apps"), 
-					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn"}, "Add Manually"), 
-					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Select from Current"), 
+					React.createElement("button", {onClick: handleBtnSearch.bind(this), className: "btn-hilite", id: "btn1"}, "Search Apps"), 
+					React.createElement("button", {onClick: handleBtnCreate, className: "btn", id: "btn2"}, "Add Manually"), 
+					React.createElement("button", {onClick: handleBtnList, className: "btn", id: "btn3"}, "Select from Current"), 
 					React.createElement("form", null, 
 						React.createElement("label", null, 
-						"Name:", 
+						"Search 2:", 
 						React.createElement("input", {type: "text", name: "name"})
 						), 
 						React.createElement("input", {type: "submit", value: "Submit"})
 				  	), 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
 			)
 			);
 
-			function handleItemClick (){
+		// button handlers - a rare breed
+
+		function handleBtnSearch (){
+			console.log("ComponentOne.handleBtn Search - Search Apps: ");
+
+			$('#btn1').removeClass("btn");
+			$('#btn1').addClass("btn-hilite");
+
+			$('#btn2').removeClass("btn-hilite");
+			$('#btn2').addClass("btn");
+
+			$('#btn3').removeClass("btn-hilite");
+			$('#btn3').addClass("btn");
+		}
+
+		function handleBtnCreate (){
+			console.log("ComponentOne.handleBtn Create - Create Apps");
+
+			//$('#btn1').removeClass("btn-hilite");
+			//$('#btn1').addClass("btn")
+
+			$('#btn2').removeClass("btn");
+			$('#btn2').addClass("btn-hilite");
+
+			$('#btn1').removeClass("btn-hilite");
+			$('#btn1').addClass("btn");
+
+			$('#btn3').removeClass("btn-hilite");
+			$('#btn3').addClass("btn");
+		}
+
+		function handleBtnList (){
+			console.log("ComponentOne.handleBtn List - List Apps");
+
+			$('#btn3').removeClass("btn");
+			$('#btn3').addClass("btn-hilite");
+
+			$('#btn1').removeClass("btn-hilite");
+			$('#btn1').addClass("btn");
+
+			$('#btn2').removeClass("btn-hilite");
+			$('#btn2').addClass("btn");
+		}
+
+		// 	cooper - handle item click is just used for close 			
+			function handleCloseClick (){
 				// close up shop and check to see if we're on mobile
 	
 				AppActions.removeApp('Hide App Page');
-	// SideBar is hidden on mobile 			
+			// SideBar is hidden on mobile 			
 				if (screen.width <= 732 ) {
                     AppActions.showSideBar('Show Sidebar');
                 }//end if
@@ -29459,7 +29505,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageOne"}, "Analytics/Dashboard..", 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
 			)
 			);	
@@ -29499,7 +29545,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn"}, "List Campaigns"), 
 					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn"}, "Create Campaign"), 
 					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Delete Campaign"), 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")										
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))										
 				)
 			)
 			);
@@ -29507,8 +29553,6 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 		
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
-	
-				//AppActions.removeCampaign('Hide Campaign Page');
 				AppActions.removeApp('Hide App Page');
 
 				if (screen.width <= 732 ) {

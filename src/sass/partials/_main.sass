@@ -14,7 +14,7 @@ body
 
 .pageOne 
   +span-columns(8)
-  height: 320px
+  height: 360px
   background: #333
   padding: 1em
   color: #ccc
@@ -47,6 +47,7 @@ body
   box-shadow: 0 0 5px rgba(0, 0, 0, .5)
   +at-breakpoint($phone)
     +span-columns(12)
+    height: 420px
 
 // Dashboard styles
 .header-font
@@ -82,6 +83,13 @@ body
   color: #ccc
   cursor: pointer
 
+.btn-hilite
+  background: #333
+  padding: 0.5em
+  font-size: 1em
+  color: #ccc
+  cursor: pointer
+
 .sidePanel
   +span-columns(4)
   padding: 1em
@@ -89,10 +97,14 @@ body
     +span-columns(12)
 
 .closeBtn
+  background: #c72a35
+  padding: 0.5em
+  font-size: 1em
+  color: #ccc
   cursor: pointer
-  background: red
-  height: 2em
+  //height: 2em
   padding: 0.5em
   width: 100%
   bottom: -12em
   position: relative
+  
