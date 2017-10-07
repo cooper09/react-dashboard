@@ -23,6 +23,10 @@ var ComponentThree = React.createClass({
 
 				AppActions.removeAnalytics('Hide Analytics Page');
 
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
+
 			}//end handleItemClick
 	}//end render
 

@@ -25,7 +25,12 @@ var ComponentTwo = React.createClass({
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 	
-				AppActions.removeCampaign('Hide Campaign Page');
+				//AppActions.removeCampaign('Hide Campaign Page');
+				AppActions.removeApp('Hide App Page');
+
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
 	
 			}//end handleItemClick
 	}//end render

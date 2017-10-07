@@ -32,6 +32,10 @@ var ComponentOne = React.createClass({
 				// close up shop and check to see if we're on mobile
 	
 				AppActions.removeApp('Hide App Page');
+	// SideBar is hidden on mobile 			
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
 	
 			}//end handleItemClick
 		

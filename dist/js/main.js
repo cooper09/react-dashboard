@@ -29328,15 +29328,24 @@ var App = React.createClass({displayName: "App",
 	},
 	handleBtnClick: function() {
       console.log('APP - Handle my button click 1 ');
-      AppActions.myEvent('Button One click');
+	  AppActions.myEvent('Button One click');
+	  if (screen.width <= 732 ) {
+		  AppActions.hideSideBar('Hide Sidebar');
+	  }
     },
     handleBtnClick2: function() {
       console.log('APP - Handle my button click 2 ');
-      AppActions.showTwo('Button Two click');
+	  AppActions.showTwo('Button Two click');
+	  if (screen.width <= 732 ) {
+		AppActions.hideSideBar('Hide Sidebar');
+	  }
 	},
 	handleBtnClick3: function() {
 		console.log('APP - Handle my button click 3');
 		AppActions.showThree('Button Three click');
+		if (screen.width <= 732 ) {
+			AppActions.hideSideBar('Hide Sidebar');
+		}
 	  },
 	render: function(){
 		
@@ -29422,6 +29431,10 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 				// close up shop and check to see if we're on mobile
 	
 				AppActions.removeApp('Hide App Page');
+	// SideBar is hidden on mobile 			
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
 	
 			}//end handleItemClick
 		
@@ -29455,6 +29468,10 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 				// close up shop and check to see if we're on mobile
 
 				AppActions.removeAnalytics('Hide Analytics Page');
+
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
 
 			}//end handleItemClick
 	}//end render
@@ -29491,7 +29508,12 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 	
-				AppActions.removeCampaign('Hide Campaign Page');
+				//AppActions.removeCampaign('Hide Campaign Page');
+				AppActions.removeApp('Hide App Page');
+
+				if (screen.width <= 732 ) {
+                    AppActions.showSideBar('Show Sidebar');
+                }//end if
 	
 			}//end handleItemClick
 	}//end render
@@ -29623,7 +29645,7 @@ module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
 	ONE_VISIBLE: "ONE_VISIBLE",
-	  ONE_REMOVE: "ONE_REMOVE",
+	ONE_REMOVE: "ONE_REMOVE",
   	TWO_VISIBLE: "TWO_VISIBLE",
 	TWO_REMOVE: "TWO_REMOVE",
 	THREE_VISIBLE: "THREE_VISIBLE",
@@ -29637,7 +29659,7 @@ module.exports = {
 	CAMPAIGN_VISIBLE: "CAMPAIGN_VISIBLE",
 	CAMPAIGN_REMOVE: "CAMPAIGN_REMOVE",
 	ANALYTICS_VISIBLE: "ANALYTICS_VISIBLE",
-	ANALYTICS_REMOVE: "ANALYTICS_REMOVE",  
+	ANALYTICS_REMOVE: "ANALYTICS_REMOVE"  
 }
 
 },{}],200:[function(require,module,exports){

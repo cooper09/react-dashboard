@@ -39,15 +39,24 @@ var App = React.createClass({
 	},
 	handleBtnClick: function() {
       console.log('APP - Handle my button click 1 ');
-      AppActions.myEvent('Button One click');
+	  AppActions.myEvent('Button One click');
+	  if (screen.width <= 732 ) {
+		  AppActions.hideSideBar('Hide Sidebar');
+	  }
     },
     handleBtnClick2: function() {
       console.log('APP - Handle my button click 2 ');
-      AppActions.showTwo('Button Two click');
+	  AppActions.showTwo('Button Two click');
+	  if (screen.width <= 732 ) {
+		AppActions.hideSideBar('Hide Sidebar');
+	  }
 	},
 	handleBtnClick3: function() {
 		console.log('APP - Handle my button click 3');
 		AppActions.showThree('Button Three click');
+		if (screen.width <= 732 ) {
+			AppActions.hideSideBar('Hide Sidebar');
+		}
 	  },
 	render: function(){
 		
