@@ -2,6 +2,8 @@ var React = require('react');
 var AppActions = require('../actions/AppActions');
 
 var SearchApp = require('./minis/SearchApp.js');
+var CreateApp = require('./minis/CreateApp.js');
+var ListApp = require('./minis/ListApp.js');
 
 var ComponentOne = React.createClass({
 
@@ -17,17 +19,19 @@ var ComponentOne = React.createClass({
 		  return false;
 		}
 
-		alert("Current SearchApp 2: " +  this.props.searchVisible )
+		//alert("ComponentOne - Current SearchApp: " +  this.props.searchVisible );
 
 		return (
 			<div>
-				<div className='pageTwo'>App Manager O
+				<div className='pageTwo'>App Manager 3
 					<h3>{this.props.pages.id }</h3>
 					<button onClick={handleBtnSearch} className="btn-hilite" id="btn1">Search Apps</button>
 					<button onClick={handleBtnCreate} className="btn" id="btn2">Add Manually</button>
 					<button onClick={handleBtnList} className="btn" id="btn3">Select from Current</button>
 					
 					<SearchApp searchMe={this.props.searchVisible} />
+					<CreateApp searchMe={this.props.createVisible} />
+					<ListApp searchMe={this.props.listVisible} />
 
 					<div className='closeBtn' onClick={ handleCloseClick.bind(this)}><center>Close</center></div>
 				</div>
@@ -47,7 +51,12 @@ var ComponentOne = React.createClass({
 
 			$('#btn3').removeClass("btn-hilite");
 			$('#btn3').addClass("btn");
-		}
+
+			AppActions.showSearchApp('Show Search app screen');
+			AppActions.removeCreateApp('Remove create app screen');
+			AppActions.removeListApp('Remove list app screen');
+
+		}//end handleBtnSearch
 
 		function handleBtnCreate (){
 			console.log("ComponentOne.handleBtn Create - Create Apps");
@@ -66,8 +75,11 @@ var ComponentOne = React.createClass({
 
 			//this.props.searchVisible = false;
 			//this.setState({searchVisible:'false'});
-            AppActions.removeSearchApp('Remove search app screen');
-		}
+
+			AppActions.showCreateApp('Show create app screen');
+			AppActions.removeSearchApp('Remove search app screen');
+			AppActions.removeListApp('Remove list app screen');
+		}//end handleBtnCreate
 
 		function handleBtnList (){
 			console.log("ComponentOne.handleBtn List - List Apps");
@@ -80,7 +92,11 @@ var ComponentOne = React.createClass({
 
 			$('#btn2').removeClass("btn-hilite");
 			$('#btn2').addClass("btn");
-		}
+
+			AppActions.showListApp('Show List App');
+			AppActions.removeSearchApp('Remove search app screen');
+			AppActions.removeCreateApp('Create create app screen');
+		}// end handleBtnList
 
 		// 	cooper - handle item click is just used for close 			
 			function handleCloseClick (){

@@ -20,7 +20,11 @@ function getAppState(){
 		threeVisible: AppStore.getThreeVisible(), 
 		adUnitVisible: AppStore.getAdUnitVisible(), 
 		sideBarVisible: AppStore.getSideBarVisible(),
-		searchAppVisible: AppStore.getSearchAppVisible()
+		searchAppVisible: AppStore.getSearchAppVisible(),
+		createAppVisible: AppStore.getCreateAppVisible(),
+		listAppVisible: AppStore.getListAppVisible(),
+		listCampaignVisible: AppStore.getListCampaignVisible(),
+		createCampaignVisible: AppStore.getCreateCampaignVisible()
 	}
 }
 
@@ -82,7 +86,6 @@ var App = React.createClass({
 		return(
 			<div>
 				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdXchange</p>
-				 
 				 <div className="sidePanel">
 				Current Apps:
 				<br/><br/>
@@ -91,8 +94,8 @@ var App = React.createClass({
 				 <button onClick={this.handleBtnClick} className="btn">Apps</button>
 				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
-				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} pages={this.state.pages }/>
-				<ComponentTwo  visible={this.state.twoVisible} pages={this.state.pages }/>
+				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} createVisible={this.state.createAppVisible} listVisible={this.state.listAppVisible} pages={this.state.pages }/>
+				<ComponentTwo  visible={this.state.twoVisible} listCampaignVisible={this.state.listCampaignVisible} pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
 				<AdUnit  visible={this.state.adUnitVisible} pages={this.state.pages }/>
 			</div>

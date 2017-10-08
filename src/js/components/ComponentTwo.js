@@ -1,27 +1,56 @@
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
+var CreateCampaign = require('./minis/CreateCampaign.js');
+var ListCampaign = require('./minis/ListCampaign.js');
+
 var ComponentTwo = React.createClass({
 
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("componentTwo is off");
-          return false;
+          return false;ca
         }
 
 		return (
 			<div>
-				<div className='pageTwo'>Campaign Manager
+				<div className='pageTwo'>Campaign Manager 3
 					<h3>{this.props.pages.id }</h3>
-					<button onClick={this.handleBtnSearch} className="btn">List Campaigns</button>
-					<button onClick={this.handleBtnCreate} className="btn">Create Campaign</button>
-					<button onClick={this.handleBtnInterstitial} className="btn">Delete Campaign</button>
+					<button onClick={this.handleBtnSearch} className="btn-hilite" id="btn10">List Campaigns</button>
+					<button onClick={this.handleBtnCreate} className="btn" id="btn11">Create Campaign</button>
+
+					<ListCampaign visible={this.props.listCampaignVisible} />
+					<CreateCampaign visible={this.props.createCampaignVisible} />
+
 					<div className='closeBtn' onClick={ handleItemClick.bind(this)}><center>Close</center></div>										
 				</div>
 			</div>
 			);
 
+			function handleBtnSearch() {
+				alert("Button One");
+			/*	$('#btn10').removeClass("btn");
+				$('#btn10').addClass("btn-hilite");
+	
+				$('#btn11').removeClass("btn-hilite");
+				$('#btn11').addClass("btn");
+
+				AppActions.showCampaignList('Show list campaignm screen');
+				AppActions.removeCreateCreate('Remove create list screen'); */
+
+			}
 		
+			function handleBtnCreate () {
+				alert("Button Two");
+				$('#btn2').removeClass("btn");
+				$('#btn2').addClass("btn-hilite");
+	
+				$('#btn1').removeClass("btn-hilite");
+				$('#btn1').addClass("btn");
+
+				AppActions.showCampaignCreate('Show create campaignm screen');
+				AppActions.removeCampaignList('Remove list campaign screen');
+			}
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 				AppActions.removeApp('Hide App Page');

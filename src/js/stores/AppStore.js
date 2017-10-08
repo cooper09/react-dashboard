@@ -11,10 +11,10 @@ var _pages = [];
 
 var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 //cooper OK, lets get some cool stuff
-var _adUnitVisible = false, _sideBarVisible = true;
+var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
-var _searchAppVisible = true; 
+var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible= true, _createCampaignVisible=false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -57,10 +57,6 @@ function setAdUnitVisible(visible) {
 	_twoVisible = false;
   _oneVisible = false;	
 }
-//mini screens
-function setSearchAppVisible(visible) {
-	_searchAppVisible = true;
-}
 
 function hideAdUnitVisible(visible) {
 	_adUnitVisible = false;
@@ -85,10 +81,43 @@ function hideAnalytics(visible) {
 	_threeVisible = false;
 }
 
-// mini screens
+// mini screens - ADDS
+
+function setSearchAppVisible(visible) {
+	_searchAppVisible = true;
+}
+
+function showSearchApp(visible) {
+	console.log("open CreateApp");
+	_searchAppVisible = true;
+}
+
+function showCreateApp(visible) {
+	console.log("open CreateApp");
+	_createAppVisible = true;
+}
+
+function showListApp(visible) {
+	console.log("open ListApp");
+	_listAppVisible = true;
+}
+
+function showSearchApp(visible) {
+	console.log("open SearchApp");
+	_searchAppVisible = true;
+}
+// mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
 	_searchAppVisible = false;
+}
+function hideCreateApp(visible) {
+	console.log("close CreateApp");
+	_createAppVisible = false;
+}
+function hideListApp(visible) {
+	console.log("close ListApp");
+	_listAppVisible = false;
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -124,7 +153,23 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _searchAppVisible;
 	},
-	  // Set cart visibility
+	getCreateAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _createAppVisible;
+	},
+	getListAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _listAppVisible;
+	},
+	getListCampaignVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _listCampaignVisible;
+	},
+	getCreateCampaignVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _createCampaignVisible;
+	},
+	  // Set cart visibility - The TRUE Control
 	emitChange: function(){
 		this.emit(CHANGE_EVENT);
 	},
@@ -174,31 +219,53 @@ AppDispatcher.register(function(payload){
 			hideAdUnitVisible(_visible);
 		break;
 		case 'SIDEBAR_VISIBLE':
-		console.log("Show SideBar ", payload );
-		_visible=true;
-		setSideBarVisible(_visible);
-	break;
-	case 'SIDEBAR_REMOVE':
-		console.log("Remove App Sidebar (mobile only): ", payload );
-		_visible=false;
-		hideSideBarVisible(_visible);
-	break;
-	case 'APP_REMOVE':
-		_visible=false;
-		hideAppForm(_visible);
-	break;
-	case 'CAMPAIGN_REMOVE':
-		_visible=false;
-		hideCampaign(_visible);
-	break;
-	case 'ANALYTICS_REMOVE':
-		_visible=false;
-		hideAnalytics(_visible);
-	break;
-	case 'SEARCHAPP_REMOVE':
-		_visible=false;
-		hideSearchApp(_visible);
-	break;
+			console.log("Show SideBar ", payload );
+			_visible=true;
+			setSideBarVisible(_visible);
+		break;
+		case 'SIDEBAR_REMOVE':
+			console.log("Remove App Sidebar (mobile only): ", payload );
+			_visible=false;
+			hideSideBarVisible(_visible);
+		break;
+		case 'APP_REMOVE':
+			_visible=false;
+			hideAppForm(_visible);
+		break;
+		case 'CAMPAIGN_REMOVE':
+			_visible=false;
+			hideCampaign(_visible);
+		break;
+		case 'ANALYTICS_REMOVE':
+			_visible=false;
+			hideAnalytics(_visible);
+		break;
+		case 'SEARCHAPP_REMOVE':
+			_visible=false;
+			hideSearchApp(_visible);
+		break;
+		// mini-screen goodies -ADDS
+		case 'SEARCHAPP_VISIBLE':
+			_visible=true;
+			showSearchApp(_visible);
+		break;
+		case 'CREATEAPP_VISIBLE':
+			_visible=true;
+			showCreateApp(_visible);
+		break;
+		case 'LISTAPP_VISIBLE':
+			_visible=true;
+			showListApp(_visible);
+		break;
+		// mini-screem - REMOVES
+		case 'CREATEAPP_REMOVE':
+			_visible=false;
+			hideCreateApp(_visible);
+		break;
+		case 'LISTAPP_REMOVE':
+			_visible=false;
+			hideListApp(_visible);
+		break;
 	}//end switch
 
 	AppStore.emitChange();

@@ -29200,20 +29200,42 @@ showTwo: function (data) {
           data: data
           })
       },
-      removeAdUnit: function (data) {
-        console.log("AppActions.removeAdUnit: ", data );
-          AppDispatcher.handleViewAction({
-            actionType: AppConstants.ADUNIT_REMOVE,
-            data: data
-            })
-        },
-        showSideBar: function (data) {
+    showSideBar: function (data) {
           console.log("AppActions.showSideBar: ", data );
             AppDispatcher.handleViewAction({
               actionType: AppConstants.SIDEBAR_VISIBLE,
               data: data
               })
           },
+    showSearchApp: function (data) {
+      console.log("AppActions.showSearchApp: ", data );
+              AppDispatcher.handleViewAction({
+                actionType: AppConstants.SEARCHAPP_VISIBLE,
+                data: data
+                })
+          },
+    showCreateApp: function (data) {
+      console.log("AppActions.showCreateApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.CREATEAPP_VISIBLE,
+          data: data
+          })
+    },
+    showListApp: function (data) {
+      console.log("AppActions.showListApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTAPP_VISIBLE,
+          data: data
+          })
+    },
+//Remove ACtions
+  removeAdUnit: function (data) {
+    console.log("AppActions.removeAdUnit: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.ADUNIT_REMOVE,
+        data: data
+        })
+    },
     hideSideBar: function (data) {
       console.log("AppActions.hideSideBar: ", data );
         AppDispatcher.handleViewAction({
@@ -29228,20 +29250,34 @@ showTwo: function (data) {
             data: data
             })
         },
-        removeAnalytics: function (data) {
+      removeAnalytics: function (data) {
           console.log("AppActions.hideAnalytcs: ", data );
             AppDispatcher.handleViewAction({
               actionType: AppConstants.ANALYTICS_REMOVE,
               data: data
               })
           },
-          removeSearchApp: function (data) {
-            console.log("AppActions.searchApp: ", data );
-              AppDispatcher.handleViewAction({
-                actionType: AppConstants.SEARCHAPP_REMOVE,
-                data: data
-                })
-            },
+      removeSearchApp: function (data) {
+          console.log("AppActions.searchApp: ", data );
+            AppDispatcher.handleViewAction({
+            actionType: AppConstants.SEARCHAPP_REMOVE,
+            data: data
+        })
+      },
+      removeCreateApp: function (data) {
+        console.log("AppActions.removeCreateApp: ", data );
+          AppDispatcher.handleViewAction({
+          actionType: AppConstants.CREATEAPP_REMOVE,
+          data: data
+      })
+    },
+    removeListApp: function (data) {
+      console.log("AppActions.listApp: ", data );
+        AppDispatcher.handleViewAction({
+        actionType: AppConstants.LISTAPP_REMOVE,
+        data: data
+    })
+  },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -29253,7 +29289,7 @@ loadPages: function (data) {
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":200,"../dispatcher/AppDispatcher":201}],192:[function(require,module,exports){
+},{"../constants/AppConstants":204,"../dispatcher/AppDispatcher":205}],192:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29316,7 +29352,11 @@ function getAppState(){
 		threeVisible: AppStore.getThreeVisible(), 
 		adUnitVisible: AppStore.getAdUnitVisible(), 
 		sideBarVisible: AppStore.getSideBarVisible(),
-		searchAppVisible: AppStore.getSearchAppVisible()
+		searchAppVisible: AppStore.getSearchAppVisible(),
+		createAppVisible: AppStore.getCreateAppVisible(),
+		listAppVisible: AppStore.getListAppVisible(),
+		listCampaignVisible: AppStore.getListCampaignVisible(),
+		createCampaignVisible: AppStore.getCreateCampaignVisible()
 	}
 }
 
@@ -29378,7 +29418,6 @@ var App = React.createClass({displayName: "App",
 		return(
 			React.createElement("div", null, 
 				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdXchange"), 
-				 
 				 React.createElement("div", {className: "sidePanel"}, 
 				"Current Apps:", 
 				React.createElement("br", null), React.createElement("br", null), 
@@ -29387,8 +29426,8 @@ var App = React.createClass({displayName: "App",
 				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
-				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, pages: this.state.pages}), 
-				React.createElement(ComponentTwo, {visible: this.state.twoVisible, pages: this.state.pages}), 
+				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, createVisible: this.state.createAppVisible, listVisible: this.state.listAppVisible, pages: this.state.pages}), 
+				React.createElement(ComponentTwo, {visible: this.state.twoVisible, listCampaignVisible: this.state.listCampaignVisible, pages: this.state.pages}), 
 				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
 				React.createElement(AdUnit, {visible: this.state.adUnitVisible, pages: this.state.pages})
 			)
@@ -29404,11 +29443,13 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":191,"../stores/AppStore":203,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
+},{"../actions/AppActions":191,"../stores/AppStore":207,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
 var SearchApp = require('./minis/SearchApp.js');
+var CreateApp = require('./minis/CreateApp.js');
+var ListApp = require('./minis/ListApp.js');
 
 var ComponentOne = React.createClass({displayName: "ComponentOne",
 
@@ -29424,17 +29465,19 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		  return false;
 		}
 
-		alert("Current SearchApp 2: " +  this.props.searchVisible )
+		//alert("ComponentOne - Current SearchApp: " +  this.props.searchVisible );
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "App Manager O", 
+				React.createElement("div", {className: "pageTwo"}, "App Manager 3", 
 					React.createElement("h3", null, this.props.pages.id), 
 					React.createElement("button", {onClick: handleBtnSearch, className: "btn-hilite", id: "btn1"}, "Search Apps"), 
 					React.createElement("button", {onClick: handleBtnCreate, className: "btn", id: "btn2"}, "Add Manually"), 
 					React.createElement("button", {onClick: handleBtnList, className: "btn", id: "btn3"}, "Select from Current"), 
 					
 					React.createElement(SearchApp, {searchMe: this.props.searchVisible}), 
+					React.createElement(CreateApp, {searchMe: this.props.createVisible}), 
+					React.createElement(ListApp, {searchMe: this.props.listVisible}), 
 
 					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
@@ -29454,7 +29497,12 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 			$('#btn3').removeClass("btn-hilite");
 			$('#btn3').addClass("btn");
-		}
+
+			AppActions.showSearchApp('Show Search app screen');
+			AppActions.removeCreateApp('Remove create app screen');
+			AppActions.removeListApp('Remove list app screen');
+
+		}//end handleBtnSearch
 
 		function handleBtnCreate (){
 			console.log("ComponentOne.handleBtn Create - Create Apps");
@@ -29473,8 +29521,11 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 			//this.props.searchVisible = false;
 			//this.setState({searchVisible:'false'});
-            AppActions.removeSearchApp('Remove search app screen');
-		}
+
+			AppActions.showCreateApp('Show create app screen');
+			AppActions.removeSearchApp('Remove search app screen');
+			AppActions.removeListApp('Remove list app screen');
+		}//end handleBtnCreate
 
 		function handleBtnList (){
 			console.log("ComponentOne.handleBtn List - List Apps");
@@ -29487,7 +29538,11 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 			$('#btn2').removeClass("btn-hilite");
 			$('#btn2').addClass("btn");
-		}
+
+			AppActions.showListApp('Show List App');
+			AppActions.removeSearchApp('Remove search app screen');
+			AppActions.removeCreateApp('Create create app screen');
+		}// end handleBtnList
 
 		// 	cooper - handle item click is just used for close 			
 			function handleCloseClick (){
@@ -29506,7 +29561,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 module.exports = ComponentOne;
 
-},{"../actions/AppActions":191,"./minis/SearchApp.js":199,"react":189}],195:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/CreateApp.js":199,"./minis/ListApp.js":201,"./minis/SearchApp.js":203,"react":189}],195:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29547,27 +29602,56 @@ module.exports = ComponentThree;
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
+var CreateCampaign = require('./minis/CreateCampaign.js');
+var ListCampaign = require('./minis/ListCampaign.js');
+
 var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("componentTwo is off");
-          return false;
+          return false;ca
         }
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Campaign Manager", 
+				React.createElement("div", {className: "pageTwo"}, "Campaign Manager 3", 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn"}, "List Campaigns"), 
-					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn"}, "Create Campaign"), 
-					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Delete Campaign"), 
+					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn-hilite", id: "btn10"}, "List Campaigns"), 
+					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn", id: "btn11"}, "Create Campaign"), 
+
+					React.createElement(ListCampaign, {visible: this.props.listCampaignVisible}), 
+					React.createElement(CreateCampaign, {visible: this.props.createCampaignVisible}), 
+
 					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))										
 				)
 			)
 			);
 
+			function handleBtnSearch() {
+				alert("Button One");
+			/*	$('#btn10').removeClass("btn");
+				$('#btn10').addClass("btn-hilite");
+	
+				$('#btn11').removeClass("btn-hilite");
+				$('#btn11').addClass("btn");
+
+				AppActions.showCampaignList('Show list campaignm screen');
+				AppActions.removeCreateCreate('Remove create list screen'); */
+
+			}
 		
+			function handleBtnCreate () {
+				alert("Button Two");
+				$('#btn2').removeClass("btn");
+				$('#btn2').addClass("btn-hilite");
+	
+				$('#btn1').removeClass("btn-hilite");
+				$('#btn1').addClass("btn");
+
+				AppActions.showCampaignCreate('Show create campaignm screen');
+				AppActions.removeCampaignList('Remove list campaign screen');
+			}
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 				AppActions.removeApp('Hide App Page');
@@ -29582,7 +29666,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 module.exports = ComponentTwo;
 
-},{"../actions/AppActions":191,"react":189}],197:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/CreateCampaign.js":200,"./minis/ListCampaign.js":202,"react":189}],197:[function(require,module,exports){
 var React = require('react');
 
 var AppActions = require('../actions/AppActions');
@@ -29705,10 +29789,129 @@ module.exports = SidePanel;
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
+var CreateApp = React.createClass({displayName: "CreateApp",
+
+    render: function () {
+        //alert("CreateApp - createVisible: " + this.props.searchMe );
+        if (!this.props.searchMe) {
+            console.log(" CreateApp.render - CreateApp is off");
+            return false; 
+        } 
+
+        //console.log("SearchApp visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "CreateApp goes here.."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = CreateApp;
+
+},{"../../actions/AppActions":191,"react":189}],200:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var CreateCampaign = React.createClass({displayName: "CreateCampaign",
+
+    render: function () {
+        //alert("ListApp - listVisible: " + this.props.searchMe );
+        if (!this.props.searchMe) {
+            console.log("CreateCampaign - CreateCampaign is off");
+            return false; 
+        } 
+
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "Create Campaign here..."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = CreateCampaign;
+
+},{"../../actions/AppActions":191,"react":189}],201:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var ListApp = React.createClass({displayName: "ListApp",
+
+    render: function () {
+        //alert("ListApp - listVisible: " + this.props.searchMe );
+        if (!this.props.searchMe) {
+            console.log("ListApp - ListApp is off");
+            return false; 
+        } 
+
+        //console.log("SearchApp visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "ListForm is here..."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = ListApp;
+
+},{"../../actions/AppActions":191,"react":189}],202:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var ListCampaign = React.createClass({displayName: "ListCampaign",
+
+    render: function () {
+        alert("ListCampaign - campaignVisible: " + this.props.visible );
+        if (!this.props.visible) {
+            console.log("ListCampaign - ListCampaign is off");
+            return false; 
+        } 
+
+        //console.log("SearchApp visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "List Campaigns here..."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = ListCampaign;
+
+},{"../../actions/AppActions":191,"react":189}],203:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
 var SearchApp = React.createClass({displayName: "SearchApp",
 
     render: function () {
-        alert("SearchApp - searchVisible: " + this.props.searchMe );
+        //alert("SearchApp - searchVisible: " + this.props.searchMe );
         if (!this.props.searchMe) {
             console.log("SearchApp is off");
             return false; 
@@ -29721,7 +29924,7 @@ var SearchApp = React.createClass({displayName: "SearchApp",
                 React.createElement("div", {className: "miniScrn"}, 
                     React.createElement("form", null, 
                         React.createElement("label", null, 
-                        "Search for App 2:", 
+                        "Search for App:", 
                         React.createElement("input", {type: "text", name: "name"})
                         ), 
                         React.createElement("input", {type: "submit", value: "Submit"})
@@ -29737,7 +29940,7 @@ var SearchApp = React.createClass({displayName: "SearchApp",
 
 module.exports = SearchApp;
 
-},{"../../actions/AppActions":191,"react":189}],200:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],204:[function(require,module,exports){
 module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
@@ -29758,10 +29961,14 @@ module.exports = {
 	ANALYTICS_VISIBLE: "ANALYTICS_VISIBLE",
 	ANALYTICS_REMOVE: "ANALYTICS_REMOVE",
 	SEARCHAPP_VISIBLE: "SEARCHAPP_VISIBLE",
-	SEARCHAPP_REMOVE: "SEARCHAPP_REMOVE"    
+	SEARCHAPP_REMOVE: "SEARCHAPP_REMOVE",
+	CREATEAPP_VISIBLE: "CREATEAPP_VISIBLE",
+	CREATEAPP_REMOVE: "CREATEAPP_REMOVE",
+	LISTAPP_VISIBLE: "LISTAPP_VISIBLE",
+	LISTAPP_REMOVE: "LISTAPP_REMOVE"      
 }
 
-},{}],201:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -29777,7 +29984,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":54,"object-assign":58}],202:[function(require,module,exports){
+},{"flux":54,"object-assign":58}],206:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -29793,7 +30000,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":190,"./components/App":193,"./utils/appAPI":205,"react":189,"react-dom":60}],203:[function(require,module,exports){
+},{"./PageData":190,"./components/App":193,"./utils/appAPI":209,"react":189,"react-dom":60}],207:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -29807,10 +30014,10 @@ var _pages = [];
 
 var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 //cooper OK, lets get some cool stuff
-var _adUnitVisible = false, _sideBarVisible = true;
+var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
-var _searchAppVisible = true; 
+var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible= true, _createCampaignVisible=false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -29853,10 +30060,6 @@ function setAdUnitVisible(visible) {
 	_twoVisible = false;
   _oneVisible = false;	
 }
-//mini screens
-function setSearchAppVisible(visible) {
-	_searchAppVisible = true;
-}
 
 function hideAdUnitVisible(visible) {
 	_adUnitVisible = false;
@@ -29881,10 +30084,43 @@ function hideAnalytics(visible) {
 	_threeVisible = false;
 }
 
-// mini screens
+// mini screens - ADDS
+
+function setSearchAppVisible(visible) {
+	_searchAppVisible = true;
+}
+
+function showSearchApp(visible) {
+	console.log("open CreateApp");
+	_searchAppVisible = true;
+}
+
+function showCreateApp(visible) {
+	console.log("open CreateApp");
+	_createAppVisible = true;
+}
+
+function showListApp(visible) {
+	console.log("open ListApp");
+	_listAppVisible = true;
+}
+
+function showSearchApp(visible) {
+	console.log("open SearchApp");
+	_searchAppVisible = true;
+}
+// mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
 	_searchAppVisible = false;
+}
+function hideCreateApp(visible) {
+	console.log("close CreateApp");
+	_createAppVisible = false;
+}
+function hideListApp(visible) {
+	console.log("close ListApp");
+	_listAppVisible = false;
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -29920,7 +30156,23 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _searchAppVisible;
 	},
-	  // Set cart visibility
+	getCreateAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _createAppVisible;
+	},
+	getListAppVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _listAppVisible;
+	},
+	getListCampaignVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _listCampaignVisible;
+	},
+	getCreateCampaignVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _createCampaignVisible;
+	},
+	  // Set cart visibility - The TRUE Control
 	emitChange: function(){
 		this.emit(CHANGE_EVENT);
 	},
@@ -29970,31 +30222,53 @@ AppDispatcher.register(function(payload){
 			hideAdUnitVisible(_visible);
 		break;
 		case 'SIDEBAR_VISIBLE':
-		console.log("Show SideBar ", payload );
-		_visible=true;
-		setSideBarVisible(_visible);
-	break;
-	case 'SIDEBAR_REMOVE':
-		console.log("Remove App Sidebar (mobile only): ", payload );
-		_visible=false;
-		hideSideBarVisible(_visible);
-	break;
-	case 'APP_REMOVE':
-		_visible=false;
-		hideAppForm(_visible);
-	break;
-	case 'CAMPAIGN_REMOVE':
-		_visible=false;
-		hideCampaign(_visible);
-	break;
-	case 'ANALYTICS_REMOVE':
-		_visible=false;
-		hideAnalytics(_visible);
-	break;
-	case 'SEARCHAPP_REMOVE':
-		_visible=false;
-		hideSearchApp(_visible);
-	break;
+			console.log("Show SideBar ", payload );
+			_visible=true;
+			setSideBarVisible(_visible);
+		break;
+		case 'SIDEBAR_REMOVE':
+			console.log("Remove App Sidebar (mobile only): ", payload );
+			_visible=false;
+			hideSideBarVisible(_visible);
+		break;
+		case 'APP_REMOVE':
+			_visible=false;
+			hideAppForm(_visible);
+		break;
+		case 'CAMPAIGN_REMOVE':
+			_visible=false;
+			hideCampaign(_visible);
+		break;
+		case 'ANALYTICS_REMOVE':
+			_visible=false;
+			hideAnalytics(_visible);
+		break;
+		case 'SEARCHAPP_REMOVE':
+			_visible=false;
+			hideSearchApp(_visible);
+		break;
+		// mini-screen goodies -ADDS
+		case 'SEARCHAPP_VISIBLE':
+			_visible=true;
+			showSearchApp(_visible);
+		break;
+		case 'CREATEAPP_VISIBLE':
+			_visible=true;
+			showCreateApp(_visible);
+		break;
+		case 'LISTAPP_VISIBLE':
+			_visible=true;
+			showListApp(_visible);
+		break;
+		// mini-screem - REMOVES
+		case 'CREATEAPP_REMOVE':
+			_visible=false;
+			hideCreateApp(_visible);
+		break;
+		case 'LISTAPP_REMOVE':
+			_visible=false;
+			hideListApp(_visible);
+		break;
 	}//end switch
 
 	AppStore.emitChange();
@@ -30003,7 +30277,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":200,"../dispatcher/AppDispatcher":201,"../utils/AppAPI.js":204,"events":26,"object-assign":58}],204:[function(require,module,exports){
+},{"../constants/AppConstants":204,"../dispatcher/AppDispatcher":205,"../utils/AppAPI.js":208,"events":26,"object-assign":58}],208:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -30031,7 +30305,7 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}],205:[function(require,module,exports){
+},{"../actions/AppActions":191,"axios":1}],209:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -30059,4 +30333,4 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}]},{},[202]);
+},{"../actions/AppActions":191,"axios":1}]},{},[206]);

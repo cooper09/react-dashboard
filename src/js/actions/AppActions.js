@@ -43,20 +43,42 @@ showTwo: function (data) {
           data: data
           })
       },
-      removeAdUnit: function (data) {
-        console.log("AppActions.removeAdUnit: ", data );
-          AppDispatcher.handleViewAction({
-            actionType: AppConstants.ADUNIT_REMOVE,
-            data: data
-            })
-        },
-        showSideBar: function (data) {
+    showSideBar: function (data) {
           console.log("AppActions.showSideBar: ", data );
             AppDispatcher.handleViewAction({
               actionType: AppConstants.SIDEBAR_VISIBLE,
               data: data
               })
           },
+    showSearchApp: function (data) {
+      console.log("AppActions.showSearchApp: ", data );
+              AppDispatcher.handleViewAction({
+                actionType: AppConstants.SEARCHAPP_VISIBLE,
+                data: data
+                })
+          },
+    showCreateApp: function (data) {
+      console.log("AppActions.showCreateApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.CREATEAPP_VISIBLE,
+          data: data
+          })
+    },
+    showListApp: function (data) {
+      console.log("AppActions.showListApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTAPP_VISIBLE,
+          data: data
+          })
+    },
+//Remove ACtions
+  removeAdUnit: function (data) {
+    console.log("AppActions.removeAdUnit: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.ADUNIT_REMOVE,
+        data: data
+        })
+    },
     hideSideBar: function (data) {
       console.log("AppActions.hideSideBar: ", data );
         AppDispatcher.handleViewAction({
@@ -71,20 +93,34 @@ showTwo: function (data) {
             data: data
             })
         },
-        removeAnalytics: function (data) {
+      removeAnalytics: function (data) {
           console.log("AppActions.hideAnalytcs: ", data );
             AppDispatcher.handleViewAction({
               actionType: AppConstants.ANALYTICS_REMOVE,
               data: data
               })
           },
-          removeSearchApp: function (data) {
-            console.log("AppActions.searchApp: ", data );
-              AppDispatcher.handleViewAction({
-                actionType: AppConstants.SEARCHAPP_REMOVE,
-                data: data
-                })
-            },
+      removeSearchApp: function (data) {
+          console.log("AppActions.searchApp: ", data );
+            AppDispatcher.handleViewAction({
+            actionType: AppConstants.SEARCHAPP_REMOVE,
+            data: data
+        })
+      },
+      removeCreateApp: function (data) {
+        console.log("AppActions.removeCreateApp: ", data );
+          AppDispatcher.handleViewAction({
+          actionType: AppConstants.CREATEAPP_REMOVE,
+          data: data
+      })
+    },
+    removeListApp: function (data) {
+      console.log("AppActions.listApp: ", data );
+        AppDispatcher.handleViewAction({
+        actionType: AppConstants.LISTAPP_REMOVE,
+        data: data
+    })
+  },
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({

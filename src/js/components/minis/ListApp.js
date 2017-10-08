@@ -1,12 +1,12 @@
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
-var SearchApp = React.createClass({
+var ListApp = React.createClass({
 
     render: function () {
-        //alert("SearchApp - searchVisible: " + this.props.searchMe );
+        //alert("ListApp - listVisible: " + this.props.searchMe );
         if (!this.props.searchMe) {
-            console.log("SearchApp is off");
+            console.log("ListApp - ListApp is off");
             return false; 
         } 
 
@@ -15,13 +15,7 @@ var SearchApp = React.createClass({
         return (
             <div>
                 <div className='miniScrn'>
-                    <form>
-                        <label>
-                        Search for App:
-                        <input type="text" name="name" />
-                        </label>
-                        <input type="submit" value="Submit" />
-                    </form>
+                    ListForm is here...
                 </div>
             </div>
         );
@@ -31,4 +25,4 @@ var SearchApp = React.createClass({
     }//end render
 });//end SearchApp
 
-module.exports = SearchApp;
+module.exports = ListApp;
