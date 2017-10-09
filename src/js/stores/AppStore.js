@@ -14,7 +14,7 @@ var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
-var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible= true, _createCampaignVisible=false; 
+var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible = true, _createCampaignVisible=false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -106,6 +106,13 @@ function showSearchApp(visible) {
 	console.log("open SearchApp");
 	_searchAppVisible = true;
 }
+// mini screens - ADDS
+function showListCampaign(visible){
+	_listCampaignVisible = true;
+}
+function showCreateCampaign(visible){
+	_createCampaignVisible = true;
+}
 // mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
@@ -118,6 +125,10 @@ function hideCreateApp(visible) {
 function hideListApp(visible) {
 	console.log("close ListApp");
 	_listAppVisible = false;
+}
+function hideCampaignList(visible) {
+	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
+	_listCampaignVisible = false;
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -162,7 +173,6 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		return _listAppVisible;
 	},
 	getListCampaignVisible: function () {
-		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _listCampaignVisible;
 	},
 	getCreateCampaignVisible: function () {
@@ -257,6 +267,17 @@ AppDispatcher.register(function(payload){
 			_visible=true;
 			showListApp(_visible);
 		break;
+
+		// mini-screens - ADDS
+		case 'LISTCAMPAIGN_VISIBLE':
+			_visible= true;
+			showListCampaign(_visible);
+		break;
+		case 'CREATECAMPAIGN_VISIBLE':
+			_visible= true;
+			showCreateCampaign(_visible);
+		break;
+
 		// mini-screem - REMOVES
 		case 'CREATEAPP_REMOVE':
 			_visible=false;
@@ -265,6 +286,11 @@ AppDispatcher.register(function(payload){
 		case 'LISTAPP_REMOVE':
 			_visible=false;
 			hideListApp(_visible);
+		break;
+		case 'LISTCAMPAIGN_REMOVE':
+		console.log("Appstore - remove campaignlist");
+			_visible = false;
+			hideCampaignList(_visible);
 		break;
 	}//end switch
 

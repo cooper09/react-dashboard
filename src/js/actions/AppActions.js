@@ -64,10 +64,11 @@ showTwo: function (data) {
           data: data
           })
     },
-    showListApp: function (data) {
+
+    showCampaignCreate: function (data) {
       console.log("AppActions.showListApp: ", data );
         AppDispatcher.handleViewAction({
-          actionType: AppConstants.LISTAPP_VISIBLE,
+          actionType: AppConstants.CREATECAMPAIGN_VISIBLE,
           data: data
           })
     },
@@ -118,6 +119,13 @@ showTwo: function (data) {
       console.log("AppActions.listApp: ", data );
         AppDispatcher.handleViewAction({
         actionType: AppConstants.LISTAPP_REMOVE,
+        data: data
+    })
+  },
+    removeCampaignList: function (data) {
+      console.log("AppActions.removeCampaignList: ", data );
+        AppDispatcher.handleViewAction({
+        actionType: AppConstants.LISTCAMPAIGN_REMOVE,
         data: data
     })
   },

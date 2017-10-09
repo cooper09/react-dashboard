@@ -29221,10 +29221,11 @@ showTwo: function (data) {
           data: data
           })
     },
-    showListApp: function (data) {
+
+    showCampaignCreate: function (data) {
       console.log("AppActions.showListApp: ", data );
         AppDispatcher.handleViewAction({
-          actionType: AppConstants.LISTAPP_VISIBLE,
+          actionType: AppConstants.CREATECAMPAIGN_VISIBLE,
           data: data
           })
     },
@@ -29275,6 +29276,13 @@ showTwo: function (data) {
       console.log("AppActions.listApp: ", data );
         AppDispatcher.handleViewAction({
         actionType: AppConstants.LISTAPP_REMOVE,
+        data: data
+    })
+  },
+    removeCampaignList: function (data) {
+      console.log("AppActions.removeCampaignList: ", data );
+        AppDispatcher.handleViewAction({
+        actionType: AppConstants.LISTCAMPAIGN_REMOVE,
         data: data
     })
   },
@@ -29427,7 +29435,7 @@ var App = React.createClass({displayName: "App",
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, createVisible: this.state.createAppVisible, listVisible: this.state.listAppVisible, pages: this.state.pages}), 
-				React.createElement(ComponentTwo, {visible: this.state.twoVisible, listCampaignVisible: this.state.listCampaignVisible, pages: this.state.pages}), 
+				React.createElement(ComponentTwo, {visible: this.state.twoVisible, listCampaignVisible: this.state.listCampaignVisible, createCampaignVisible: this.state.createCampaignVisible, pages: this.state.pages}), 
 				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
 				React.createElement(AdUnit, {visible: this.state.adUnitVisible, pages: this.state.pages})
 			)
@@ -29615,10 +29623,12 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Campaign Manager 3", 
+				React.createElement("div", {className: "pageTwo"}, "Campaign Manager", 
+					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("button", {onClick: this.handleBtnSearch, className: "btn-hilite", id: "btn10"}, "List Campaigns"), 
-					React.createElement("button", {onClick: this.handleBtnCreate, className: "btn", id: "btn11"}, "Create Campaign"), 
+
+					React.createElement("button", {onClick: handleBtnSearch.bind(this), className: "btn-hilite", id: "btn10"}, "List Campaigns"), 
+					React.createElement("button", {onClick: handleBtnCreate.bind(this), className: "btn", id: "btn11"}, "Create Campaign"), 
 
 					React.createElement(ListCampaign, {visible: this.props.listCampaignVisible}), 
 					React.createElement(CreateCampaign, {visible: this.props.createCampaignVisible}), 
@@ -29629,29 +29639,35 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 			);
 
 			function handleBtnSearch() {
-				alert("Button One");
-			/*	$('#btn10').removeClass("btn");
+				//alert("Button One");
+				$('#btn10').removeClass("btn");
 				$('#btn10').addClass("btn-hilite");
 	
 				$('#btn11').removeClass("btn-hilite");
 				$('#btn11').addClass("btn");
 
 				AppActions.showCampaignList('Show list campaignm screen');
-				AppActions.removeCreateCreate('Remove create list screen'); */
+				AppActions.removeCreateCreate('Remove create list screen'); 
 
 			}
 		
 			function handleBtnCreate () {
-				alert("Button Two");
-				$('#btn2').removeClass("btn");
-				$('#btn2').addClass("btn-hilite");
+				//alert("Button Two");
+				$('#btn11').removeClass("btn");
+				$('#btn11').addClass("btn-hilite");
 	
-				$('#btn1').removeClass("btn-hilite");
-				$('#btn1').addClass("btn");
+				$('#btn10').removeClass("btn-hilite");
+				$('#btn10').addClass("btn");
 
 				AppActions.showCampaignCreate('Show create campaignm screen');
-				AppActions.removeCampaignList('Remove list campaign screen');
+				AppActions.removeCampaignList('Remove list campaign screen'); 
 			}
+
+			function testMe (){
+				alert("TaDA!!!");
+
+			}//end handleItemClick
+
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 				AppActions.removeApp('Hide App Page');
@@ -29822,8 +29838,8 @@ var AppActions = require('../../actions/AppActions');
 var CreateCampaign = React.createClass({displayName: "CreateCampaign",
 
     render: function () {
-        //alert("ListApp - listVisible: " + this.props.searchMe );
-        if (!this.props.searchMe) {
+        console.log("CreateCampaign now: ",  this.props.visible );
+        if (!this.props.visible ) {
             console.log("CreateCampaign - CreateCampaign is off");
             return false; 
         } 
@@ -29881,7 +29897,7 @@ var AppActions = require('../../actions/AppActions');
 var ListCampaign = React.createClass({displayName: "ListCampaign",
 
     render: function () {
-        alert("ListCampaign - campaignVisible: " + this.props.visible );
+        //alert("ListCampaign - campaignVisible: " + this.props.visible );
         if (!this.props.visible) {
             console.log("ListCampaign - ListCampaign is off");
             return false; 
@@ -29965,7 +29981,11 @@ module.exports = {
 	CREATEAPP_VISIBLE: "CREATEAPP_VISIBLE",
 	CREATEAPP_REMOVE: "CREATEAPP_REMOVE",
 	LISTAPP_VISIBLE: "LISTAPP_VISIBLE",
-	LISTAPP_REMOVE: "LISTAPP_REMOVE"      
+	LISTAPP_REMOVE: "LISTAPP_REMOVE",
+	LISTCAMPAIGN_VISIBLE: "LISTCAMPAIGN_VISIBLE",
+	LISTCAMPAIGN_REMOVE: "LISTCAMPAIGN_REMOVE", 
+	CREATECAMPAIGN_VISIBLE: "CREATECAMPAIGN_VISIBLE",
+	CREATECAMPAIGN_REMOVE: "CREATECAMPAIGN_REMOVE"    
 }
 
 },{}],205:[function(require,module,exports){
@@ -30017,7 +30037,7 @@ var _oneVisible = false, _twoVisible = false, _threeVisible = false;
 var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
-var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible= true, _createCampaignVisible=false; 
+var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible = true, _createCampaignVisible=false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -30109,6 +30129,13 @@ function showSearchApp(visible) {
 	console.log("open SearchApp");
 	_searchAppVisible = true;
 }
+// mini screens - ADDS
+function showListCampaign(visible){
+	_listCampaignVisible = true;
+}
+function showCreateCampaign(visible){
+	_createCampaignVisible = true;
+}
 // mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
@@ -30121,6 +30148,10 @@ function hideCreateApp(visible) {
 function hideListApp(visible) {
 	console.log("close ListApp");
 	_listAppVisible = false;
+}
+function hideCampaignList(visible) {
+	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
+	_listCampaignVisible = false;
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -30165,7 +30196,6 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		return _listAppVisible;
 	},
 	getListCampaignVisible: function () {
-		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _listCampaignVisible;
 	},
 	getCreateCampaignVisible: function () {
@@ -30260,6 +30290,17 @@ AppDispatcher.register(function(payload){
 			_visible=true;
 			showListApp(_visible);
 		break;
+
+		// mini-screens - ADDS
+		case 'LISTCAMPAIGN_VISIBLE':
+			_visible= true;
+			showListCampaign(_visible);
+		break;
+		case 'CREATECAMPAIGN_VISIBLE':
+			_visible= true;
+			showCreateCampaign(_visible);
+		break;
+
 		// mini-screem - REMOVES
 		case 'CREATEAPP_REMOVE':
 			_visible=false;
@@ -30268,6 +30309,11 @@ AppDispatcher.register(function(payload){
 		case 'LISTAPP_REMOVE':
 			_visible=false;
 			hideListApp(_visible);
+		break;
+		case 'LISTCAMPAIGN_REMOVE':
+		console.log("Appstore - remove campaignlist");
+			_visible = false;
+			hideCampaignList(_visible);
 		break;
 	}//end switch
 

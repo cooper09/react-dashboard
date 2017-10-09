@@ -4,8 +4,8 @@ var AppActions = require('../../actions/AppActions');
 var CreateCampaign = React.createClass({
 
     render: function () {
-        //alert("ListApp - listVisible: " + this.props.searchMe );
-        if (!this.props.searchMe) {
+        console.log("CreateCampaign now: ",  this.props.visible );
+        if (!this.props.visible ) {
             console.log("CreateCampaign - CreateCampaign is off");
             return false; 
         } 

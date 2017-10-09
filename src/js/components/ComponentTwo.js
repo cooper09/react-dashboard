@@ -14,10 +14,12 @@ var ComponentTwo = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo'>Campaign Manager 3
+				<div className='pageTwo'>Campaign Manager
+					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
-					<button onClick={this.handleBtnSearch} className="btn-hilite" id="btn10">List Campaigns</button>
-					<button onClick={this.handleBtnCreate} className="btn" id="btn11">Create Campaign</button>
+
+					<button onClick={handleBtnSearch.bind(this)} className="btn-hilite" id="btn10">List Campaigns</button>
+					<button onClick={handleBtnCreate.bind(this)} className="btn" id="btn11">Create Campaign</button>
 
 					<ListCampaign visible={this.props.listCampaignVisible} />
 					<CreateCampaign visible={this.props.createCampaignVisible} />
@@ -28,29 +30,35 @@ var ComponentTwo = React.createClass({
 			);
 
 			function handleBtnSearch() {
-				alert("Button One");
-			/*	$('#btn10').removeClass("btn");
+				//alert("Button One");
+				$('#btn10').removeClass("btn");
 				$('#btn10').addClass("btn-hilite");
 	
 				$('#btn11').removeClass("btn-hilite");
 				$('#btn11').addClass("btn");
 
 				AppActions.showCampaignList('Show list campaignm screen');
-				AppActions.removeCreateCreate('Remove create list screen'); */
+				AppActions.removeCreateCreate('Remove create list screen'); 
 
 			}
 		
 			function handleBtnCreate () {
-				alert("Button Two");
-				$('#btn2').removeClass("btn");
-				$('#btn2').addClass("btn-hilite");
+				//alert("Button Two");
+				$('#btn11').removeClass("btn");
+				$('#btn11').addClass("btn-hilite");
 	
-				$('#btn1').removeClass("btn-hilite");
-				$('#btn1').addClass("btn");
+				$('#btn10').removeClass("btn-hilite");
+				$('#btn10').addClass("btn");
 
 				AppActions.showCampaignCreate('Show create campaignm screen');
-				AppActions.removeCampaignList('Remove list campaign screen');
+				AppActions.removeCampaignList('Remove list campaign screen'); 
 			}
+
+			function testMe (){
+				alert("TaDA!!!");
+
+			}//end handleItemClick
+
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
 				AppActions.removeApp('Hide App Page');

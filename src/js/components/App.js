@@ -95,7 +95,7 @@ var App = React.createClass({
 				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
 				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} createVisible={this.state.createAppVisible} listVisible={this.state.listAppVisible} pages={this.state.pages }/>
-				<ComponentTwo  visible={this.state.twoVisible} listCampaignVisible={this.state.listCampaignVisible} pages={this.state.pages }/>
+				<ComponentTwo  visible={this.state.twoVisible} listCampaignVisible={this.state.listCampaignVisible} createCampaignVisible={this.state.createCampaignVisible}  pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
 				<AdUnit  visible={this.state.adUnitVisible} pages={this.state.pages }/>
 			</div>
