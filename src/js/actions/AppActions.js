@@ -64,13 +64,41 @@ showTwo: function (data) {
           data: data
           })
     },
-
-    showCampaignCreate: function (data) {
+    showListApp: function (data) {
       console.log("AppActions.showListApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTAPP_VISIBLE,
+          data: data
+          })
+    },
+    showCampaignCreate: function (data) {
+      console.log("AppActions.showListCampaign: ", data );
         AppDispatcher.handleViewAction({
           actionType: AppConstants.CREATECAMPAIGN_VISIBLE,
           data: data
           })
+    },
+    showBannerScr: function (data) {
+      console.log("AppStore.showBannerScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.BANNER_VISIBLE,
+        data: data
+        })
+    },
+    showVideoScr: function (data) {
+      console.log("AppStore.showVideoScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.VIDEO_VISIBLE,
+        data: data
+        })
+    },
+    showInterstitialScr: function (data) {
+      console.log("AppStore.showItnerstitialScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.INTY_VISIBLE,
+        data: data
+        })
+
     },
 //Remove ACtions
   removeAdUnit: function (data) {
@@ -129,6 +157,27 @@ showTwo: function (data) {
         data: data
     })
   },
+  removeBannerScr: function (data) {
+    console.log("AppActions.removeBannerScr: ", data );
+      AppDispatcher.handleViewAction({
+      actionType: AppConstants.BANNER_REMOVE,
+      data: data
+  })
+},
+removeVideoScr: function (data) {
+  console.log("AppActions.removeVideoScr: ", data );
+    AppDispatcher.handleViewAction({
+    actionType: AppConstants.VIDEO_REMOVE,
+    data: data
+})
+},
+removeInterstitialScr: function (data) {
+  console.log("AppActions.removeInterstitialScr: ", data );
+    AppDispatcher.handleViewAction({
+    actionType: AppConstants.INTY_REMOVE,
+    data: data
+})
+},
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({

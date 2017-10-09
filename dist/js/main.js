@@ -29221,13 +29221,41 @@ showTwo: function (data) {
           data: data
           })
     },
-
-    showCampaignCreate: function (data) {
+    showListApp: function (data) {
       console.log("AppActions.showListApp: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTAPP_VISIBLE,
+          data: data
+          })
+    },
+    showCampaignCreate: function (data) {
+      console.log("AppActions.showListCampaign: ", data );
         AppDispatcher.handleViewAction({
           actionType: AppConstants.CREATECAMPAIGN_VISIBLE,
           data: data
           })
+    },
+    showBannerScr: function (data) {
+      console.log("AppStore.showBannerScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.BANNER_VISIBLE,
+        data: data
+        })
+    },
+    showVideoScr: function (data) {
+      console.log("AppStore.showVideoScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.VIDEO_VISIBLE,
+        data: data
+        })
+    },
+    showInterstitialScr: function (data) {
+      console.log("AppStore.showItnerstitialScr - show: ", data);
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.INTY_VISIBLE,
+        data: data
+        })
+
     },
 //Remove ACtions
   removeAdUnit: function (data) {
@@ -29286,6 +29314,27 @@ showTwo: function (data) {
         data: data
     })
   },
+  removeBannerScr: function (data) {
+    console.log("AppActions.removeBannerScr: ", data );
+      AppDispatcher.handleViewAction({
+      actionType: AppConstants.BANNER_REMOVE,
+      data: data
+  })
+},
+removeVideoScr: function (data) {
+  console.log("AppActions.removeVideoScr: ", data );
+    AppDispatcher.handleViewAction({
+    actionType: AppConstants.VIDEO_REMOVE,
+    data: data
+})
+},
+removeInterstitialScr: function (data) {
+  console.log("AppActions.removeInterstitialScr: ", data );
+    AppDispatcher.handleViewAction({
+    actionType: AppConstants.INTY_REMOVE,
+    data: data
+})
+},
 loadPages: function (data) {
 	console.log("AppActions.loadPages: ", data );
     AppDispatcher.handleViewAction({
@@ -29297,9 +29346,13 @@ loadPages: function (data) {
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":204,"../dispatcher/AppDispatcher":205}],192:[function(require,module,exports){
+},{"../constants/AppConstants":207,"../dispatcher/AppDispatcher":208}],192:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
+
+var BannerScr = require('./minis/BannerScr.js');
+var VideoScr = require('./minis/VideoScr.js');
+var InterstitialScr = require('./minis/InterstitialScr.js');
 
 var AdUnit = React.createClass({displayName: "AdUnit",
 
@@ -29311,17 +29364,48 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Ad Unit goes here...", 
+				React.createElement("div", {className: "pageTwo"}, "Ad Manager 10", 
+					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
-                    React.createElement("button", {onClick: this.handleBtnBanner, className: "btn-lite"}, "Banner"), 
-					React.createElement("button", {onClick: this.handleBtnVideo, className: "btn"}, "Video"), 
-					React.createElement("button", {onClick: this.handleBtnInterstitial, className: "btn"}, "Interstitial"), 
-                    React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+                    React.createElement("button", {onClick: handleBtnBanner.bind(this), className: "btn-hilite"}, "Banner"), 
+					React.createElement("button", {onClick: handleBtnVideo.bind(this), className: "btn"}, "Video"), 
+					React.createElement("button", {onClick: handleBtnInterstitial.bind(this), className: "btn"}, "Interstitial"), 
+                    
+					React.createElement(BannerScr, {visible: this.props.bannerVisible}), 
+					React.createElement(VideoScr, {visible: this.props.videoVisible}), 
+					React.createElement(InterstitialScr, {visible: this.props.interstitialVisible}), 
+
+					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+				
 				)
 			)
 			);
         
-        function handleItemClick (){
+		function handleBtnBanner () {
+			console.log("Heed the Banner");
+
+			AppActions.showBannerScr('Show Banner screen');
+			AppActions.removeVideoScr('Remove Video screen');
+			AppActions.removeInterstitialScr('Remove Interstitial screen');
+		}
+		
+		function handleBtnVideo () {
+			console.log("Head the Viddy");
+
+			AppActions.showVideoScr('Show Video screen');
+			AppActions.removeBannerScr('Remove Banner screen');
+			AppActions.removeInterstitialScr('Remove Interstitial screen');
+		}
+		
+		function handleBtnInterstitial () {
+			console.log("Head the Insty");
+
+			AppActions.showInterstitialScr('Show Interstitial screen');
+			AppActions.removeVideoScr('Remove Video screen');
+			AppActions.removeBannerScr('Remove Banner screen');
+		}
+		
+		function handleItemClick (){
             // close up shop and check to see if we're on mobile
 
             AppActions.removeAdUnit('Hide AdUnit');
@@ -29337,7 +29421,7 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 
 module.exports = AdUnit;
 
-},{"../actions/AppActions":191,"react":189}],193:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/BannerScr.js":199,"./minis/InterstitialScr.js":202,"./minis/VideoScr.js":206,"react":189}],193:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 var AppStore = require('../stores/AppStore');
@@ -29364,7 +29448,10 @@ function getAppState(){
 		createAppVisible: AppStore.getCreateAppVisible(),
 		listAppVisible: AppStore.getListAppVisible(),
 		listCampaignVisible: AppStore.getListCampaignVisible(),
-		createCampaignVisible: AppStore.getCreateCampaignVisible()
+		createCampaignVisible: AppStore.getCreateCampaignVisible(),
+		bannerScrVisible: AppStore.getBannerScrVisible(),
+		videoScrVisible: AppStore.getVideoScrVisible(),
+		interstitialScrVisible: AppStore.getInterstitialScrVisible()
 	}
 }
 
@@ -29431,13 +29518,13 @@ var App = React.createClass({displayName: "App",
 				React.createElement("br", null), React.createElement("br", null), 
 				React.createElement(SidePanel, {apps: listOfApps, numItems: num, visible: this.state.sideBarVisible})
 				 ), 
-				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps 2"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
 				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, createVisible: this.state.createAppVisible, listVisible: this.state.listAppVisible, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, listCampaignVisible: this.state.listCampaignVisible, createCampaignVisible: this.state.createCampaignVisible, pages: this.state.pages}), 
 				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
-				React.createElement(AdUnit, {visible: this.state.adUnitVisible, pages: this.state.pages})
+				React.createElement(AdUnit, {visible: this.state.adUnitVisible, bannerVisible: this.state.bannerScrVisible, videoVisible: this.state.videoScrVisible, interstitialVisible: this.state.interstitialScrVisible, pages: this.state.pages})
 			)
 		);
 	},
@@ -29451,7 +29538,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":191,"../stores/AppStore":207,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
+},{"../actions/AppActions":191,"../stores/AppStore":210,"./AdUnit.js":192,"./ComponentOne.js":194,"./ComponentThree.js":195,"./ComponentTwo.js":196,"./SidePanel.js":198,"react":189}],194:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29473,12 +29560,13 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 		  return false;
 		}
 
-		//alert("ComponentOne - Current SearchApp: " +  this.props.searchVisible );
-
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "App Manager 3", 
+				React.createElement("div", {className: "pageTwo"}, "App Manager X", 
+
+				React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
+
 					React.createElement("button", {onClick: handleBtnSearch, className: "btn-hilite", id: "btn1"}, "Search Apps"), 
 					React.createElement("button", {onClick: handleBtnCreate, className: "btn", id: "btn2"}, "Add Manually"), 
 					React.createElement("button", {onClick: handleBtnList, className: "btn", id: "btn3"}, "Select from Current"), 
@@ -29487,7 +29575,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 					React.createElement(CreateApp, {searchMe: this.props.createVisible}), 
 					React.createElement(ListApp, {searchMe: this.props.listVisible}), 
 
-					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, React.createElement("center", null, "Close"))
+					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, "Close")
 				)
 			)
 			);
@@ -29569,7 +29657,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 module.exports = ComponentOne;
 
-},{"../actions/AppActions":191,"./minis/CreateApp.js":199,"./minis/ListApp.js":201,"./minis/SearchApp.js":203,"react":189}],195:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/CreateApp.js":200,"./minis/ListApp.js":203,"./minis/SearchApp.js":205,"react":189}],195:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -29682,7 +29770,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 module.exports = ComponentTwo;
 
-},{"../actions/AppActions":191,"./minis/CreateCampaign.js":200,"./minis/ListCampaign.js":202,"react":189}],197:[function(require,module,exports){
+},{"../actions/AppActions":191,"./minis/CreateCampaign.js":201,"./minis/ListCampaign.js":204,"react":189}],197:[function(require,module,exports){
 var React = require('react');
 
 var AppActions = require('../actions/AppActions');
@@ -29738,7 +29826,7 @@ var ListApp = React.createClass({displayName: "ListApp",
 			function handleItemClick (event){
 			//cooper s - use jquery to open/close each items content....
 
-			alert("Current App selected: "+ event.target.className );
+			//alert("Current App selected: "+ event.target.className );
 			console.log("Current App selected: ", event.target.className );
 
 				console.log("ListApp - screen.height: ",  screen.height );
@@ -29805,6 +29893,36 @@ module.exports = SidePanel;
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
+var BannerScr = React.createClass({displayName: "BannerScr",
+
+    render: function () {
+
+        if (!this.props.visible) {
+            console.log(" BannerScr.render - BannerScr is off");
+            return false; 
+        } 
+
+        //alert("BannerScr visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "BannerScr goes here.."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = BannerScr;
+
+},{"../../actions/AppActions":191,"react":189}],200:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
 var CreateApp = React.createClass({displayName: "CreateApp",
 
     render: function () {
@@ -29831,15 +29949,15 @@ var CreateApp = React.createClass({displayName: "CreateApp",
 
 module.exports = CreateApp;
 
-},{"../../actions/AppActions":191,"react":189}],200:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],201:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
 var CreateCampaign = React.createClass({displayName: "CreateCampaign",
 
     render: function () {
-        console.log("CreateCampaign now: ",  this.props.visible );
-        if (!this.props.visible ) {
+        //alert("CreateCampaign: " + this.props.createCampaignVisible );
+        if (!this.props.createCampaignVisible) {
             console.log("CreateCampaign - CreateCampaign is off");
             return false; 
         } 
@@ -29860,7 +29978,35 @@ var CreateCampaign = React.createClass({displayName: "CreateCampaign",
 
 module.exports = CreateCampaign;
 
-},{"../../actions/AppActions":191,"react":189}],201:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],202:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var InterStitialScr = React.createClass({displayName: "InterStitialScr",
+
+    render: function () {
+        //alert("CreateApp - createVisible: " + this.props.searchMe );
+        if (!this.props.visible) {
+            console.log(" Inerstitial.render - Inerstitial is off");
+            return false; 
+        } 
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "InterStitial Screen goes here.."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end InterStitialScr
+
+module.exports = InterStitialScr;
+
+},{"../../actions/AppActions":191,"react":189}],203:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
@@ -29890,7 +30036,7 @@ var ListApp = React.createClass({displayName: "ListApp",
 
 module.exports = ListApp;
 
-},{"../../actions/AppActions":191,"react":189}],202:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],204:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
@@ -29920,7 +30066,7 @@ var ListCampaign = React.createClass({displayName: "ListCampaign",
 
 module.exports = ListCampaign;
 
-},{"../../actions/AppActions":191,"react":189}],203:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],205:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
@@ -29956,7 +30102,37 @@ var SearchApp = React.createClass({displayName: "SearchApp",
 
 module.exports = SearchApp;
 
-},{"../../actions/AppActions":191,"react":189}],204:[function(require,module,exports){
+},{"../../actions/AppActions":191,"react":189}],206:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/AppActions');
+
+var VideoScr = React.createClass({displayName: "VideoScr",
+
+    render: function () {
+        //alert("CreateApp - createVisible: " + this.props.searchMe );
+        if (!this.props.visible) {
+            console.log("VideoScr.render - VideoScr is off");
+            return false; 
+        } 
+
+        //console.log("SearchApp visible: ", this.props.searchVisible )
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("div", {className: "miniScrn"}, 
+                    "VideoScr goes here.."
+                )
+            )
+        );
+
+        // button handlers - a rare breed
+
+    }//end render
+});//end SearchApp
+
+module.exports = VideoScr;
+
+},{"../../actions/AppActions":191,"react":189}],207:[function(require,module,exports){
 module.exports = {
 	RECEIVE_DATA: "RECEIVE_DATA",
 	MY_EVENT: "MY_EVENT", 
@@ -29985,10 +30161,16 @@ module.exports = {
 	LISTCAMPAIGN_VISIBLE: "LISTCAMPAIGN_VISIBLE",
 	LISTCAMPAIGN_REMOVE: "LISTCAMPAIGN_REMOVE", 
 	CREATECAMPAIGN_VISIBLE: "CREATECAMPAIGN_VISIBLE",
-	CREATECAMPAIGN_REMOVE: "CREATECAMPAIGN_REMOVE"    
+	CREATECAMPAIGN_REMOVE: "CREATECAMPAIGN_REMOVE",
+	BANNER_VISIBLE: "BANNER_VISIBLE",
+	BANNER_REMOVE: "BANNER_REMOVE",
+	VIDEO_REMOVE: "VIDEO_REMOVE",
+	VIDEO_VISIBLE: "VIDEO_VISIBLE",
+	INTY_VISIBLE: "INTY_VISIBLE",
+	INTY_REMOVE: "INTY_REMOVE"    
 }
 
-},{}],205:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -30004,7 +30186,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":54,"object-assign":58}],206:[function(require,module,exports){
+},{"flux":54,"object-assign":58}],209:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -30020,7 +30202,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./PageData":190,"./components/App":193,"./utils/appAPI":209,"react":189,"react-dom":60}],207:[function(require,module,exports){
+},{"./PageData":190,"./components/App":193,"./utils/appAPI":212,"react":189,"react-dom":60}],210:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -30038,6 +30220,7 @@ var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
 var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible = true, _createCampaignVisible=false; 
+var _bannerScrVisible = true, _videoScrVisible=false, _interstitialScrVisible= false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -30136,6 +30319,15 @@ function showListCampaign(visible){
 function showCreateCampaign(visible){
 	_createCampaignVisible = true;
 }
+function showBannerScr(visible){
+	_bannerScrVisible = true;
+}
+function showVideoScr(visible){
+	_videoScrVisible = true;
+}
+function showInterstitialScr(visible){
+	_interstitialScrVisible = true;
+}
 // mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
@@ -30153,7 +30345,18 @@ function hideCampaignList(visible) {
 	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
 	_listCampaignVisible = false;
 }
-
+function hideBannerScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_bannerScrVisible = false;
+}
+function hideVideoScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_videoScrVisible = false;
+}
+function hideInterstitialScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_interstitialScrVisible = false;
+}
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -30201,6 +30404,18 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	getCreateCampaignVisible: function () {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _createCampaignVisible;
+	},
+	getBannerScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _bannerScrVisible;
+	},
+	getVideoScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _videoScrVisible;
+	},
+	getInterstitialScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _interstitialScrVisible;
 	},
 	  // Set cart visibility - The TRUE Control
 	emitChange: function(){
@@ -30290,8 +30505,6 @@ AppDispatcher.register(function(payload){
 			_visible=true;
 			showListApp(_visible);
 		break;
-
-		// mini-screens - ADDS
 		case 'LISTCAMPAIGN_VISIBLE':
 			_visible= true;
 			showListCampaign(_visible);
@@ -30300,7 +30513,20 @@ AppDispatcher.register(function(payload){
 			_visible= true;
 			showCreateCampaign(_visible);
 		break;
-
+			case 'BANNER_VISIBLE':
+			_visible= true;
+			showBannerScr(_visible);
+		break;
+		break;
+		case 'VIDEO_VISIBLE':
+			_visible= true;
+			showVideoScr(_visible);
+		break;
+		break;
+			case 'INTY_VISIBLE':
+			_visible= true;
+			showInterstitialScr(_visible);
+		break;
 		// mini-screem - REMOVES
 		case 'CREATEAPP_REMOVE':
 			_visible=false;
@@ -30315,6 +30541,21 @@ AppDispatcher.register(function(payload){
 			_visible = false;
 			hideCampaignList(_visible);
 		break;
+		case 'BANNER_REMOVE':
+		console.log("Appstore - remove Banner Screen");
+			_visible = false;
+			hideBannerScr(_visible);
+		break;
+		case 'VIDEO_REMOVE':
+		console.log("Appstore - remove Video Screen");
+			_visible = false;
+			hideVideoScr(_visible);
+		break;
+		case 'INTY_REMOVE':
+		console.log("Appstore - remove Banner Screen");
+			_visible = false;
+			hideInterstitialScr(_visible);
+		break;
 	}//end switch
 
 	AppStore.emitChange();
@@ -30323,7 +30564,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":204,"../dispatcher/AppDispatcher":205,"../utils/AppAPI.js":208,"events":26,"object-assign":58}],208:[function(require,module,exports){
+},{"../constants/AppConstants":207,"../dispatcher/AppDispatcher":208,"../utils/AppAPI.js":211,"events":26,"object-assign":58}],211:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -30351,7 +30592,7 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}],209:[function(require,module,exports){
+},{"../actions/AppActions":191,"axios":1}],212:[function(require,module,exports){
 var AppActions = require('../actions/AppActions');
 var axios = require('axios');
 
@@ -30379,4 +30620,4 @@ module.exports = {
 
 }; //end exports
 
-},{"../actions/AppActions":191,"axios":1}]},{},[206]);
+},{"../actions/AppActions":191,"axios":1}]},{},[209]);

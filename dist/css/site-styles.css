@@ -157,17 +157,15 @@ body {
 /* line 99, ../sass/partials/_main.sass */
 .closeBtn {
   background: #c72a35;
-  padding: 0.5em;
-  font-size: 1em;
+  font-size: 2em;
   color: #ccc;
   cursor: pointer;
-  padding: 0.5em;
   width: 100%;
   bottom: -12em;
   position: relative;
 }
 
-/* line 111, ../sass/partials/_main.sass */
+/* line 108, ../sass/partials/_main.sass */
 .miniScrn {
   width: 100%;
   float: left;

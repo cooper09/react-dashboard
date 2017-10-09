@@ -1,20 +1,21 @@
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
-var CreateCampaign = React.createClass({
+var BannerScr = React.createClass({
 
     render: function () {
-        //alert("CreateCampaign: " + this.props.createCampaignVisible );
-        if (!this.props.createCampaignVisible) {
-            console.log("CreateCampaign - CreateCampaign is off");
+
+        if (!this.props.visible) {
+            console.log(" BannerScr.render - BannerScr is off");
             return false; 
         } 
 
+        //alert("BannerScr visible: ", this.props.searchVisible )
 
         return (
             <div>
                 <div className='miniScrn'>
-                    Create Campaign here...
+                    BannerScr goes here..
                 </div>
             </div>
         );
@@ -24,4 +25,4 @@ var CreateCampaign = React.createClass({
     }//end render
 });//end SearchApp
 
-module.exports = CreateCampaign;
+module.exports = BannerScr;

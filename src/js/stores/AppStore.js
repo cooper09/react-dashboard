@@ -15,6 +15,7 @@ var _adUnitVisible = false, _sideBarVisible = true, _campaignVisible=false;
 
 // mini screens
 var _searchAppVisible = true, _listAppVisible=false, _createAppVisible=false, _listCampaignVisible = true, _createCampaignVisible=false; 
+var _bannerScrVisible = true, _videoScrVisible=false, _interstitialScrVisible= false; 
 
 // Method to load product data from mock API
 function loadPageData(data) {
@@ -113,6 +114,15 @@ function showListCampaign(visible){
 function showCreateCampaign(visible){
 	_createCampaignVisible = true;
 }
+function showBannerScr(visible){
+	_bannerScrVisible = true;
+}
+function showVideoScr(visible){
+	_videoScrVisible = true;
+}
+function showInterstitialScr(visible){
+	_interstitialScrVisible = true;
+}
 // mini screens - REMOVE
 function hideSearchApp(visible) {
 	console.log("close SearchApp");
@@ -130,7 +140,18 @@ function hideCampaignList(visible) {
 	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
 	_listCampaignVisible = false;
 }
-
+function hideBannerScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_bannerScrVisible = false;
+}
+function hideVideoScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_videoScrVisible = false;
+}
+function hideInterstitialScr(visible) {
+	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
+	_interstitialScrVisible = false;
+}
 var AppStore = assign({}, EventEmitter.prototype, {
 	getPages: function () {
 	    return _pages;
@@ -178,6 +199,18 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	getCreateCampaignVisible: function () {
 		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
 		return _createCampaignVisible;
+	},
+	getBannerScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _bannerScrVisible;
+	},
+	getVideoScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _videoScrVisible;
+	},
+	getInterstitialScrVisible: function () {
+		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		return _interstitialScrVisible;
 	},
 	  // Set cart visibility - The TRUE Control
 	emitChange: function(){
@@ -267,8 +300,6 @@ AppDispatcher.register(function(payload){
 			_visible=true;
 			showListApp(_visible);
 		break;
-
-		// mini-screens - ADDS
 		case 'LISTCAMPAIGN_VISIBLE':
 			_visible= true;
 			showListCampaign(_visible);
@@ -277,7 +308,20 @@ AppDispatcher.register(function(payload){
 			_visible= true;
 			showCreateCampaign(_visible);
 		break;
-
+			case 'BANNER_VISIBLE':
+			_visible= true;
+			showBannerScr(_visible);
+		break;
+		break;
+		case 'VIDEO_VISIBLE':
+			_visible= true;
+			showVideoScr(_visible);
+		break;
+		break;
+			case 'INTY_VISIBLE':
+			_visible= true;
+			showInterstitialScr(_visible);
+		break;
 		// mini-screem - REMOVES
 		case 'CREATEAPP_REMOVE':
 			_visible=false;
@@ -291,6 +335,21 @@ AppDispatcher.register(function(payload){
 		console.log("Appstore - remove campaignlist");
 			_visible = false;
 			hideCampaignList(_visible);
+		break;
+		case 'BANNER_REMOVE':
+		console.log("Appstore - remove Banner Screen");
+			_visible = false;
+			hideBannerScr(_visible);
+		break;
+		case 'VIDEO_REMOVE':
+		console.log("Appstore - remove Video Screen");
+			_visible = false;
+			hideVideoScr(_visible);
+		break;
+		case 'INTY_REMOVE':
+		console.log("Appstore - remove Banner Screen");
+			_visible = false;
+			hideInterstitialScr(_visible);
 		break;
 	}//end switch
 

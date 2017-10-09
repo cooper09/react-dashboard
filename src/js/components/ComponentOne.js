@@ -19,12 +19,13 @@ var ComponentOne = React.createClass({
 		  return false;
 		}
 
-		//alert("ComponentOne - Current SearchApp: " +  this.props.searchVisible );
-
 		return (
 			<div>
-				<div className='pageTwo'>App Manager 3
+				<div className='pageTwo'>App Manager X
+
+				<br/><br/>
 					<h3>{this.props.pages.id }</h3>
+
 					<button onClick={handleBtnSearch} className="btn-hilite" id="btn1">Search Apps</button>
 					<button onClick={handleBtnCreate} className="btn" id="btn2">Add Manually</button>
 					<button onClick={handleBtnList} className="btn" id="btn3">Select from Current</button>
@@ -33,7 +34,7 @@ var ComponentOne = React.createClass({
 					<CreateApp searchMe={this.props.createVisible} />
 					<ListApp searchMe={this.props.listVisible} />
 
-					<div className='closeBtn' onClick={ handleCloseClick.bind(this)}><center>Close</center></div>
+					<div className='closeBtn' onClick={ handleCloseClick.bind(this)}>Close</div>
 				</div>
 			</div>
 			);

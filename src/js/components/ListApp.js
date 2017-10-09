@@ -53,7 +53,7 @@ var ListApp = React.createClass({
 			function handleItemClick (event){
 			//cooper s - use jquery to open/close each items content....
 
-			alert("Current App selected: "+ event.target.className );
+			//alert("Current App selected: "+ event.target.className );
 			console.log("Current App selected: ", event.target.className );
 
 				console.log("ListApp - screen.height: ",  screen.height );

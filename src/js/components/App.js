@@ -24,7 +24,10 @@ function getAppState(){
 		createAppVisible: AppStore.getCreateAppVisible(),
 		listAppVisible: AppStore.getListAppVisible(),
 		listCampaignVisible: AppStore.getListCampaignVisible(),
-		createCampaignVisible: AppStore.getCreateCampaignVisible()
+		createCampaignVisible: AppStore.getCreateCampaignVisible(),
+		bannerScrVisible: AppStore.getBannerScrVisible(),
+		videoScrVisible: AppStore.getVideoScrVisible(),
+		interstitialScrVisible: AppStore.getInterstitialScrVisible()
 	}
 }
 
@@ -91,13 +94,13 @@ var App = React.createClass({
 				<br/><br/>
 				<SidePanel apps={listOfApps} numItems={num} visible={this.state.sideBarVisible}/>
 				 </div>
-				 <button onClick={this.handleBtnClick} className="btn">Apps</button>
+				 <button onClick={this.handleBtnClick} className="btn">Apps 2</button>
 				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
 				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} createVisible={this.state.createAppVisible} listVisible={this.state.listAppVisible} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} listCampaignVisible={this.state.listCampaignVisible} createCampaignVisible={this.state.createCampaignVisible}  pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
-				<AdUnit  visible={this.state.adUnitVisible} pages={this.state.pages }/>
+				<AdUnit  visible={this.state.adUnitVisible} bannerVisible={this.state.bannerScrVisible} videoVisible={this.state.videoScrVisible} interstitialVisible={this.state.interstitialScrVisible}  pages={this.state.pages }/>
 			</div>
 		);
 	},

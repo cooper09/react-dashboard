@@ -1,20 +1,19 @@
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
-var CreateCampaign = React.createClass({
+var InterStitialScr = React.createClass({
 
     render: function () {
-        //alert("CreateCampaign: " + this.props.createCampaignVisible );
-        if (!this.props.createCampaignVisible) {
-            console.log("CreateCampaign - CreateCampaign is off");
+        //alert("CreateApp - createVisible: " + this.props.searchMe );
+        if (!this.props.visible) {
+            console.log(" Inerstitial.render - Inerstitial is off");
             return false; 
         } 
-
 
         return (
             <div>
                 <div className='miniScrn'>
-                    Create Campaign here...
+                    InterStitial Screen goes here..
                 </div>
             </div>
         );
@@ -22,6 +21,6 @@ var CreateCampaign = React.createClass({
         // button handlers - a rare breed
 
     }//end render
-});//end SearchApp
+});//end InterStitialScr
 
-module.exports = CreateCampaign;
+module.exports = InterStitialScr;

@@ -1,6 +1,10 @@
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
+var BannerScr = require('./minis/BannerScr.js');
+var VideoScr = require('./minis/VideoScr.js');
+var InterstitialScr = require('./minis/InterstitialScr.js');
+
 var AdUnit = React.createClass({
 
 	render: function() {
@@ -11,17 +15,48 @@ var AdUnit = React.createClass({
 		
 		return (
 			<div>
-				<div className='pageTwo'>Ad Unit goes here...
+				<div className='pageTwo'>Ad Manager 10
+					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
-                    <button onClick={this.handleBtnBanner} className="btn-lite">Banner</button>
-					<button onClick={this.handleBtnVideo} className="btn">Video</button>
-					<button onClick={this.handleBtnInterstitial} className="btn">Interstitial</button>
-                    <div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>
+                    <button onClick={handleBtnBanner.bind(this)} className="btn-hilite">Banner</button>
+					<button onClick={handleBtnVideo.bind(this)} className="btn">Video</button>
+					<button onClick={handleBtnInterstitial.bind(this)} className="btn">Interstitial</button>
+                    
+					<BannerScr visible={this.props.bannerVisible} />
+					<VideoScr visible={this.props.videoVisible} />
+					<InterstitialScr visible={this.props.interstitialVisible} />
+
+					<div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>
+				
 				</div>
 			</div>
 			);
         
-        function handleItemClick (){
+		function handleBtnBanner () {
+			console.log("Heed the Banner");
+
+			AppActions.showBannerScr('Show Banner screen');
+			AppActions.removeVideoScr('Remove Video screen');
+			AppActions.removeInterstitialScr('Remove Interstitial screen');
+		}
+		
+		function handleBtnVideo () {
+			console.log("Head the Viddy");
+
+			AppActions.showVideoScr('Show Video screen');
+			AppActions.removeBannerScr('Remove Banner screen');
+			AppActions.removeInterstitialScr('Remove Interstitial screen');
+		}
+		
+		function handleBtnInterstitial () {
+			console.log("Head the Insty");
+
+			AppActions.showInterstitialScr('Show Interstitial screen');
+			AppActions.removeVideoScr('Remove Video screen');
+			AppActions.removeBannerScr('Remove Banner screen');
+		}
+		
+		function handleItemClick (){
             // close up shop and check to see if we're on mobile
 
             AppActions.removeAdUnit('Hide AdUnit');
