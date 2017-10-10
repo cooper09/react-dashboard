@@ -15,7 +15,20 @@ var VideoScr = React.createClass({
         return (
             <div>
                 <div className='miniScrn'>
-                    VideoScr goes here..
+                <form>
+                <label>Ad Unit Name:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                    <label>Ad Unit Name:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                    
+                        <label>Ad Type:</label><br />
+                        <select name="videoType">
+                            <option value="regular">Regular</option>
+                            <option value="reward">Reward</option>
+                        </select>
+                        <br/><br/>
+                        <input type="submit" value="Submit" className="btn btn-right"/>
+                </form>
                 </div>
             </div>
         );

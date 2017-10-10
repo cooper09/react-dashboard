@@ -8,7 +8,7 @@ var ComponentTwo = React.createClass({
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentTwo is off");
+		 	//console.log("componentTwo is off");
           return false;ca
         }
 
@@ -24,7 +24,7 @@ var ComponentTwo = React.createClass({
 					<ListCampaign visible={this.props.listCampaignVisible} />
 					<CreateCampaign visible={this.props.createCampaignVisible} />
 
-					<div className='closeBtn' onClick={ handleItemClick.bind(this)}><center>Close</center></div>										
+					<div className='closeMe' onClick={ handleItemClick.bind(this)}><center>Close</center></div>										
 				</div>
 			</div>
 			);
@@ -38,7 +38,7 @@ var ComponentTwo = React.createClass({
 				$('#btn11').addClass("btn");
 
 				AppActions.showCampaignList('Show list campaignm screen');
-				AppActions.removeCreateCreate('Remove create list screen'); 
+				AppActions.removeCreateCampaign('Remove create campaign screen'); 
 
 			}
 		
@@ -61,7 +61,7 @@ var ComponentTwo = React.createClass({
 
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
-				AppActions.removeApp('Hide App Page');
+				AppActions.removeCampaign('Hide Campaign Page');
 
 				if (screen.width <= 732 ) {
                     AppActions.showSideBar('Show Sidebar');

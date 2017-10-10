@@ -29235,6 +29235,13 @@ showTwo: function (data) {
           data: data
           })
     },
+    showCampaignList: function (data) {
+      console.log("AppActions.showCampaignList: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTCAMPAIGN_VISIBLE,
+          data: data
+          })
+    },
     showBannerScr: function (data) {
       console.log("AppStore.showBannerScr - show: ", data);
       AppDispatcher.handleViewAction({
@@ -29314,6 +29321,13 @@ showTwo: function (data) {
         data: data
     })
   },
+  removeCreateCampaign: function (data) {
+    console.log("AppActions.removeCampaignCreate: ", data );
+      AppDispatcher.handleViewAction({
+      actionType: AppConstants.CREATECAMPAIGN_REMOVE,
+      data: data
+  })
+},
   removeBannerScr: function (data) {
     console.log("AppActions.removeBannerScr: ", data );
       AppDispatcher.handleViewAction({
@@ -29364,7 +29378,7 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Ad Manager 10", 
+				React.createElement("div", {className: "pageTwo"}, "Ad Manager", 
 					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
                     React.createElement("button", {onClick: handleBtnBanner.bind(this), className: "btn-hilite"}, "Banner"), 
@@ -29375,7 +29389,7 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 					React.createElement(VideoScr, {visible: this.props.videoVisible}), 
 					React.createElement(InterstitialScr, {visible: this.props.interstitialVisible}), 
 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, "Close")
+					React.createElement("div", {className: "closeMe", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))
 				
 				)
 			)
@@ -29435,7 +29449,7 @@ var ComponentThree = require('./ComponentThree.js');
 var AdUnit = require('./AdUnit.js');
 
 function getAppState(){
-	console.log("App.getAppState: ", AppStore.getOneVisible());
+	console.log("App.getAppState 2: ", AppStore.getCreateCampaignVisible());
 	return {
 		//app: AppStore.getState(),
 		pages: AppStore.getPages(),
@@ -29518,10 +29532,10 @@ var App = React.createClass({displayName: "App",
 				React.createElement("br", null), React.createElement("br", null), 
 				React.createElement(SidePanel, {apps: listOfApps, numItems: num, visible: this.state.sideBarVisible})
 				 ), 
-				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps 2"), 
+				 React.createElement("button", {onClick: this.handleBtnClick, className: "btn"}, "Apps"), 
 				 React.createElement("button", {onClick: this.handleBtnClick2, className: "btn"}, "Campaigns"), 
 				 React.createElement("button", {onClick: this.handleBtnClick3, className: "btn"}, "Analytics"), 
-				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, createVisible: this.state.createAppVisible, listVisible: this.state.listAppVisible, pages: this.state.pages}), 
+				React.createElement(ComponentOne, {visible: this.state.oneVisible, searchVisible: this.state.searchAppVisible, createVisible: this.state.createAppVisible, listVisible: this.state.listAppVisible, apps: listOfApps, pages: this.state.pages}), 
 				React.createElement(ComponentTwo, {visible: this.state.twoVisible, listCampaignVisible: this.state.listCampaignVisible, createCampaignVisible: this.state.createCampaignVisible, pages: this.state.pages}), 
 				React.createElement(ComponentThree, {visible: this.state.threeVisible, pages: this.state.pages}), 
 				React.createElement(AdUnit, {visible: this.state.adUnitVisible, bannerVisible: this.state.bannerScrVisible, videoVisible: this.state.videoScrVisible, interstitialVisible: this.state.interstitialScrVisible, pages: this.state.pages})
@@ -29556,13 +29570,15 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentOne is off");
+		 	//console.log("componentOne is off");
 		  return false;
 		}
 
+		//alert("ComponentOne apps property: "+ this.props.apps );
+
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "App Manager X", 
+				React.createElement("div", {className: "pageTwo"}, "App Manager", 
 
 				React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
@@ -29573,9 +29589,9 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 					
 					React.createElement(SearchApp, {searchMe: this.props.searchVisible}), 
 					React.createElement(CreateApp, {searchMe: this.props.createVisible}), 
-					React.createElement(ListApp, {searchMe: this.props.listVisible}), 
+					React.createElement(ListApp, {searchMe: this.props.listVisible, apps: this.props.apps}), 
 
-					React.createElement("div", {className: "closeBtn", onClick:  handleCloseClick.bind(this)}, "Close")
+					React.createElement("div", {className: "closeMe", onClick:  handleCloseClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
 			)
 			);
@@ -29665,7 +29681,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentThree is off");
+		 	//console.log("componentThree is off");
           return false;
         }
 
@@ -29673,7 +29689,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 			React.createElement("div", null, 
 				React.createElement("div", {className: "pageOne"}, "Analytics/Dashboard..", 
 					React.createElement("h3", null, this.props.pages.id), 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))
+					React.createElement("div", {className: "closeMe", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
 			)
 			);	
@@ -29705,7 +29721,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentTwo is off");
+		 	//console.log("componentTwo is off");
           return false;ca
         }
 
@@ -29721,7 +29737,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 					React.createElement(ListCampaign, {visible: this.props.listCampaignVisible}), 
 					React.createElement(CreateCampaign, {visible: this.props.createCampaignVisible}), 
 
-					React.createElement("div", {className: "closeBtn", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))										
+					React.createElement("div", {className: "closeMe", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))										
 				)
 			)
 			);
@@ -29735,7 +29751,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 				$('#btn11').addClass("btn");
 
 				AppActions.showCampaignList('Show list campaignm screen');
-				AppActions.removeCreateCreate('Remove create list screen'); 
+				AppActions.removeCreateCampaign('Remove create campaign screen'); 
 
 			}
 		
@@ -29758,7 +29774,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 			function handleItemClick (){
 				// close up shop and check to see if we're on mobile
-				AppActions.removeApp('Hide App Page');
+				AppActions.removeCampaign('Hide Campaign Page');
 
 				if (screen.width <= 732 ) {
                     AppActions.showSideBar('Show Sidebar');
@@ -29907,7 +29923,28 @@ var BannerScr = React.createClass({displayName: "BannerScr",
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "BannerScr goes here.."
+                
+                React.createElement("form", null, 
+                    React.createElement("label", null, "Ad Unit Name:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                        
+                        React.createElement("label", null, "Ad Type:"), React.createElement("br", null), 
+                        React.createElement("div", {className: "indentLeft"}, 
+                        React.createElement("label", null, "Image"), React.createElement("input", {type: "checkbox", id: "imageAd", name: "image", value: "image"}), React.createElement("br", null), 
+                        React.createElement("label", null, "Text"), React.createElement("input", {type: "checkbox", id: "textAd", name: "text", value: "text"})
+                        ), 
+                        React.createElement("br", null), 
+                        React.createElement("label", null, "Ad Size:"), React.createElement("br", null), 
+                        React.createElement("select", {name: "bannerSize"}, 
+                            React.createElement("option", {value: "320x50"}, "320x50"), 
+                            React.createElement("option", {value: "320x480"}, "320x480"), 
+                            React.createElement("option", {value: "300x250"}, "300x250"), 
+                            React.createElement("option", {value: "728x30"}, "720x30")
+                        ), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement("input", {type: "submit", value: "Submit", className: "btn btn-right"})
+                )
+
                 )
             )
         );
@@ -29937,7 +29974,18 @@ var CreateApp = React.createClass({displayName: "CreateApp",
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "CreateApp goes here.."
+                React.createElement("form", null, 
+                    React.createElement("label", null, "Ad Unit Name:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                    
+                        React.createElement("label", null, "Platform:"), React.createElement("br", null), 
+                        React.createElement("select", {name: "adPlatform"}, 
+                            React.createElement("option", {value: "ios"}, "IOS"), 
+                            React.createElement("option", {value: "android"}, "Android")
+                        ), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement("input", {type: "submit", value: "Submit", className: "btn btn-right"})
+                )
                 )
             )
         );
@@ -29956,17 +30004,27 @@ var AppActions = require('../../actions/AppActions');
 var CreateCampaign = React.createClass({displayName: "CreateCampaign",
 
     render: function () {
-        //alert("CreateCampaign: " + this.props.createCampaignVisible );
-        if (!this.props.createCampaignVisible) {
+        if (!this.props.visible) {
             console.log("CreateCampaign - CreateCampaign is off");
             return false; 
         } 
-
-
+        
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "Create Campaign here..."
+                React.createElement("form", null, 
+                    React.createElement("label", null, "CampaignName:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                    
+                        React.createElement("label", null, "Platform:"), React.createElement("br", null), 
+                        React.createElement("select", {name: "adPlatform"}, 
+                            React.createElement("option", {value: "RTB Auction"}, "RTB Auction"), 
+                            React.createElement("option", {value: "Server-to-Server"}, "Server to Server"), 
+                            React.createElement("option", {value: "Adtag"}, "Adtag")
+                        ), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement("input", {type: "submit", value: "Submit", className: "btn btn-right"})
+                )
                 )
             )
         );
@@ -29994,7 +30052,19 @@ var InterStitialScr = React.createClass({displayName: "InterStitialScr",
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "InterStitial Screen goes here.."
+                React.createElement("form", null, 
+                    React.createElement("label", null, "Ad Unit Name:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                    
+                        React.createElement("label", null, "Ad Type:"), React.createElement("br", null), 
+                        React.createElement("select", {name: "interstitialType"}, 
+                            React.createElement("option", {value: "text"}, "Text"), 
+                            React.createElement("option", {value: "image"}, "Image"), 
+                            React.createElement("option", {value: "video"}, "video")
+                        ), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement("input", {type: "submit", value: "Submit", className: "btn btn-right"})
+                )
                 )
             )
         );
@@ -30010,6 +30080,8 @@ module.exports = InterStitialScr;
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
+var ListApp2 = require('../ListApp.js');
+
 var ListApp = React.createClass({displayName: "ListApp",
 
     render: function () {
@@ -30020,30 +30092,42 @@ var ListApp = React.createClass({displayName: "ListApp",
         } 
 
         //console.log("SearchApp visible: ", this.props.searchVisible )
+        		
+       // alert("ListApps (mini): "+ this.props.apps);
+        var items = this.props.apps;
+        var num = 0;
 
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "ListForm is here..."
+                    "ListForm is here...", 
+                     items.map(function(items) {
+							console.log("Item no: ", num );
+							++num;
+							return React.createElement(ListApp2, {num: num, key: items.id, text: items.text, image: items.image, clickHandler:  handleItemClick.bind(this), className: "item"})
+						}) 
                 )
             )
         );
 
         // button handlers - a rare breed
-
+        function handleItemClick (){
+            // close up shop and check to see if we're on mobile
+                alert("ListSrc - handleItemClick");
+            }//end handleItemClick
     }//end render
+
 });//end SearchApp
 
 module.exports = ListApp;
 
-},{"../../actions/AppActions":191,"react":189}],204:[function(require,module,exports){
+},{"../../actions/AppActions":191,"../ListApp.js":197,"react":189}],204:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 
 var ListCampaign = React.createClass({displayName: "ListCampaign",
 
     render: function () {
-        //alert("ListCampaign - campaignVisible: " + this.props.visible );
         if (!this.props.visible) {
             console.log("ListCampaign - ListCampaign is off");
             return false; 
@@ -30120,7 +30204,20 @@ var VideoScr = React.createClass({displayName: "VideoScr",
         return (
             React.createElement("div", null, 
                 React.createElement("div", {className: "miniScrn"}, 
-                    "VideoScr goes here.."
+                React.createElement("form", null, 
+                React.createElement("label", null, "Ad Unit Name:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                    React.createElement("label", null, "Ad Unit Name:  "), 
+                        React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
+                    
+                        React.createElement("label", null, "Ad Type:"), React.createElement("br", null), 
+                        React.createElement("select", {name: "videoType"}, 
+                            React.createElement("option", {value: "regular"}, "Regular"), 
+                            React.createElement("option", {value: "reward"}, "Reward")
+                        ), 
+                        React.createElement("br", null), React.createElement("br", null), 
+                        React.createElement("input", {type: "submit", value: "Submit", className: "btn btn-right"})
+                )
                 )
             )
         );
@@ -30317,7 +30414,9 @@ function showListCampaign(visible){
 	_listCampaignVisible = true;
 }
 function showCreateCampaign(visible){
+	//alert("showCreateCampaign: "+ visible)
 	_createCampaignVisible = true;
+	//alert("showCreateCampaign - _createCampaignVisible: "+ _createCampaignVisible );
 }
 function showBannerScr(visible){
 	_bannerScrVisible = true;
@@ -30344,6 +30443,10 @@ function hideListApp(visible) {
 function hideCampaignList(visible) {
 	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
 	_listCampaignVisible = false;
+}
+function hideCampaignCreate(visible) {
+	console.log("AppStore.hideCampaignCreate - close campaign create: ", visible );
+	_createCampaignVisible = false;
 }
 function hideBannerScr(visible) {
 	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
@@ -30402,7 +30505,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		return _listCampaignVisible;
 	},
 	getCreateCampaignVisible: function () {
-		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		console.log('AppStore.getCreateCampaignVisible: ' + _campaignVisible );
 		return _createCampaignVisible;
 	},
 	getBannerScrVisible: function () {
@@ -30510,6 +30613,7 @@ AppDispatcher.register(function(payload){
 			showListCampaign(_visible);
 		break;
 		case 'CREATECAMPAIGN_VISIBLE':
+		//alert("Dispatched - Show Create campaign")
 			_visible= true;
 			showCreateCampaign(_visible);
 		break;
@@ -30540,6 +30644,11 @@ AppDispatcher.register(function(payload){
 		console.log("Appstore - remove campaignlist");
 			_visible = false;
 			hideCampaignList(_visible);
+		break;
+		case 'CREATECAMPAIGN_REMOVE':
+		console.log("Appstore - remove campaign create");
+			_visible = false;
+			hideCampaignCreate(_visible);
 		break;
 		case 'BANNER_REMOVE':
 		console.log("Appstore - remove Banner Screen");

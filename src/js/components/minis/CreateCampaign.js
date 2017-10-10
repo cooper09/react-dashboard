@@ -4,17 +4,27 @@ var AppActions = require('../../actions/AppActions');
 var CreateCampaign = React.createClass({
 
     render: function () {
-        //alert("CreateCampaign: " + this.props.createCampaignVisible );
-        if (!this.props.createCampaignVisible) {
+        if (!this.props.visible) {
             console.log("CreateCampaign - CreateCampaign is off");
             return false; 
         } 
-
-
+        
         return (
             <div>
                 <div className='miniScrn'>
-                    Create Campaign here...
+                <form>
+                    <label>CampaignName:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                    
+                        <label>Platform:</label><br />
+                        <select name="adPlatform">
+                            <option value="RTB Auction">RTB Auction</option>
+                            <option value="Server-to-Server">Server to Server</option>
+                            <option value="Adtag">Adtag</option>                            
+                        </select>
+                        <br/><br/>
+                        <input type="submit" value="Submit" className="btn btn-right"/>
+                </form>
                 </div>
             </div>
         );

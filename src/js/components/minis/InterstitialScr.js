@@ -13,7 +13,19 @@ var InterStitialScr = React.createClass({
         return (
             <div>
                 <div className='miniScrn'>
-                    InterStitial Screen goes here..
+                <form>
+                    <label>Ad Unit Name:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                    
+                        <label>Ad Type:</label><br />
+                        <select name="interstitialType">
+                            <option value="text">Text</option>
+                            <option value="image">Image</option>
+                            <option value="video">video</option>
+                        </select>
+                        <br/><br/>
+                        <input type="submit" value="Submit" className="btn btn-right"/>
+                </form>
                 </div>
             </div>
         );

@@ -112,7 +112,9 @@ function showListCampaign(visible){
 	_listCampaignVisible = true;
 }
 function showCreateCampaign(visible){
+	//alert("showCreateCampaign: "+ visible)
 	_createCampaignVisible = true;
+	//alert("showCreateCampaign - _createCampaignVisible: "+ _createCampaignVisible );
 }
 function showBannerScr(visible){
 	_bannerScrVisible = true;
@@ -139,6 +141,10 @@ function hideListApp(visible) {
 function hideCampaignList(visible) {
 	console.log("AppStore.hideCampaignList - close ListApp: ", visible );
 	_listCampaignVisible = false;
+}
+function hideCampaignCreate(visible) {
+	console.log("AppStore.hideCampaignCreate - close campaign create: ", visible );
+	_createCampaignVisible = false;
 }
 function hideBannerScr(visible) {
 	console.log("AppStore.hideBannerScr - close BannerScr: ", visible );
@@ -197,7 +203,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		return _listCampaignVisible;
 	},
 	getCreateCampaignVisible: function () {
-		//console.log('AppStore.campaignVisible: ' + _campaignVisible );
+		console.log('AppStore.getCreateCampaignVisible: ' + _campaignVisible );
 		return _createCampaignVisible;
 	},
 	getBannerScrVisible: function () {
@@ -305,6 +311,7 @@ AppDispatcher.register(function(payload){
 			showListCampaign(_visible);
 		break;
 		case 'CREATECAMPAIGN_VISIBLE':
+		//alert("Dispatched - Show Create campaign")
 			_visible= true;
 			showCreateCampaign(_visible);
 		break;
@@ -335,6 +342,11 @@ AppDispatcher.register(function(payload){
 		console.log("Appstore - remove campaignlist");
 			_visible = false;
 			hideCampaignList(_visible);
+		break;
+		case 'CREATECAMPAIGN_REMOVE':
+		console.log("Appstore - remove campaign create");
+			_visible = false;
+			hideCampaignCreate(_visible);
 		break;
 		case 'BANNER_REMOVE':
 		console.log("Appstore - remove Banner Screen");

@@ -5,7 +5,7 @@ var ComponentThree = React.createClass({
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentThree is off");
+		 	//console.log("componentThree is off");
           return false;
         }
 
@@ -13,7 +13,7 @@ var ComponentThree = React.createClass({
 			<div>
 				<div className='pageOne'>Analytics/Dashboard..
 					<h3>{this.props.pages.id }</h3>
-					<div className='closeBtn' onClick={ handleItemClick.bind(this)}><center>Close</center></div>
+					<div className='closeMe' onClick={ handleItemClick.bind(this)}><center>Close</center></div>
 				</div>
 			</div>
 			);	

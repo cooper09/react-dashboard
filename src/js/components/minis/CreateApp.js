@@ -15,7 +15,18 @@ var CreateApp = React.createClass({
         return (
             <div>
                 <div className='miniScrn'>
-                    CreateApp goes here..
+                <form>
+                    <label>Ad Unit Name:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                    
+                        <label>Platform:</label><br />
+                        <select name="adPlatform">
+                            <option value="ios">IOS</option>
+                            <option value="android">Android</option>
+                        </select>
+                        <br/><br/>
+                        <input type="submit" value="Submit" className="btn btn-right"/>
+                </form>
                 </div>
             </div>
         );

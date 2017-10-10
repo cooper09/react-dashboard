@@ -15,7 +15,28 @@ var BannerScr = React.createClass({
         return (
             <div>
                 <div className='miniScrn'>
-                    BannerScr goes here..
+                
+                <form>
+                    <label>Ad Unit Name:  </label>
+                        <input type="text" name="name" /><br/><br/>
+                        
+                        <label>Ad Type:</label><br />
+                        <div className="indentLeft">
+                        <label>Image</label><input type="checkbox" id="imageAd" name="image" value="image" /><br/>
+                        <label>Text</label><input type="checkbox" id="textAd" name="text" value="text" />
+                        </div>
+                        <br/>
+                        <label>Ad Size:</label><br />
+                        <select name="bannerSize">
+                            <option value="320x50">320x50</option>
+                            <option value="320x480">320x480</option>
+                            <option value="300x250">300x250</option>
+                            <option value="728x30">720x30</option>
+                        </select>
+                        <br/><br/>
+                        <input type="submit" value="Submit" className="btn btn-right"/>
+                </form>
+
                 </div>
             </div>
         );

@@ -15,13 +15,15 @@ var ComponentOne = React.createClass({
 
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentOne is off");
+		 	//console.log("componentOne is off");
 		  return false;
 		}
 
+		//alert("ComponentOne apps property: "+ this.props.apps );
+
 		return (
 			<div>
-				<div className='pageTwo'>App Manager X
+				<div className='pageTwo'>App Manager
 
 				<br/><br/>
 					<h3>{this.props.pages.id }</h3>
@@ -32,9 +34,9 @@ var ComponentOne = React.createClass({
 					
 					<SearchApp searchMe={this.props.searchVisible} />
 					<CreateApp searchMe={this.props.createVisible} />
-					<ListApp searchMe={this.props.listVisible} />
+					<ListApp searchMe={this.props.listVisible} apps={this.props.apps} />
 
-					<div className='closeBtn' onClick={ handleCloseClick.bind(this)}>Close</div>
+					<div className='closeMe' onClick={ handleCloseClick.bind(this)}><center>Close</center></div>
 				</div>
 			</div>
 			);

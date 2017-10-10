@@ -15,7 +15,7 @@ var AdUnit = React.createClass({
 		
 		return (
 			<div>
-				<div className='pageTwo'>Ad Manager 10
+				<div className='pageTwo'>Ad Manager
 					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
                     <button onClick={handleBtnBanner.bind(this)} className="btn-hilite">Banner</button>
@@ -26,7 +26,7 @@ var AdUnit = React.createClass({
 					<VideoScr visible={this.props.videoVisible} />
 					<InterstitialScr visible={this.props.interstitialVisible} />
 
-					<div className='closeBtn' onClick={ handleItemClick.bind(this)}>Close</div>
+					<div className='closeMe' onClick={ handleItemClick.bind(this)}><center>Close</center></div>
 				
 				</div>
 			</div>

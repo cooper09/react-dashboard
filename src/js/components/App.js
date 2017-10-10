@@ -11,7 +11,7 @@ var ComponentThree = require('./ComponentThree.js');
 var AdUnit = require('./AdUnit.js');
 
 function getAppState(){
-	console.log("App.getAppState: ", AppStore.getOneVisible());
+	console.log("App.getAppState 2: ", AppStore.getCreateCampaignVisible());
 	return {
 		//app: AppStore.getState(),
 		pages: AppStore.getPages(),
@@ -94,10 +94,10 @@ var App = React.createClass({
 				<br/><br/>
 				<SidePanel apps={listOfApps} numItems={num} visible={this.state.sideBarVisible}/>
 				 </div>
-				 <button onClick={this.handleBtnClick} className="btn">Apps 2</button>
+				 <button onClick={this.handleBtnClick} className="btn">Apps</button>
 				 <button onClick={this.handleBtnClick2} className="btn">Campaigns</button>
 				 <button onClick={this.handleBtnClick3} className="btn">Analytics</button>
-				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} createVisible={this.state.createAppVisible} listVisible={this.state.listAppVisible} pages={this.state.pages }/>
+				<ComponentOne  visible={this.state.oneVisible} searchVisible={this.state.searchAppVisible} createVisible={this.state.createAppVisible} listVisible={this.state.listAppVisible} apps={listOfApps} pages={this.state.pages }/>
 				<ComponentTwo  visible={this.state.twoVisible} listCampaignVisible={this.state.listCampaignVisible} createCampaignVisible={this.state.createCampaignVisible}  pages={this.state.pages }/>
 				<ComponentThree  visible={this.state.threeVisible} pages={this.state.pages }/>
 				<AdUnit  visible={this.state.adUnitVisible} bannerVisible={this.state.bannerScrVisible} videoVisible={this.state.videoScrVisible} interstitialVisible={this.state.interstitialScrVisible}  pages={this.state.pages }/>

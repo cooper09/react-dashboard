@@ -78,6 +78,13 @@ showTwo: function (data) {
           data: data
           })
     },
+    showCampaignList: function (data) {
+      console.log("AppActions.showCampaignList: ", data );
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.LISTCAMPAIGN_VISIBLE,
+          data: data
+          })
+    },
     showBannerScr: function (data) {
       console.log("AppStore.showBannerScr - show: ", data);
       AppDispatcher.handleViewAction({
@@ -157,6 +164,13 @@ showTwo: function (data) {
         data: data
     })
   },
+  removeCreateCampaign: function (data) {
+    console.log("AppActions.removeCampaignCreate: ", data );
+      AppDispatcher.handleViewAction({
+      actionType: AppConstants.CREATECAMPAIGN_REMOVE,
+      data: data
+  })
+},
   removeBannerScr: function (data) {
     console.log("AppActions.removeBannerScr: ", data );
       AppDispatcher.handleViewAction({
