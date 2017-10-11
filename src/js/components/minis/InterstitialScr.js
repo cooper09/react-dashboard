@@ -12,7 +12,7 @@ var InterStitialScr = React.createClass({
 
         return (
             <div>
-                <div className='miniScrn'>
+                <div className='miniScrn center option animated fadeIn'>
                 <form>
                     <label>Ad Unit Name:  </label>
                         <input type="text" name="name" /><br/><br/>

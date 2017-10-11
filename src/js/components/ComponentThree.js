@@ -11,7 +11,7 @@ var ComponentThree = React.createClass({
 
 		return (
 			<div>
-				<div className='pageOne'>Analytics/Dashboard..
+				<div className='pageOne center option animated lightSpeedIn'>Analytics/Dashboard..
 					<h3>{this.props.pages.id }</h3>
 					<div className='closeMe' onClick={ handleItemClick.bind(this)}><center>Close</center></div>
 				</div>

@@ -15,7 +15,7 @@ var AdUnit = React.createClass({
 		
 		return (
 			<div>
-				<div className='pageTwo'>Ad Manager
+				<div className='pageTwo center option animated slideInRight'>Ad Manager
 					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
                     <button onClick={handleBtnBanner.bind(this)} className="btn-hilite">Banner</button>

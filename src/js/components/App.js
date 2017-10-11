@@ -89,7 +89,7 @@ var App = React.createClass({
 		return(
 			<div>
 				<img src="img/mpoint-logo-5.png" /><p className="header-font">mPoint AdXchange</p>
-				 <div className="sidePanel bg-wrapper center option animated zoomInUp">
+				 <div className="sidePanel bg-wrapper center option animated slideInLeft">
 				Current Apps:
 				<br/><br/>
 				<SidePanel apps={listOfApps} numItems={num} visible={this.state.sideBarVisible}/>

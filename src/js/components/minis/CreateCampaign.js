@@ -11,7 +11,7 @@ var CreateCampaign = React.createClass({
         
         return (
             <div>
-                <div className='miniScrn'>
+                <div className='miniScrn center option animated fadeIn'>
                 <form>
                     <label>CampaignName:  </label>
                         <input type="text" name="name" /><br/><br/>

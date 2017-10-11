@@ -14,7 +14,7 @@ var ComponentTwo = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo bg-wrapper center option animated zoomInUp"'>Campaign Manager
+				<div className='pageTwo bg-wrapper center option animated bounceInDown'>Campaign Manager
 					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
 

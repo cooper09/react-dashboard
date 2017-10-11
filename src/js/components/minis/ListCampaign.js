@@ -13,7 +13,7 @@ var ListCampaign = React.createClass({
 
         return (
             <div>
-                <div className='miniScrn'>
+                <div className='miniScrn center option animated fadeIn'>
                     List Campaigns here...
                 </div>
             </div>

@@ -29378,7 +29378,7 @@ var AdUnit = React.createClass({displayName: "AdUnit",
 		
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Ad Manager", 
+				React.createElement("div", {className: "pageTwo center option animated slideInRight"}, "Ad Manager", 
 					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
                     React.createElement("button", {onClick: handleBtnBanner.bind(this), className: "btn-hilite"}, "Banner"), 
@@ -29527,7 +29527,7 @@ var App = React.createClass({displayName: "App",
 		return(
 			React.createElement("div", null, 
 				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdXchange"), 
-				 React.createElement("div", {className: "sidePanel bg-wrapper center option animated zoomInUp"}, 
+				 React.createElement("div", {className: "sidePanel bg-wrapper center option animated slideInLeft"}, 
 				"Current Apps:", 
 				React.createElement("br", null), React.createElement("br", null), 
 				React.createElement(SidePanel, {apps: listOfApps, numItems: num, visible: this.state.sideBarVisible})
@@ -29687,7 +29687,7 @@ var ComponentThree = React.createClass({displayName: "ComponentThree",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageOne"}, "Analytics/Dashboard..", 
+				React.createElement("div", {className: "pageOne center option animated lightSpeedIn"}, "Analytics/Dashboard..", 
 					React.createElement("h3", null, this.props.pages.id), 
 					React.createElement("div", {className: "closeMe", onClick:  handleItemClick.bind(this)}, React.createElement("center", null, "Close"))
 				)
@@ -29727,7 +29727,7 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo bg-wrapper center option animated zoomInUp\""}, "Campaign Manager", 
+				React.createElement("div", {className: "pageTwo bg-wrapper center option animated bounceInDown"}, "Campaign Manager", 
 					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
 
@@ -29922,7 +29922,7 @@ var BannerScr = React.createClass({displayName: "BannerScr",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                 
                 React.createElement("form", null, 
                     React.createElement("label", null, "Ad Unit Name:  "), 
@@ -30011,7 +30011,7 @@ var CreateCampaign = React.createClass({displayName: "CreateCampaign",
         
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                 React.createElement("form", null, 
                     React.createElement("label", null, "CampaignName:  "), 
                         React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
@@ -30051,7 +30051,7 @@ var InterStitialScr = React.createClass({displayName: "InterStitialScr",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                 React.createElement("form", null, 
                     React.createElement("label", null, "Ad Unit Name:  "), 
                         React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
@@ -30137,7 +30137,7 @@ var ListCampaign = React.createClass({displayName: "ListCampaign",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                     "List Campaigns here..."
                 )
             )
@@ -30203,7 +30203,7 @@ var VideoScr = React.createClass({displayName: "VideoScr",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                 React.createElement("form", null, 
                 React.createElement("label", null, "Ad Unit Name:  "), 
                         React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
