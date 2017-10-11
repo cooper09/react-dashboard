@@ -29527,7 +29527,7 @@ var App = React.createClass({displayName: "App",
 		return(
 			React.createElement("div", null, 
 				React.createElement("img", {src: "img/mpoint-logo-5.png"}), React.createElement("p", {className: "header-font"}, "mPoint AdXchange"), 
-				 React.createElement("div", {className: "sidePanel"}, 
+				 React.createElement("div", {className: "sidePanel bg-wrapper center option animated zoomInUp"}, 
 				"Current Apps:", 
 				React.createElement("br", null), React.createElement("br", null), 
 				React.createElement(SidePanel, {apps: listOfApps, numItems: num, visible: this.state.sideBarVisible})
@@ -29578,7 +29578,7 @@ var ComponentOne = React.createClass({displayName: "ComponentOne",
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "App Manager", 
+				React.createElement("div", {className: "pageTwo center option animated zoomInUp"}, "App Manager Animate", 
 
 				React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
@@ -29722,12 +29722,12 @@ var ComponentTwo = React.createClass({displayName: "ComponentTwo",
 	render: function() {
 		 if (!this.props.visible) {
 		 	//console.log("componentTwo is off");
-          return false;ca
+          return false;
         }
 
 		return (
 			React.createElement("div", null, 
-				React.createElement("div", {className: "pageTwo"}, "Campaign Manager", 
+				React.createElement("div", {className: "pageTwo bg-wrapper center option animated zoomInUp\""}, "Campaign Manager", 
 					React.createElement("br", null), React.createElement("br", null), 
 					React.createElement("h3", null, this.props.pages.id), 
 
@@ -29973,7 +29973,7 @@ var CreateApp = React.createClass({displayName: "CreateApp",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                 React.createElement("form", null, 
                     React.createElement("label", null, "Ad Unit Name:  "), 
                         React.createElement("input", {type: "text", name: "name"}), React.createElement("br", null), React.createElement("br", null), 
@@ -30099,7 +30099,7 @@ var ListApp = React.createClass({displayName: "ListApp",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                     "ListForm is here...", 
                      items.map(function(items) {
 							console.log("Item no: ", num );
@@ -30167,7 +30167,7 @@ var SearchApp = React.createClass({displayName: "SearchApp",
 
         return (
             React.createElement("div", null, 
-                React.createElement("div", {className: "miniScrn"}, 
+                React.createElement("div", {className: "miniScrn center option animated fadeIn"}, 
                     React.createElement("form", null, 
                         React.createElement("label", null, 
                         "Search for App:", 

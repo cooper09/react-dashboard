@@ -20,7 +20,7 @@ var ListApp = React.createClass({
 
         return (
             <div>
-                <div className='miniScrn'>
+                <div className='miniScrn center option animated fadeIn'>
                     ListForm is here...
                     { items.map(function(items) {
 							console.log("Item no: ", num );

@@ -9,12 +9,12 @@ var ComponentTwo = React.createClass({
 	render: function() {
 		 if (!this.props.visible) {
 		 	//console.log("componentTwo is off");
-          return false;ca
+          return false;
         }
 
 		return (
 			<div>
-				<div className='pageTwo'>Campaign Manager
+				<div className='pageTwo bg-wrapper center option animated zoomInUp"'>Campaign Manager
 					<br/><br/>
 					<h3>{this.props.pages.id }</h3>
 

@@ -23,7 +23,7 @@ var ComponentOne = React.createClass({
 
 		return (
 			<div>
-				<div className='pageTwo'>App Manager
+				<div className='pageTwo center option animated zoomInUp'>App Manager Animate
 
 				<br/><br/>
 					<h3>{this.props.pages.id }</h3>

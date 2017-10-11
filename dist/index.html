@@ -3,15 +3,10 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>MPOINT - DSP Dashboard</title>
+	<title>MPOINT - AdXchange Dashboard</title>
 	<link rel="stylesheet" href="css/site-styles.css">
-	<style>
-		.inline-chart {
-			display: inline-block;
-			width: 48%;
-			margin-left: 1%;
-		}
-	</style>
+    <!-- Animate.css for transitions -->
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
 
 	<!-- Fusion Charts stuff -->
 <script type="text/javascript" src="https://unpkg.com/react@0.13.3/dist/JSXTransformer.js"></script>
@@ -23,25 +18,8 @@
 <script type="text/javascript" src="fusioncharts/themes/fusioncharts.theme.carbon.js"></script>
 <script type="text/javascript" src="fusioncharts/themes/fusioncharts.theme.ocean.js"></script>
 <script type="text/javascript" src="fusioncharts/themes/fusioncharts.theme.zune.js"></script>
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-		font-family: 'Open Sans', sans-serif;
-		//text-align: center;
-	}
 
-	h1 {
-		margin-top: 20px;
-	}
 
-	.inline-chart {
-		display: inline-block;
-		width: 48%;
-		margin-left: 1%;
-	}
-
-</style>
 </head>
 <body>
 	<div id="app" class="container"></div>

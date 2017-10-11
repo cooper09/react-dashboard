@@ -14,7 +14,7 @@ var SearchApp = React.createClass({
 
         return (
             <div>
-                <div className='miniScrn'>
+                <div className='miniScrn center option animated fadeIn'>
                     <form>
                         <label>
                         Search for App:
